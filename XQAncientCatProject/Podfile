@@ -1,0 +1,137 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+#source 'https://github.com/CocoaPods/Specs.git'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+
+target 'XQAncientCatProject' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for XQAncientCatProject
+
+  
+  pod 'RxSwift', '5.0.1'
+  pod 'RxCocoa', '5.0.1'
+  pod 'RxDataSources', '4.0.1'
+
+
+ # 网络请求
+pod 'RxAlamofire', '5.1.0'
+pod 'Alamofire', '4.9.1'
+
+pod 'SnapKit'
+pod 'MJRefresh'
+pod 'SDWebImage'
+pod 'SVProgressHUD'
+
+
+
+pod 'UITextField-Navigation' # TextField 下一步和结束编辑
+pod 'XQUITextField_Navigation', :git => 'https://github.com/SyKingW/XQUITextField_Navigation'
+
+pod 'UITextView+Placeholder' # TextView placeholder
+
+
+
+pod 'TZImagePickerController', '3.2.9'
+
+pod 'HandyJSON'
+#pod 'HandyJSON', :git => "https://github.com/alibaba/HandyJSON.git" # 5.0.1
+
+pod 'CocoaDebug', :configurations => ['Debug']
+
+
+ pod 'XQProjectTool', :git => 'https://github.com/SyKingW/XQProjectTool.git'
+ pod 'XQProjectTool_iPhoneUI', :git => 'https://github.com/SyKingW/XQProjectTool_iPhoneUI.git'
+ pod 'XQAlert', :git => 'https://github.com/SyKingW/XQAlert.git'
+
+
+ 
+ pod 'CMPageTitleView', :path => 'ThirdParty/CMPageTitleView' # 头部滚动标题视图
+# pod 'XQJFCitySelector', :git => 'https://gitee.com/1034439685/XQJFCitySelector.git' # 城市选择
+ pod 'XQDLinkTableView', :path => 'ThirdParty/XQDLinkTableView'
+ pod 'ZQSearch', :path => 'ThirdParty/ZQSearch' # 历史记录
+ pod 'PPNumberButton', :path => 'ThirdParty/PPNumberButton' # 加减按钮
+
+ pod 'QMUIKit', '4.2.0'
+ 
+ pod 'SDCycleScrollView', '1.80'
+ 
+ 
+ pod 'XQPaddingLabel', :git => 'https://github.com/SyKingW/XQPaddingLabel'
+ 
+ pod 'XQProgressRoundView', :git => 'https://github.com/SyKingW//XQProgressRoundView'
+ 
+ 
+ pod 'BMKLocationKit', '1.8.5'
+ 
+ 
+ pod 'XQTimer', :git => 'https://github.com/SyKingW/XQTimer'
+ 
+ # QQ登录 封装
+# pod 'XQTencent', :path => '/Users/wangxingqian/Desktop/XQWorkProject/Tool/XQTencent'
+ pod 'XQTencent', :git => 'https://github.com/SyKingW/XQTencent'
+
+ # 微信登录, 支付封装
+# pod 'XQWechat', :path => '/Users/wangxingqian/Desktop/XQWorkProject/Tool/XQWechat'
+ pod 'XQWechat', :git => 'https://github.com/SyKingW/XQWechat'
+
+ # 支付宝支付
+ pod 'AlipaySDK-iOS', '15.7.9'
+
+pod 'PgyUpdate', :configurations => ['Debug']
+
+
+
+end
+
+
+#PODS:
+#  - Alamofire (4.9.1)
+#  - CocoaDebug (1.0.2)
+#  - Differentiator (4.0.1)
+#  - HandyJSON (5.0.1)
+#  - Masonry (1.1.0)
+#  - MJRefresh (3.3.1)
+#  - RxAlamofire (5.1.0):
+#    - RxAlamofire/Core (= 5.1.0)
+#  - RxAlamofire/Core (5.1.0):
+#    - Alamofire (~> 4.8)
+#    - RxSwift (~> 5.0)
+#  - RxCocoa (5.0.1):
+#    - RxRelay (~> 5)
+#    - RxSwift (~> 5)
+#  - RxDataSources (4.0.1):
+#    - Differentiator (~> 4.0)
+#    - RxCocoa (~> 5.0)
+#    - RxSwift (~> 5.0)
+#  - RxRelay (5.0.1):
+#    - RxSwift (~> 5)
+#  - RxSwift (5.0.1)
+#  - SDWebImage (5.4.0):
+#    - SDWebImage/Core (= 5.4.0)
+#  - SDWebImage/Core (5.4.0)
+#  - SnapKit (5.0.1)
+#  - SVProgressHUD (2.2.5)
+#  - TZImagePickerController (3.2.9)
+#  - UITextField-Navigation (4.2)
+#  - "UITextView+Placeholder (1.3.3)"
+#  - XQAlert (0.1):
+#    - Masonry
+#  - XQProjectTool (2.0):
+#    - XQProjectTool/MacTool (= 2.0)
+#    - XQProjectTool/Tool (= 2.0)
+#    - XQProjectTool/UITool (= 2.0)
+#  - XQProjectTool/Tool (2.0)
+#  - XQProjectTool/UITool (2.0):
+#    - XQProjectTool/Tool
+#  - XQProjectTool_iPhoneUI (1.9):
+#    - XQProjectTool
+#    - XQProjectTool_iPhoneUI/Tool (= 1.9)
+#    - XQProjectTool_iPhoneUI/UITool (= 1.9)
+#  - XQProjectTool_iPhoneUI/Tool (1.9):
+#    - XQProjectTool
+#  - XQProjectTool_iPhoneUI/UITool (1.9):
+#    - Masonry
+#    - XQProjectTool
