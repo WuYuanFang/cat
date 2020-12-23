@@ -17,6 +17,7 @@
 		397EBF5A23C02559007EC8D4 /* AC_XQMallSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397EBF5923C02559007EC8D4 /* AC_XQMallSearchVC.swift */; };
 		397EBF5C23C02577007EC8D4 /* AC_XQMallSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397EBF5B23C02577007EC8D4 /* AC_XQMallSearchView.swift */; };
 		3991552223B4F48C004AE781 /* XQUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3991552123B4F48C004AE781 /* XQUIViewExtension.swift */; };
+		6853C0592593482600FACD00 /* DKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853C0582593482600FACD00 /* DKAttributes.swift */; };
 		9E02A170248289AE000630A8 /* AC_YCMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */; };
 		9E02A17424829552000630A8 /* AC_YCMyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */; };
 		9E02A1762482A383000630A8 /* AC_YCMyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A1752482A383000630A8 /* AC_YCMyInfoHeaderView.swift */; };
@@ -380,6 +381,7 @@
 		397EBF5923C02559007EC8D4 /* AC_XQMallSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_XQMallSearchVC.swift; sourceTree = "<group>"; };
 		397EBF5B23C02577007EC8D4 /* AC_XQMallSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_XQMallSearchView.swift; sourceTree = "<group>"; };
 		3991552123B4F48C004AE781 /* XQUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XQUIViewExtension.swift; sourceTree = "<group>"; };
+		6853C0582593482600FACD00 /* DKAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAttributes.swift; sourceTree = "<group>"; };
 		7A418D6247D45242F5AA4AC9 /* Pods-XQAncientCatProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XQAncientCatProject.release.xcconfig"; path = "Target Support Files/Pods-XQAncientCatProject/Pods-XQAncientCatProject.release.xcconfig"; sourceTree = "<group>"; };
 		9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyViewController.swift; sourceTree = "<group>"; };
 		9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyHeaderView.swift; sourceTree = "<group>"; };
@@ -1667,6 +1669,7 @@
 				0F3FD16123C1EA72009F3326 /* LayoutbleButton.swift */,
 				0F62496B23C088590049E8E4 /* UIButton+Extension.swift */,
 				9E02A1772482B164000630A8 /* NSString+Extension.swift */,
+				6853C0582593482600FACD00 /* DKAttributes.swift */,
 				A412124124BBEE9C0026D0A0 /* XQDateString.swift */,
 				A4D999D725119D8800294CFD /* ACXQCommon.swift */,
 			);
@@ -2500,6 +2503,7 @@
 				A409FDEB24A971F10027BAB5 /* XQSMSuperWelfareDetailViewCommentViewCell.swift in Sources */,
 				A486489923BEEB9F002E0649 /* AC_XQShopCarListCell.swift in Sources */,
 				9E02A170248289AE000630A8 /* AC_YCMyViewController.swift in Sources */,
+				6853C0592593482600FACD00 /* DKAttributes.swift in Sources */,
 				A4488C8924C43D760066AE5C /* AC_XQWashProtectOrderView.swift in Sources */,
 				A4E3BD2924EDFFAC00DE927F /* XQAlertSelectFosterAppointmentView.swift in Sources */,
 				A4BEBB7724669100009362EE /* AC_XQPhoneLoginVC.swift in Sources */,

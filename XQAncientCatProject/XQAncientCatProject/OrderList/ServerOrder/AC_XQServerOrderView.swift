@@ -75,6 +75,7 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
 //        model.PayType = 2
 //        #endif
         
+        cell.originPriceLab.isHidden = false
         cell.statusBtn.isHidden = true
         
         cell.iconImgView.sd_setImage(with: model.Photo.sm_getImgUrl())
@@ -82,7 +83,7 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
         cell.titleLab.text = model.ShopName
         cell.messageLab.text = "寄养 \(model.SeveralNights)天"
         cell.dateLab.text = "预约时间：\(model.StartTime)"
-        cell.priceLab.text = "¥\(model.Totalamount)"
+        cell.originPriceLab.text = "¥\(model.Totalamount)"
         
         cell.orderCodeLab.text = "寄养服务"
         
@@ -100,14 +101,14 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
             
             if model.PayType == 2 {
                 cell.funcBtn.isHidden = false
-                cell.funcBtn.setTitle("退款", for: .normal)
+                cell.funcBtn.setTitle("申请退款", for: .normal)
                 cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                     self.delegate?.serverOrderView(refundToOrder: self, didSelectRowAt: indexPath)
                 }
                 
             }else {
                 cell.funcBtn.isHidden = false
-                cell.funcBtn.setTitle("去支付", for: .normal)
+                cell.funcBtn.setTitle("去付款", for: .normal)
                 
                 cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                     self.delegate?.serverOrderView(pay: self, didSelectRowAt: indexPath)

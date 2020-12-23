@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 
 /// 洗护
-class AC_XQWashProtectVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_XQWashProtectViewServiceViewDelegate, AC_XQBaseVCSrollNavigationBarGradientsProtocol, UIScrollViewDelegate {
+class AC_XQWashProtectVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_XQWashProtectViewServiceViewDelegate, UIScrollViewDelegate {
     
     var xq_ngbCurrentType: AC_XQBaseVCSrollNavigationBarGradientsProtocolTransparentType = .transparent
     
@@ -77,7 +77,7 @@ class AC_XQWashProtectVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate,
                     urlArr.append(url)
                 }
             }
-            self.contentView.headerView.cycleScrollView.imageURLStringsGroup = urlArr
+            self.contentView.cycleScrollView.imageURLStringsGroup = urlArr
         }
         
         self.contentView.headerView.titleLab.text = "\(self.ShopInfo?.Name ?? "")(营业中)"
@@ -317,17 +317,6 @@ class AC_XQWashProtectVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate,
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.xq_nbgDidScroll(with: Float(scrollView.contentOffset.y))
-    }
-    
-    // MARK: - AC_XQBaseVCSrollNavigationBarGradientsProtocol
-    
-    /// 导航栏变化回调
-    func xq_nbgChange(_ type: AC_XQBaseVCSrollNavigationBarGradientsProtocolTransparentType) {
-        print(#function, type)
-    }
 
 }
 

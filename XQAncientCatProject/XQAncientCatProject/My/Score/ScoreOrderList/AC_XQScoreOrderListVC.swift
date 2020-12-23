@@ -18,7 +18,9 @@ class AC_XQScoreOrderListVC: XQACBaseVC, AC_XQScoreOrderListViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.xq_navigationBar.setTitle("兑换记录")
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: UIColor.ac_mainColor))
+        self.xq_navigationBar.titleLab.textColor = UIColor.ac_mainColor
+        self.xq_navigationBar.setCenterTitle("兑换记录")
         
         self.xq_view.addSubview(self.contentView)
         self.contentView.snp.makeConstraints { (make) in

@@ -137,6 +137,7 @@ extension AC_XQCouponViewCell {
             self.leftBtn.setBackgroundImage(UIImage.init(named: "coupon_leftImg")?.xq_image(withTintColor: UIColor.init(hex: "#999999")), for: .normal)
         }
         
+        self.useBtn.isHidden = model.StateInt != 1
         
         self.titleLab.text = model.Name
         if model.OrderAmountLower == 0 {
@@ -175,10 +176,10 @@ class AC_XQCouponTypeView: UIView {
                 self.typeLab.text = "商\n品"
             case .service:
                 self.backView.backgroundColor = UIColor.init(hex: "#6CAED8")
-                self.typeLab.text = "服\n务"
+                self.typeLab.text = "洗\n护"
             case .otherService:
                 self.backView.backgroundColor = UIColor.init(hex: "#65b9bf")
-                self.typeLab.text = "服\n务"
+                self.typeLab.text = "寄\n养"
             }
         }
         get {

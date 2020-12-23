@@ -70,15 +70,15 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: result, for: indexPath) as! AC_XQServerOrderViewCell
         
         let model = self.dataArr[indexPath.row]
-        
+        cell.originPriceLab.isHidden = false
         cell.statusBtn.isHidden = true
         cell.orderCodeImgView.image = UIImage.init(named: "orderList_washProtect")
         cell.titleLab.text = model.ShopName
         cell.iconImgView.sd_setImage(with: model.PetPhotoStr.sm_getImgUrl())
 //        cell.messageLab.text = "寄养 天"
-        cell.messageLab.text = " "
+        cell.messageLab.text = model.PdList?.count ?? 0 > 0 ? (model.PdList?[0].PName ?? " ") : " "
         cell.dateLab.text = "预约时间：\(model.SubscribeTime)"
-        cell.priceLab.text = "¥\(model.TotalPrice.xq_removeDecimalPointZero())"
+        cell.originPriceLab.text = "¥\(model.TotalPrice.xq_removeDecimalPointZero())"
         
         cell.orderCodeLab.text = "洗护服务"
         
@@ -92,7 +92,7 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
         case .waitPay:
 //            cell.statusLab.text = "待支付"
             cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("去支付", for: .normal)
+            cell.funcBtn.setTitle("去付款", for: .normal)
             cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(pay: self, didSelectRowAt: indexPath)
             }
@@ -113,36 +113,52 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
             }
             
         case .completed:
-            cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
             }
+//            cell.funcBtn.isHidden = false
+//            cell.funcBtn.setTitle("删除", for: .normal)
+//            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//                self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
+//            }
             
         case .refundInProgress:
             break
             
         case .refundCompleted:
-            cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
             }
+//            cell.funcBtn.isHidden = false
+//            cell.funcBtn.setTitle("删除", for: .normal)
+//            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//                self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
+//            }
             
         case .cancel:
-            cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
             }
+//            cell.funcBtn.isHidden = false
+//            cell.funcBtn.setTitle("删除", for: .normal)
+//            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//                self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
+//            }
             
             /// 线下退款完成
         case .offlineRefundCompleted:
-            cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
             }
+//            cell.funcBtn.isHidden = false
+//            cell.funcBtn.setTitle("删除", for: .normal)
+//            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//                self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
+//            }
             
             /// 洗护中
         case .inCare:

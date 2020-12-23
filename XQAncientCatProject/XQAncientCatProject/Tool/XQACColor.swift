@@ -9,6 +9,21 @@
 import Foundation
 import UIKit
 
+//MARK:------- 屏幕尺寸 --------
+// 屏幕的宽
+let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+// 屏幕的高
+let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
+//顶部状态栏高度
+let StatusBarHeight = UIApplication.shared.statusBarFrame.size.height
+//底部安全区域
+let FootSafeHeight = CGFloat((UIApplication.shared.statusBarFrame.size.height>20) ? 34.0 : 0.0)
+//导航栏高度
+let NavBarHeight:CGFloat = 44
+//导航栏+状态栏高度
+let TopSafeHeight = UIApplication.shared.statusBarFrame.size.height+44.0
+//底部Tab高度
+let TabBarHeight:CGFloat = 49
 
 let system_screenWidth = UIScreen.main.bounds.width
 let system_screenHeight = UIScreen.main.bounds.height

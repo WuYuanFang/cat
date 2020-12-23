@@ -15,6 +15,7 @@ import CocoaDebug
 
 import XQTencent
 import XQWechat
+import IQKeyboardManager
 
 
 @UIApplicationMain
@@ -28,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TencentLoginDelegate, XQW
         if let bundleIdentifier = Bundle.main.bundleIdentifier, bundleIdentifier != "com.miacid.catwxq" {
             exit(0)
         }
+        let iqManager = IQKeyboardManager.shared()
+        iqManager.isEnabled = true
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setMaximumDismissTimeInterval(1.5)

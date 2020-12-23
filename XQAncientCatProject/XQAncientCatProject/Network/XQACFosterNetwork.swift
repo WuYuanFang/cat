@@ -87,6 +87,8 @@ struct XQACFosterNetwork {
 
 struct XQACNTGetShopCatdormitoryReqModel: XQSMNTBaseReqModelProtocol {
     var shopid = 0
+    var StartTime:String?
+    var day = "1"
 }
 
 

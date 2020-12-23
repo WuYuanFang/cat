@@ -9,7 +9,9 @@
 import UIKit
 import SVProgressHUD
 import XQAlert
+import SwiftDate
 
+// 洗护订单详情
 class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
 
     let contentView = AC_XQWashProtectOrderDetailView()
@@ -23,6 +25,9 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         super.viewDidLoad()
         
         self.xq_navigationBar.setCenterTitle("订单详情")
+        self.xq_navigationBar.titleLab.textColor = .white
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
+        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem(image: UIImage(named: "my_service"), style: .plain, target: self, action: #selector(servieAction)))
         
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
@@ -55,6 +60,16 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         self.reloadUI()
     }
     
+    // 点击客服
+    @objc func servieAction() {
+        if XQSMBaseNetwork.default.token.count == 0 {
+            AC_XQLoginVC.presentLogin(self)
+            return
+        }
+        
+        SVProgressHUD.showInfo(withStatus: "暂未开放, 敬请期待")
+    }
+    
     func reloadUI() {
         guard let fosterModel = self.fosterModel else {
             return
@@ -84,8 +99,13 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.serverView.desDetailLab.text = fosterModel.xq_getOrderPdListInfo()
         
         self.contentView.infoView.timeView.contentLab.text = fosterModel.SubscribeTime
-        self.contentView.infoView.endTimeView.contentLab.text = fosterModel.FinishTime
-//        self.contentView.infoView.dayView.contentLab.text = ""
+//        self.contentView.infoView.endTimeView.contentLab.text = fosterModel.FinishTime
+        let startTime = fosterModel.SubscribeTime.xq_toDate()
+        var endTime = startTime
+        if let tmpMData = startTime {
+            endTime = tmpMData + 1.hours + 30.minutes
+        }
+        self.contentView.infoView.endTimeView.contentLab.text = endTime?.xq_toString()
         
         self.contentView.infoView.moneyView.contentLab.text = "¥\(fosterModel.TotalPrice)"
         
@@ -95,20 +115,24 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         
         self.contentView.infoView.orderLab.text = "订单编号 \(fosterModel.OSN)"
         
+        self.contentView.infoView.payOrReservedBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true
         if fosterModel.State == .waitPay {
+            self.contentView.infoView.payOrReservedBtn.isHidden = false
             self.contentView.infoView.cancelOrderBtn.isHidden = false
             self.contentView.infoView.cancelOrderLab.isHidden = false
             
+            self.contentView.infoView.payOrReservedBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.payToOrder()
+            }
             self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.cancelOrder()
             }
         }else if fosterModel.State == .reserved {
             if fosterModel.CanRefund {
-                self.contentView.infoView.cancelOrderBtn.isHidden = false
-                self.contentView.infoView.cancelOrderBtn.setTitle("退款", for: .normal)
-                self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.contentView.infoView.payOrReservedBtn.setTitle("申请退款", for: .normal)
+                self.contentView.infoView.payOrReservedBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                     self.refundToOrder()
                 }
             }
@@ -153,6 +177,22 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         
     }
     
+    // 去付款
+    func payToOrder() {
+        guard let model = self.fosterModel else {
+            return
+        }
+        AC_XQAlertSelectPayView.show(String(model.Id), money: model.TotalPrice, payType: .appointment, callback: { (payId, payType) in
+            print("支付成功: ", payType)
+            SVProgressHUD.showSuccess(withStatus: "支付成功")
+            self.reloadUI()
+            self.refreshCallback?()
+        }) {
+            print("隐藏了")
+        }
+    }
+    
+    // 申请退款
     func refundToOrder() {
         
         guard let model = self.fosterModel else {

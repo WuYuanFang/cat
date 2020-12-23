@@ -183,7 +183,7 @@ class AC_XQFosterOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoProtoc
         }
         
         if self.contentView.phoneView.tf.text?.count ?? 0 != 11 {
-            SVProgressHUD.showInfo(withStatus: "请填写正确电话号码")
+            SVProgressHUD.showInfo(withStatus: "请填写正确手机号码")
             return
         }
         
@@ -218,7 +218,6 @@ class AC_XQFosterOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoProtoc
                 }
                 
             }) {
-//                self.navigationController?.popViewController(animated: true)
                 self.presentOrderDetail(resModel.oid)
             }
             
@@ -239,11 +238,15 @@ class AC_XQFosterOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoProtoc
             }
             
             SVProgressHUD.dismiss()
-            let vc = AC_XQFosterOrderDetailVC()
-            vc.fosterModel = resModel.model
             
             nc?.popViewController(animated: false)
-            nc?.pushViewController(vc, animated: true)
+            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
+                let vc = AC_XQFosterOrderDetailVC()
+                vc.fosterModel = resModel.model
+                nc?.pushViewController(vc, animated: true)
+            })
+            
+            
             
         }, onError: { (error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)

@@ -101,9 +101,9 @@ class AC_XQPetListChildrenVC: XQACBaseVC, AC_XQPetListChildrenViewDelegate {
                 
                 SVProgressHUD.showSuccess(withStatus: "删除成功")
                 
-                if let petIndex = self.contentView.dataArr.firstIndex { (petModel) -> Bool in
+                if let petIndex = self.contentView.dataArr.firstIndex(where: { (petModel) -> Bool in
                     return petModel.Id == model.Id
-                    } {
+                }) {
                     self.contentView.dataArr.remove(at: petIndex)
                     self.contentView.tableView.reloadData()
                 }
@@ -113,6 +113,12 @@ class AC_XQPetListChildrenVC: XQACBaseVC, AC_XQPetListChildrenViewDelegate {
             }).disposed(by: self.disposeBag)
             
         }, cancelCallback: nil)
+    }
+    
+    /// 点击前往对应的订单页面
+    func getToOrderDetail(_ petListChildrenView: AC_XQPetListChildrenView, didSelectAt indexPath: IndexPath) {
+        let model = self.contentView.dataArr[indexPath.row]
+        
     }
     
 }

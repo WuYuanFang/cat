@@ -12,7 +12,6 @@ import SDCycleScrollView
 
 class AC_XQBreedViewHeaderView: UIView {
     
-    let cycleScrollView = SDCycleScrollView()
     let titleLab = UILabel()
     let timeLab = UILabel()
     let changeBtn = QMUIButton()
@@ -23,18 +22,13 @@ class AC_XQBreedViewHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.xq_addSubviews(self.cycleScrollView, self.contentView)
+        self.xq_addSubviews(self.contentView)
         self.contentView.xq_addSubviews(self.titleLab, self.timeLab, self.changeBtn, self.addressBtn)
         
         // 布局
         
-        self.cycleScrollView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(self.cycleScrollView.snp.width).multipliedBy(285.0/375.0)
-        }
-        
         self.contentView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.cycleScrollView.snp.bottom)
+            make.top.equalTo(0)
             make.left.right.bottom.equalToSuperview()
         }
         
@@ -78,12 +72,10 @@ class AC_XQBreedViewHeaderView: UIView {
         self.changeBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         self.changeBtn.isHidden = true
         
-        self.cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
         
         
         self.titleLab.text = "小古猫宠物店(营业中）"
         self.timeLab.text = "营业时间：09:00-19:00"
-        self.cycleScrollView.backgroundColor = UIColor.ac_mainColor
         self.addressBtn.setTitle("广东省惠州市惠城区河南岸（距您500m）", for: .normal)
         
         self.contentView.backgroundColor = UIColor.white
@@ -97,7 +89,7 @@ class AC_XQBreedViewHeaderView: UIView {
         super.layoutSubviews()
         
         if self.mode == 0 {
-            self.cycleScrollView.setBottomCorner(with: 90, height: 30)
+//            self.cycleScrollView.setBottomCorner(with: 90, height: 30)
         }else if self.mode == 1 {
             self.contentView.xq_setBottomConcave(self.cornetSize)
         }
@@ -111,12 +103,12 @@ class AC_XQBreedViewHeaderView: UIView {
         self.mode = mode
         
         if mode == 1 {
-            self.contentView.snp.updateConstraints { (make) in
-                make.top.equalTo(self.cycleScrollView.snp.bottom).offset(-self.cornetSize)
-            }
-            
+//            self.contentView.snp.updateConstraints { (make) in
+//                make.top.equalTo(self.cycleScrollView.snp.bottom).offset(-self.cornetSize)
+//            }
+
             self.contentView.xq_setBottomConcave(self.cornetSize)
-            self.cycleScrollView.layer.mask = nil
+//            self.cycleScrollView.layer.mask = nil
         }
         
     }
@@ -127,7 +119,7 @@ class AC_XQBreedViewHeaderView: UIView {
 extension UIView {
     
     /// 底部往内部凹
-    fileprivate func xq_setBottomConcave(_ size: CGFloat) {
+    func xq_setBottomConcave(_ size: CGFloat) {
         
         let maxWidth = self.frame.width
         let maxHeight = self.frame.height

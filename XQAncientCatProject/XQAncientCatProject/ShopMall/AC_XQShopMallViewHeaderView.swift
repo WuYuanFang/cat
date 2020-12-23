@@ -13,7 +13,7 @@ import SDCycleScrollView
 
 class AC_XQShopMallViewHeaderView: UIView {
     
-    let cycleScrollView = SDCycleScrollView()
+//    let cycleScrollView = SDCycleScrollView()
     
     let searchView = AC_XQShopMallViewHeaderViewSearchView()
     
@@ -32,20 +32,20 @@ class AC_XQShopMallViewHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.xq_addSubviews(self.cycleScrollView, self.searchView, self.titleView, self.sortBtn, self.typeBtn)
+        self.xq_addSubviews(self.searchView, self.titleView, self.sortBtn, self.typeBtn)
         
         // 布局
-        
-        self.cycleScrollView.snp.makeConstraints { (make) in
-            make.top.equalTo(XQIOSDevice.getStatusHeight() + 16)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(self.cycleScrollView.snp.width).multipliedBy(1/AC_XQShopMallViewHeaderView.getImgWHScale())
-        }
+//
+//        self.cycleScrollView.snp.makeConstraints { (make) in
+//            make.top.equalTo(XQIOSDevice.getStatusHeight() + 16)
+//            make.left.right.equalToSuperview()
+//            make.height.equalTo(self.cycleScrollView.snp.width).multipliedBy(1/AC_XQShopMallViewHeaderView.getImgWHScale())
+//        }
         
         self.searchView.snp.makeConstraints { (make) in
             make.left.equalTo(12)
             make.right.equalTo(-12)
-            make.top.equalTo(self.cycleScrollView.snp.bottom).offset(20)
+            make.top.equalTo(XQIOSDevice.getStatusHeight() + 16)
             make.height.equalTo(35)
         }
         
@@ -90,8 +90,8 @@ class AC_XQShopMallViewHeaderView: UIView {
 //        self.titleView.delegate = self
         self.titleView.cm_config = config
         
-        self.cycleScrollView.backgroundColor = UIColor.clear
-        self.cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
+//        self.cycleScrollView.backgroundColor = UIColor.clear
+//        self.cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
         
         self.sortBtn.setImage(UIImage.init(named: "shopMall_sort"), for: .normal)
         self.typeBtn.setImage(UIImage.init(named: "shopMall_filter"), for: .normal)
@@ -126,13 +126,13 @@ class AC_XQShopMallViewHeaderView: UIView {
     
     /// cell size
     static func xq_headerSize() -> CGSize {
-        let imgScale = self.getImgWHScale()
+//        let imgScale = self.getImgWHScale()
         
         let width = system_screenWidth
+//
+//        let imgHeight = width / imgScale
         
-        let imgHeight = width / imgScale
-        
-        let height = CGFloat(imgHeight + 20 + 35 + 16 + 30 + 12) + XQIOSDevice.getStatusHeight() + 16
+        let height = CGFloat(20 + 35 + 16 + 30 + 12) + XQIOSDevice.getStatusHeight() + 16
         
         return CGSize.init(width: width, height: height)
     }

@@ -81,6 +81,7 @@ class AC_XQVIPViewPrivilegeView: UIView, UICollectionViewDelegate, UICollectionV
             AC_XQVIPViewPrivilegeViewCellModel.init(title: "寄养折扣", img: "score_foster"),
             AC_XQVIPViewPrivilegeViewCellModel.init(title: "洗护折扣", img: "score_washProtect"),
             AC_XQVIPViewPrivilegeViewCellModel.init(title: "医疗折扣", img: "score_medicalCare"),
+            AC_XQVIPViewPrivilegeViewCellModel.init(title: "消费积分", img: "score_score"),
             AC_XQVIPViewPrivilegeViewCellModel.init(title: "商品折扣", img: "score_commodity"),
         ]
     }
@@ -142,6 +143,9 @@ class AC_XQVIPViewPrivilegeView: UIView, UICollectionViewDelegate, UICollectionV
                 }
                 
             case 3:
+                cell.discountLab.text = ""
+                
+            case 4:
                 if currentRankInfo.DiscountOfAroundShop < magnification {
                     cell.discountLab.text = "\( (Float(currentRankInfo.DiscountOfAroundShop)/magnificationF).xq_removeDecimalPointZero() )折"
                 }

@@ -24,6 +24,9 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         super.viewDidLoad()
         
         self.xq_navigationBar.setCenterTitle("订单详情")
+        self.xq_navigationBar.titleLab.textColor = .white
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
+        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem(image: UIImage(named: "my_service"), style: .plain, target: self, action: #selector(servieAction)))
         
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
@@ -55,6 +58,16 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         self.reloadUI()
         
         print(self.fosterModel ?? "没有数据")
+    }
+    
+    // 点击客服
+    @objc func servieAction() {
+        if XQSMBaseNetwork.default.token.count == 0 {
+            AC_XQLoginVC.presentLogin(self)
+            return
+        }
+        
+        SVProgressHUD.showInfo(withStatus: "暂未开放, 敬请期待")
     }
     
     func reloadUI() {
@@ -91,15 +104,35 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         
         self.contentView.infoView.orderLab.text = "订单编号 \(fosterModel.OSN)"
         
+        self.contentView.infoView.payOrReservedBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true
-        if fosterModel.PayType == 1, fosterModel.State != .cancel {
+        if fosterModel.PayType == 2, fosterModel.State == .orderPlaced {
+            self.contentView.infoView.payOrReservedBtn.isHidden = false
+            self.contentView.infoView.payOrReservedBtn.setTitle("申请退款", for: .normal)
+            self.contentView.infoView.payOrReservedBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.refundToOrder()
+            }
+            self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
+        }else if fosterModel.PayType == 1, fosterModel.State == .orderPlaced {
             self.contentView.infoView.payTimeLab.text = ""
+            self.contentView.infoView.payOrReservedBtn.isHidden = false
+            self.contentView.infoView.payOrReservedBtn.setTitle("去付款", for: .normal)
+            self.contentView.infoView.payOrReservedBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.payToOrder()
+            }
             self.contentView.infoView.cancelOrderBtn.isHidden = false
             self.contentView.infoView.cancelOrderLab.isHidden = false
             self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.cancelOrder()
             }
+//        }else if fosterModel.PayType == 1, fosterModel.State != .cancel {
+//            self.contentView.infoView.payTimeLab.text = ""
+//            self.contentView.infoView.cancelOrderBtn.isHidden = false
+//            self.contentView.infoView.cancelOrderLab.isHidden = false
+//            self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//                self.cancelOrder()
+//            }
             
         }else {
             self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
@@ -124,10 +157,11 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
                 }
                 
                 SVProgressHUD.showSuccess(withStatus: "取消成功")
-                self.fosterModel?.State = .cancel
-                self.reloadUI()
-                self.refreshCallback?()
+//                self.fosterModel?.State = .cancel
+//                self.reloadUI()
+//                self.refreshCallback?()
                 
+                self.getDetailData()
             }, onError: { (error) in
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
             }).disposed(by: self.disposeBag)
@@ -136,5 +170,63 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         
     }
     
+    /// 去付款
+    func payToOrder() {
+        guard let model = self.fosterModel else {
+            return
+        }
+        AC_XQAlertSelectPayView.show(String(model.Id), money: model.Amount, payType: .foster, callback: { (payId, payType) in
+            print("支付成功: ", payType)
+            SVProgressHUD.showSuccess(withStatus: "支付成功")
+            self.getDetailData()
+        }) {
+            print("隐藏了")
+        }
+    }
+    
+    /// 申请退款
+    func refundToOrder() {
+        XQSystemAlert.alert(withTitle: "退款", message: "确认是否要退款", contentArr: ["确定"], cancelText: "取消", vc: self, contentCallback: { (alert, index) in
+            
+            let reqModel = XQSMNTOrderRefundToOrderReqModel.init(OId: self.fosterModel?.Id ?? 0, RefundPrice: 0, Remark: "", imgArr: nil)
+            
+            SVProgressHUD.show(withStatus: nil)
+            XQACFosterNetwork.refundToOrder(reqModel).subscribe(onNext: { (resModel) in
+                if resModel.isProgress {
+                    return
+                }
+                if resModel.ErrCode != .succeed {
+                    SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                    return
+                }
+                SVProgressHUD.showSuccess(withStatus: "提交退款成功")
+                self.fosterModel?.State = .cancel
+                self.reloadUI()
+                self.refreshCallback?()
+            }, onError: { (error) in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            }).disposed(by: self.disposeBag)
+            
+        }, cancelCallback: nil)
+    }
+    
+    /// 获取订单详情
+    func getDetailData() {
+        guard let model = self.fosterModel else {
+            return
+        }
+        XQACFosterNetwork.fosterDetails(model.Id).subscribe(onNext: { (resModel) in
+            
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            self.fosterModel = resModel.model
+            self.reloadUI()
+            self.refreshCallback?()
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
+    }
     
 }

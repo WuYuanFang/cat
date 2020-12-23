@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 
+/// 寄养中页面
 class AC_XQServerOrderDetailVC: XQACBaseVC {
 
     let contentView = AC_XQServerOrderDetailView()
@@ -93,7 +94,7 @@ class AC_XQServerOrderDetailVC: XQACBaseVC {
                 return
             }
             
-            self.contentView.dayLab.text = "寄养还剩\(resModel.Days ?? " ")天"
+            self.contentView.dayLab.text = "寄养还剩\(resModel.Days ?? "0")天"
             
         }, onError: { (error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)

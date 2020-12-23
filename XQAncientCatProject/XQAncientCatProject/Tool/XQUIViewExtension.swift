@@ -18,6 +18,30 @@ extension UIView {
         views.forEach(addSubview(_:))
     }
     
+    /// 设置视图阴影
+    /// - Parameters:
+    ///   - view: 需要设置的视图
+    ///   - cradius: 需要设置的圆角
+    ///   - sColor: 阴影的颜色
+    ///   - offset: 偏移量
+    ///   - opacity: 透明度
+    ///   - radius: 阴影半径
+    func setShadow(cradius:CGFloat = 4.0,
+                   opacity:Float = 0.6,
+                   radius:CGFloat = 3.0,
+                   sColor:UIColor = UIColor.init(fromHexString: "CCCCCC")!,
+                   offset:CGSize = CGSize(width: 0, height: 0)) {
+        //设置阴影颜色
+        self.layer.shadowColor = sColor.cgColor
+        //设置边框圆角
+        self.layer.cornerRadius = cradius
+        //设置透明度
+        self.layer.shadowOpacity = opacity
+        //设置阴影半径
+        self.layer.shadowRadius = radius
+        //设置阴影偏移量
+        self.layer.shadowOffset = offset
+    }
 }
 
 

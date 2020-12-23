@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 import MJRefresh
 
-/// 积分界面
+/// 积分兑换界面
 class AC_XQScoreVC: XQACBaseVC, AC_YCMyViewControllerSignInProtocol, AC_XQScoreHotViewDelegate, AC_XQUserInfoProtocol {
     
     let contentView = AC_XQScoreView()
@@ -18,8 +18,23 @@ class AC_XQScoreVC: XQACBaseVC, AC_YCMyViewControllerSignInProtocol, AC_XQScoreH
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "积分说明", style: .plain, target: self, action: #selector(respondsToHelp)))
+        let rightBtn = UIButton()
+        rightBtn.setTitle("积分说明", for: .normal)
+        rightBtn.setTitleColor(.white, for: .normal)
+        rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        rightBtn.layer.cornerRadius = 15
+        rightBtn.layer.borderWidth = 1.0
+        rightBtn.layer.borderColor = UIColor.white.cgColor
+        rightBtn.addTarget(self, action: #selector(respondsToHelp), for: .touchUpInside)
+        self.xq_navigationBar.contentView.addSubview(rightBtn)
+        rightBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-8)
+            make.width.equalTo(80)
+            make.height.equalTo(30)
+            make.top.equalTo(5)
+        }
         
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
         self.xq_navigationBar.backgroundColor = UIColor.clear
@@ -134,7 +149,7 @@ class AC_XQScoreVC: XQACBaseVC, AC_YCMyViewControllerSignInProtocol, AC_XQScoreH
     // MARK: - responds
     
     @objc func respondsToHelp() {
-        
+        // 
     }
 
     // MARK: - AC_XQScoreHotViewDelegate

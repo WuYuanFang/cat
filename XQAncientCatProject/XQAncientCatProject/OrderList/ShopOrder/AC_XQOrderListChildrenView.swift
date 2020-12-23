@@ -32,6 +32,9 @@ protocol AC_XQOrderListChildrenViewDelegate: NSObjectProtocol {
     /// 点击 cell
     func orderListChildrenView(_ orderListChildrenView: AC_XQOrderListChildrenView, didSelectRowAt indexPath: IndexPath)
     
+    /// 取消订单
+    func orderListChildrenView(cancelOrder orderListChildrenView: AC_XQOrderListChildrenView, didSelectRowAt indexPath: IndexPath)
+    
 }
 
 class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSource {
@@ -102,11 +105,11 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         cell.statusBtn.isHidden = true
         cell.funcBtn.isHidden = true
         
-        cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+        cell.funcBtn.xq_addEvent(.touchUpInside) { (sender) in
             
         }
         
-        cell.statusBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+        cell.statusBtn.xq_addEvent(.touchUpInside) { (sender) in
             
         }
         
@@ -123,12 +126,15 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         /// 等待付款
         case .waitPay:
             cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("去支付", for: .normal)
-            
+            cell.funcBtn.setTitle("去付款", for: .normal)
+            cell.statusBtn.isHidden = false
+            cell.statusBtn.setTitle("取消订单", for: .normal)
             cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.orderListChildrenView(pay: self, didSelectRowAt: indexPath)
             }
-            
+            cell.statusBtn.xq_addEvent(.touchUpInside) { (sender) in
+                self.delegate?.orderListChildrenView(cancelOrder: self, didSelectRowAt: indexPath)
+            }
             /// 确认中
             /// 已确认
             /// 备货中
@@ -176,10 +182,8 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             
             /// 取消
         case .cancel:
-            cell.funcBtn.isHidden = false
-            
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.orderListChildrenView(delete: self, didSelectRowAt: indexPath)
             }
             
@@ -189,19 +193,15 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             
             /// 退款完成
         case .refundDone:
-            cell.funcBtn.isHidden = false
-            
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.orderListChildrenView(delete: self, didSelectRowAt: indexPath)
             }
             
         /// 已完成
         case .done:
-            cell.funcBtn.isHidden = false
-            
-            cell.funcBtn.setTitle("删除", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            cell.deleteBtn.isHidden = false
+            cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.orderListChildrenView(delete: self, didSelectRowAt: indexPath)
             }
             

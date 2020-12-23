@@ -114,9 +114,13 @@ class AC_XQHomePageVC: XQACBaseVC, AC_XQHomePageViewAppointmentViewDelegate, AC_
             return
         }
         // 改成失败成功都去获取了，反正只有一家店
+        print("定位开始")
         XQSMLocation.shared().location({ (location, locationNetworkState) in
-            
+            guard let _ = location else {
+                return
+            }
             let reqModel = XQSMNTGetClosestShopReqModel.init(X: Float(location?.location?.coordinate.latitude ?? 0), Y: Float(location?.location?.coordinate.longitude ?? 0))
+            print("定位结束")
             
             if location == nil {
                 print("定位失败: ", locationNetworkState)

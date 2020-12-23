@@ -139,7 +139,7 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
     func configTitleView<T: XQACBaseVC>(_ pageTitleView: CMPageTitleView, titleArr: [String], cl: T.Type) {
         
         var vcArr = [UIViewController]()
-        for (index, item) in titleArr.enumerated() {
+        for (_, item) in titleArr.enumerated() {
 //            let vc = AC_XQOrderListChildrenVC()
             let vc = cl.init()
             

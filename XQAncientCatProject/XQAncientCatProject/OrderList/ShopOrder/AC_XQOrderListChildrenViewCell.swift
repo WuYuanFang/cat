@@ -144,7 +144,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         self.iconImgView.layer.masksToBounds = true
         self.iconImgView.contentMode = .scaleAspectFill
         
-        self.deleteBtn.setBackgroundImage(UIImage.init(named: "delete_mainColor"), for: .normal)
+        self.deleteBtn.setBackgroundImage(UIImage.init(named: "review_delete_list"), for: .normal)
         
         self.dateLab.textColor = UIColor.init(hex: "#999999")
         self.dateLab.font = UIFont.systemFont(ofSize: 13)
@@ -157,7 +157,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         self.funcBtn.layer.borderColor = UIColor.ac_mainColor.cgColor;
         self.funcBtn.layer.cornerRadius = funcBtnHeight/2;
         self.funcBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
-        self.funcBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        self.funcBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         self.statusBtn.setTitle("查看物流", for: .normal)
         

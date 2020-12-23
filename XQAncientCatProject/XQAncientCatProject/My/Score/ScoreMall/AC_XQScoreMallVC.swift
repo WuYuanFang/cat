@@ -10,7 +10,7 @@ import UIKit
 import MJRefresh
 import SVProgressHUD
 
-/// 积分商城
+/// 兑换记录
 class AC_XQScoreMallVC: XQACBaseVC, AC_XQScoreHotViewDelegate, AC_XQScoreMallViewAllViewDelegate {
     
     let contentView = AC_XQScoreMallView()
@@ -20,7 +20,19 @@ class AC_XQScoreMallVC: XQACBaseVC, AC_XQScoreHotViewDelegate, AC_XQScoreMallVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "兑换记录", style: .plain, target: self, action: #selector(respondsToHistory)))
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: UIColor.ac_mainColor))
+        let rightBtn = UIButton()
+        rightBtn.setTitle("兑换记录", for: .normal)
+        rightBtn.setTitleColor(.ac_mainColor, for: .normal)
+        rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        rightBtn.addTarget(self, action: #selector(respondsToHistory), for: .touchUpInside)
+        self.xq_navigationBar.contentView.addSubview(rightBtn)
+        rightBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-8)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+            make.top.equalTo(0)
+        }
         
         self.xq_view.addSubview(self.contentView)
         self.contentView.snp.makeConstraints { (make) in

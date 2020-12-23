@@ -16,6 +16,8 @@ protocol AC_XQPetListChildrenViewDelegate: NSObjectProtocol {
     /// 点击删除
     func petListChildrenView(_ petListChildrenView: AC_XQPetListChildrenView, didSelectDeleteAt indexPath: IndexPath)
     
+    /// 前往相应的页面
+    func getToOrderDetail(_ petListChildrenView: AC_XQPetListChildrenView, didSelectAt indexPath: IndexPath)
 }
 
 class AC_XQPetListChildrenView: UIView, UITableViewDataSource, UITableViewDelegate {
@@ -86,6 +88,10 @@ class AC_XQPetListChildrenView: UIView, UITableViewDataSource, UITableViewDelega
             self.delegate?.petListChildrenView(self, didSelectDeleteAt: indexPath)
         }
         
+        cell.statusView.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+            self.delegate?.getToOrderDetail(self, didSelectAt: indexPath)
+        }
+        
         if model.Sex == "母" {
             cell.genderImgView.image = UIImage.init(named: "gender_woman")
         }else {
@@ -134,7 +140,7 @@ class AC_XQPetListChildrenViewFooterView: UIView {
         
         self.contentView.backgroundColor = UIColor.white
         self.contentView.layer.cornerRadius = 10
-        self.contentView.layer.shadowOffset = CGSize.init(width: 8, height: 8)
+        self.contentView.layer.shadowOffset = CGSize.init(width: 0, height: 0)
         self.contentView.layer.shadowOpacity = 0.15
         self.contentView.layer.shadowColor = UIColor.black.cgColor
         

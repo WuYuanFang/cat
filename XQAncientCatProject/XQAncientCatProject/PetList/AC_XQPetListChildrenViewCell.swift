@@ -58,7 +58,7 @@ class AC_XQPetListChildrenViewCell: AC_XQShadowCell {
         
         self.titleLab.snp.makeConstraints { (make) in
             make.top.equalTo(self.iconImgView).offset(-3)
-            make.left.equalTo(self.iconImgView.snp.right).offset(30)
+            make.left.equalTo(self.iconImgView.snp.right).offset(20)
         }
         
         self.genderImgView.snp.makeConstraints { (make) in
@@ -131,7 +131,7 @@ class AC_XQPetListChildrenViewCell: AC_XQShadowCell {
 }
 
 
-class AC_XQPetListChildrenViewCellStatusView: UIView {
+class AC_XQPetListChildrenViewCellStatusView: UIButton {
     
     let titleLab = UILabel()
     let imgView = UIImageView()

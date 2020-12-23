@@ -182,7 +182,7 @@ class AC_XQFosterOrderViewInfoViewBaseView: UIView {
         self.contentView.backgroundColor = UIColor.white
         
         self.xq_contentView.backgroundColor = UIColor.white
-        self.xq_contentView.layer.shadowOffset = CGSize.init(width: 8, height: 8)
+        self.xq_contentView.layer.shadowOffset = CGSize.init(width: 0, height: 0)
         self.xq_contentView.layer.shadowOpacity = 0.15
         self.xq_contentView.layer.shadowColor = UIColor.black.cgColor
         self.xq_contentView.layer.cornerRadius = self.corners

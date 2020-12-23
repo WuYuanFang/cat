@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 
 #source 'https://github.com/CocoaPods/Specs.git'
-source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+#source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 
 target 'XQAncientCatProject' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -25,6 +25,8 @@ pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'SVProgressHUD'
 
+# 时间处理工具
+pod 'SwiftDate', '~> 6.1.0'
 
 
 pod 'UITextField-Navigation' # TextField 下一步和结束编辑
@@ -46,7 +48,10 @@ pod 'CocoaDebug', :configurations => ['Debug']
  pod 'XQProjectTool_iPhoneUI', :git => 'https://github.com/SyKingW/XQProjectTool_iPhoneUI.git'
  pod 'XQAlert', :git => 'https://github.com/SyKingW/XQAlert.git'
 
-
+ 
+ # 键盘处理工具
+ pod 'IQKeyboardManager', '~> 6.4.0'
+ pod 'SwiftRichString', '~> 3.7.2'
  
  pod 'CMPageTitleView', :path => 'ThirdParty/CMPageTitleView' # 头部滚动标题视图
 # pod 'XQJFCitySelector', :git => 'https://gitee.com/1034439685/XQJFCitySelector.git' # 城市选择

@@ -67,11 +67,9 @@ struct XQSMBaseNetwork {
     /// 获取默认url
     static func getNormalUrl() -> String {
 //        #if DEBUG
-//        return "http://139.159.151.240:1278"
-        return "http://47.112.205.16:8088"
-//        return "http://139.159.151.240:55678"
+        return "http://cx.gdmiacid.com:8088" // 测试地址
 //        #else
-//        return "http://app.beeplustea.com"
+//        return "http://app.beeplustea.com" // 正是环境地址
 //        #endif
     }
 

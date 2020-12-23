@@ -206,7 +206,7 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
             }
             
             print(imageURLStringsGroup)
-            self.contentView.headerView.cycleScrollView.imageURLStringsGroup = imageURLStringsGroup
+//            self.contentView.headerView.cycleScrollView.imageURLStringsGroup = imageURLStringsGroup
 //            self.contentView.headerView.waveView.pageControl.numberOfPages = imageURLStringsGroup.count
             
         }, onError: { (error) in

@@ -64,7 +64,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         let iconImgViewSize: CGFloat = 60
         self.iconImgView.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(20)
+            make.left.equalTo(12)
             make.size.equalTo(iconImgViewSize)
         }
         
@@ -81,7 +81,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         
         self.originPriceLab.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.titleLab)
-            make.right.equalTo(-20)
+            make.right.equalTo(-12)
         }
         
         self.numberLab.snp.makeConstraints { (make) in
@@ -137,7 +137,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         
         self.priceLab.font = UIFont.systemFont(ofSize: 15)
         
-        self.titleLab.font = UIFont.systemFont(ofSize: 16)
+        self.titleLab.font = UIFont.systemFont(ofSize: 15)
         
         self.messageLab.textColor = UIColor.init(hex: "#999999")
         self.messageLab.font = UIFont.systemFont(ofSize: 14)
@@ -146,7 +146,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         self.iconImgView.layer.cornerRadius = iconImgViewSize/2
         self.iconImgView.layer.masksToBounds = true
         
-        self.deleteBtn.setBackgroundImage(UIImage.init(named: "delete_mainColor"), for: .normal)
+        self.deleteBtn.setBackgroundImage(UIImage.init(named: "review_delete_list"), for: .normal)
         
         self.dateLab.textColor = UIColor.init(hex: "#999999")
         self.dateLab.font = UIFont.systemFont(ofSize: 14)
@@ -158,6 +158,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         self.funcBtn.layer.borderColor = UIColor.ac_mainColor.cgColor;
         self.funcBtn.layer.cornerRadius = funcBtnHeight/2;
         self.funcBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
+        self.funcBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         self.funcBtn.setTitle("评价", for: .normal)
         

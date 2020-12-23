@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 import SVProgressHUD
 
 /// 预约洗护下单
@@ -112,7 +113,11 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
 //        self.contentView.infoView.serverView.contentLab.text = "¥\(serverMoney)"
         
         self.contentView.infoView.timeView.contentLab.text = self.appointmentDate?.xq_toString("MM月dd日 HH:mm")
-        self.contentView.infoView.endTimeView.contentLab.text = self.appointmentDate?.xq_toString("MM月dd日 HH:mm")
+        var endTime = self.appointmentDate
+        if let tmpMData = self.appointmentDate {
+            endTime = tmpMData + 1.hours + 30.minutes
+        }
+        self.contentView.infoView.endTimeView.contentLab.text = endTime?.xq_toString("MM月dd日 HH:mm")
         
     }
     
@@ -288,11 +293,14 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
             }
             
             SVProgressHUD.dismiss()
-            let vc = AC_XQWashProtectOrderDetailVC()
-            vc.fosterModel = resModel.ToOrderItem
             
             nc?.popViewController(animated: false)
-            nc?.pushViewController(vc, animated: true)
+            
+            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
+                let vc = AC_XQWashProtectOrderDetailVC()
+                vc.fosterModel = resModel.ToOrderItem
+                nc?.pushViewController(vc, animated: true)
+            })
             
         }, onError: { (error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)

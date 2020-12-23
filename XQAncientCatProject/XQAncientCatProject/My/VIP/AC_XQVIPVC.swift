@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 
+// 会员详情
 class AC_XQVIPVC: XQACBaseVC {
     
     let contentView = AC_XQVIPView()
@@ -20,6 +21,7 @@ class AC_XQVIPVC: XQACBaseVC {
         
 //        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "帮助", style: .plain, target: self, action: #selector(respondsToHelp)))
         
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
         self.xq_navigationBar.backgroundColor = UIColor.clear
@@ -56,7 +58,7 @@ class AC_XQVIPVC: XQACBaseVC {
         self.contentView.privilegeView.reloadUI(self.userInfoModel)
         
         
-        if let NextRankInfo = userInfoModel.NextRankInfo {
+        if userInfoModel.NextRankInfo != nil {
             // 下一级的升级比率
             let scale = Float(userInfoModel.UserInfo?.RankCredits ?? 0)/Float(userInfoModel.NextRankInfo?.CreditsLower ?? 0)
             

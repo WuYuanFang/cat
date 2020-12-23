@@ -11,6 +11,7 @@ import SVProgressHUD
 import MJRefresh
 import XQAlert
 
+// 商城订单列表
 class AC_XQOrderListChildrenVC: XQACBaseVC, AC_XQOrderListChildrenViewDelegate {
     
     let contentView = AC_XQOrderListChildrenView()
@@ -101,12 +102,12 @@ class AC_XQOrderListChildrenVC: XQACBaseVC, AC_XQOrderListChildrenViewDelegate {
             SVProgressHUD.show(withStatus: nil)
             XQSMOrderNetwork.sureReceiveProduct(reqModel).subscribe(onNext: { (resModel) in
                 
+                SVProgressHUD.dismiss()
                 if resModel.ErrCode != .succeed {
                     SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                     return
                 }
                 
-                SVProgressHUD.dismiss()
                 self.contentView.dataArr[indexPath.row].OrderState = .receivedGoods
                 self.contentView.tableView.reloadData()
                 
@@ -157,12 +158,12 @@ class AC_XQOrderListChildrenVC: XQACBaseVC, AC_XQOrderListChildrenViewDelegate {
             SVProgressHUD.show(withStatus: nil)
             XQSMOrderNetwork.deleteOrder(model.Oid).subscribe(onNext: { (resModel) in
                 
+                SVProgressHUD.dismiss()
                 if resModel.ErrCode != .succeed {
                     SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                     return
                 }
                 
-                SVProgressHUD.dismiss()
                 self.contentView.dataArr.remove(at: indexPath.row)
                 self.contentView.tableView.reloadData()
                 
@@ -172,6 +173,32 @@ class AC_XQOrderListChildrenVC: XQACBaseVC, AC_XQOrderListChildrenViewDelegate {
             
         }, cancelCallback: nil)
         
+    }
+    
+    // 取消订单
+    func orderListChildrenView(cancelOrder orderListChildrenView: AC_XQOrderListChildrenView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.contentView.dataArr[indexPath.row]
+        
+        XQSystemAlert.alert(withTitle: "确定取消该订单吗?", message: nil, contentArr: ["确定"], cancelText: "再看看", vc: self, contentCallback: { (alert, index) in
+            
+            SVProgressHUD.show(withStatus: nil)
+            let reqModel = XQSMNTCancleToOrderReqModel.init(oId: model.Oid)
+            XQSMOrderNetwork.cancelOrder(reqModel).subscribe(onNext: { (resModel) in
+                
+                SVProgressHUD.dismiss()
+                if resModel.ErrCode != .succeed {
+                    SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                    return
+                }
+                
+                SVProgressHUD.showSuccess(withStatus: "取消成功")
+                self.getData()
+                
+            }, onError: { (error) in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            }).disposed(by: self.disposeBag)
+            
+        }, cancelCallback: nil)
     }
     
 }

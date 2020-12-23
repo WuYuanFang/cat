@@ -14,15 +14,15 @@ import QMUIKit
 //class XQACNC: QMUINavigationController {
 class XQACNC: UINavigationController {
     
-    override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-        self.setNavigationBarHidden(true, animated: false)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    override init(rootViewController: UIViewController) {
+//        super.init(rootViewController: rootViewController)
+//        self.setNavigationBarHidden(true, animated: false)
+//        
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,7 @@ class XQACNC: UINavigationController {
         // QMUIKit 影响
         // 判断一下, 如果当前只有一个, 那么就 false, 这次 pop 手势不要处理
 //        self.interactivePopGestureRecognizer?.delegate = self
+        self.setNavigationBarHidden(true, animated: false)
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {

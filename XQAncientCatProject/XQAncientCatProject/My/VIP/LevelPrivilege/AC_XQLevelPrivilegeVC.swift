@@ -16,6 +16,7 @@ class AC_XQLevelPrivilegeVC: XQACBaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
         self.xq_navigationBar.backgroundColor = UIColor.clear

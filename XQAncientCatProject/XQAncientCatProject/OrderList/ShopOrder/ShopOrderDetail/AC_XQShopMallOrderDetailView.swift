@@ -76,6 +76,8 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     
     /// 取消订单
     let cancelOrderBtn = UIButton()
+    /// 申请退款
+    let refundBtn = UIButton()
     /// 取消订单
     let cancelOrderLab = UILabel()
     
@@ -95,7 +97,7 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.moneyView, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.moneyView, self.refundBtn, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
         
         
         // 布局
@@ -130,9 +132,15 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
             make.right.equalTo(self.buyNumberView)
         }
         
-        self.cancelOrderBtn.snp.makeConstraints { (make) in
+        self.refundBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self.moneyView.snp.bottom).offset(6)
             make.right.equalTo(self.buyNumberView)
+            make.size.equalTo(CGSize.init(width: 80, height: 30))
+        }
+        
+        self.cancelOrderBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(self.moneyView.snp.bottom).offset(6)
+            make.right.equalTo(self.refundBtn.snp.left).offset(-12)
             make.size.equalTo(CGSize.init(width: 80, height: 30))
         }
         
@@ -147,11 +155,11 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
             make.right.equalTo(self.buyNumberView)
         }
         
-        self.orderLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
+//        self.orderLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.orderLab.snp.makeConstraints { (make) in
             make.top.equalTo(self.remarkView.snp.bottom).offset(40)
             make.left.equalTo(self.buyNumberView)
-            make.right.lessThanOrEqualToSuperview().offset(-60)
+            make.right.lessThanOrEqualToSuperview().offset(-50)
         }
         
         self.copyBtn.snp.makeConstraints { (make) in
@@ -167,7 +175,7 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         
         
         // 设置属性
-        
+        self.orderLab.numberOfLines = 0
         self.orderLab.font = UIFont.systemFont(ofSize: 13)
         self.orderLab.textColor = UIColor.init(hex: "#999999")
         
@@ -175,10 +183,18 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         self.payTimeLab.textColor = UIColor.init(hex: "#999999")
         self.payTimeLab.numberOfLines = 0
         
+        
+        self.refundBtn.setTitle("申请退款", for: .normal)
+        self.refundBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
+        self.refundBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.refundBtn.layer.cornerRadius = 15
+        self.refundBtn.layer.borderWidth = 1
+        self.refundBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
+        
         self.cancelOrderBtn.setTitle("取消订单", for: .normal)
         self.cancelOrderBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
-        self.cancelOrderBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.cancelOrderBtn.layer.cornerRadius = 4
+        self.cancelOrderBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.cancelOrderBtn.layer.cornerRadius = 15
         self.cancelOrderBtn.layer.borderWidth = 1
         self.cancelOrderBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
         

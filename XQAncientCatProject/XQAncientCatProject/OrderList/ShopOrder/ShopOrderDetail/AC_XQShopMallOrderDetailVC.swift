@@ -9,7 +9,9 @@
 import UIKit
 import XQAlert
 import SVProgressHUD
+import SwiftRichString
 
+// 商品订单详情
 class AC_XQShopMallOrderDetailVC: XQACBaseVC {
     
     /// 外部传入的列表订单model
@@ -24,6 +26,9 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
         super.viewDidLoad()
         
         self.xq_navigationBar.setCenterTitle("订单详情")
+        self.xq_navigationBar.titleLab.textColor = .white
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
+        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem(image: UIImage(named: "my_service"), style: .plain, target: self, action: #selector(servieAction)))
         
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
@@ -36,17 +41,27 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
         
         self.reloadUI()
         
-        self.contentView.bottomView.mapBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+        self.contentView.bottomView.mapBtn.xq_addEvent(.touchUpInside) {  (sender) in
             
         }
         
-        self.contentView.bottomView.phoneBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+        self.contentView.bottomView.phoneBtn.xq_addEvent(.touchUpInside) {  (sender) in
 //            if let phone = self.fosterModel?.phone, let url = URL.init(string: "tel://\(phone)") {
 //                UIApplication.shared.open(url, options: [:], completionHandler: nil)
 //            }
         }
         
         
+    }
+    
+    // 点击客服
+    @objc func servieAction() {
+        if XQSMBaseNetwork.default.token.count == 0 {
+            AC_XQLoginVC.presentLogin(self)
+            return
+        }
+        
+        SVProgressHUD.showInfo(withStatus: "暂未开放, 敬请期待")
     }
     
     func reloadUI() {
@@ -85,32 +100,37 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
         
         self.contentView.infoView.orderLab.text = "订单编号 \(fosterModel.OSN)"
         
+        self.contentView.infoView.refundBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true
-        self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+        self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { (sender) in
             
         }
         
         if fosterModel.OrderState == .waitPay {
             self.contentView.infoView.payTimeLab.text = ""
+            self.contentView.infoView.refundBtn.isHidden = false
             self.contentView.infoView.cancelOrderBtn.isHidden = false
             self.contentView.infoView.cancelOrderLab.isHidden = false
             self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.cancelOrder()
+            }
+            self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.cancelOrder()
             }
             
         }else {
             
             if fosterModel.OrderState == .delivered {
-                self.contentView.infoView.cancelOrderBtn.setTitle("确认收货", for: .normal)
-                self.contentView.infoView.cancelOrderBtn.isHidden = false
-                self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.contentView.infoView.refundBtn.setTitle("确认收货", for: .normal)
+                self.contentView.infoView.refundBtn.isHidden = false
+                self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                     self.sureOrder()
                 }
             }
             
             
-            self.contentView.infoView.payTimeLab.text = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)"
+            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
             
         }
         
@@ -170,5 +190,35 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             
         }, cancelCallback: nil)
         
+    }
+    
+    /// 退款
+    func refundAction() {
+        let vc = AC_XQShopRefundOrderVC()
+        vc.orderBaseInfoModel = self.orderBaseInfoModel
+        vc.refreshCallback = { [unowned self] in
+            self.getDetail()
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // 获取订单详情
+    func getDetail() {
+        SVProgressHUD.show(withStatus: nil)
+        XQSMOrderNetwork.getOrderById(orderBaseInfoModel?.Oid ?? 0).subscribe(onNext: { (resModel) in
+            
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            
+            SVProgressHUD.dismiss()
+            self.orderBaseInfoModel = resModel.OrderList
+            self.reloadUI()
+            self.refreshCallback?()
+            
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
     }
 }

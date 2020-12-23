@@ -25,6 +25,8 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
     
     /// 取消订单
     let cancelOrderBtn = UIButton()
+    /// 申请退款 / 去付款
+    let payOrReservedBtn = UIButton()
     /// 取消订单
     let cancelOrderLab = UILabel()
     
@@ -48,14 +50,14 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.endTimeView, self.vipZKView, self.moneyView, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.endTimeView, self.vipZKView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
         
         
         // 布局
         self.serverView.snp.makeConstraints { (make) in
             make.top.equalTo(12)
             make.left.equalTo(12)
-            make.right.equalTo(-20)
+            make.right.equalTo(-12)
         }
         
         self.timeView.snp.makeConstraints { (make) in
@@ -82,9 +84,15 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
             make.right.equalTo(self.serverView)
         }
         
-        self.cancelOrderBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self.moneyView.snp.bottom).offset(6)
+        self.payOrReservedBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(self.moneyView.snp.bottom).offset(20)
             make.right.equalTo(self.serverView)
+            make.size.equalTo(CGSize.init(width: 80, height: 30))
+        }
+        
+        self.cancelOrderBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(payOrReservedBtn)
+            make.right.equalTo(self.payOrReservedBtn.snp.left).offset(-12)
             make.size.equalTo(CGSize.init(width: 80, height: 30))
         }
         
@@ -94,7 +102,7 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
         }
         
         self.phoneView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.cancelOrderBtn.snp.bottom).offset(40)
+            make.top.equalTo(self.cancelOrderBtn.snp.bottom).offset(20)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }
@@ -136,10 +144,17 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
         self.payTimeLab.font = UIFont.systemFont(ofSize: 13)
         self.payTimeLab.textColor = UIColor.init(hex: "#999999")
         
+        self.payOrReservedBtn.setTitle("去付款", for: .normal)
+        self.payOrReservedBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
+        self.payOrReservedBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        self.payOrReservedBtn.layer.cornerRadius = 15
+        self.payOrReservedBtn.layer.borderWidth = 1
+        self.payOrReservedBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
+        
         self.cancelOrderBtn.setTitle("取消订单", for: .normal)
         self.cancelOrderBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
         self.cancelOrderBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.cancelOrderBtn.layer.cornerRadius = 4
+        self.cancelOrderBtn.layer.cornerRadius = 15
         self.cancelOrderBtn.layer.borderWidth = 1
         self.cancelOrderBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
         

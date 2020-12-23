@@ -148,14 +148,14 @@ class AC_XQEditPetInfoView: UIView {
         
         self.fullBodyView.bottomLab.text = "请上传宠物全身照"
         
-        self.noseView.bottomLab.text = "请上传宠物鼻头照\n(能清晰看到鼻纹)"
+        self.noseView.bottomLab.text = "请上传宠物正脸照"
         
         self.saveBtn.setTitle("保存", for: .normal)
         self.saveBtn.backgroundColor = UIColor.ac_mainColor
         self.saveBtn.layer.cornerRadius = 10
         self.saveBtn.layer.shadowColor = UIColor.ac_mainColor.cgColor
         self.saveBtn.layer.shadowOpacity = 0.2
-        self.saveBtn.layer.shadowOffset = CGSize.init(width: 8, height: 8)
+        self.saveBtn.layer.shadowOffset = CGSize.init(width: 0, height: 0)
         
         self.xq_showTextField_Navigation()
     }

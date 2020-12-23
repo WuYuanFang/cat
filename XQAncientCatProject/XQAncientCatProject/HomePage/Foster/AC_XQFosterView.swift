@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import SDCycleScrollView
 
 class AC_XQFosterView: UIView {
 
     let scrollView = UIScrollView()
+    
+    /// 轮播图
+    let cycleScrollView = SDCycleScrollView()
     
     let headerView = AC_XQBreedViewHeaderView()
     /// 商品评价
@@ -33,18 +37,32 @@ class AC_XQFosterView: UIView {
     /// 支付
     let payView = AC_XQWashProtectViewPayView()
     
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.cycleScrollView.setBottomCorner(with: 40, height: 30)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(self.scrollView)
+        self.cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
+        self.cycleScrollView.backgroundColor = UIColor.ac_mainColor
+        self.xq_addSubviews(self.cycleScrollView, self.scrollView)
+        
+        self.cycleScrollView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(self.cycleScrollView.snp.width).multipliedBy(285.0/375.0)
+        }
         
         self.scrollView.xq_addSubviews(self.headerView, self.commentView, self.appointmentView, self.petView, self.payView, self.dayView, self.houseView, self.selectBaseView, self.selectVaccinesView, self.optionView)
         
         // 布局
         
         self.scrollView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(-FootSafeHeight)
+            make.top.equalTo(self.cycleScrollView.snp.bottom)
         }
         
         let v = UIView()

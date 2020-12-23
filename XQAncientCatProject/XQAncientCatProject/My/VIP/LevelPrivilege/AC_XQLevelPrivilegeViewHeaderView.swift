@@ -84,8 +84,8 @@ class AC_XQLevelPrivilegeViewHeaderView: UIView {
         
         self.lineView.snp.makeConstraints { (make) in
             make.height.equalTo(1)
-            make.left.equalTo(16)
-            make.right.equalTo(-16)
+            make.left.equalTo(10)
+            make.right.equalTo(-10)
             make.bottom.equalTo(-25)
         }
         
@@ -117,14 +117,14 @@ class AC_XQLevelPrivilegeViewHeaderView: UIView {
 //            self.columnViews[self.columnViews.count - 1].snp.makeConstraints { (make) in
 //                make.right.equalToSuperview()
 //            }
-            
+            let wid = (SCREEN_WIDTH - 40)/6
             let dateArr = NSArray.init(array: self.columnViews)
             dateArr.mas_makeConstraints { (make) in
                 make?.top.equalTo()(self)?.offset()(20)
                 make?.bottom.equalTo()(self)?.offset()(-16)
-                make?.width.mas_equalTo()(65)
+                make?.width.mas_equalTo()(wid)
             }
-            dateArr.mas_distributeViews(along: .horizontal, withFixedSpacing: 0, leadSpacing: 25, tailSpacing: 25)
+            dateArr.mas_distributeViews(along: .horizontal, withFixedSpacing: 0, leadSpacing: 20, tailSpacing: 20)
             
             
             self.columnViews[self.selectIndex].imgView.isHidden = false

@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 
 /// 寄养
-class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_XQFosterViewSelectHouseViewDelegate, XQNumberViewDelegate, AC_XQBaseVCSrollNavigationBarGradientsProtocol, UIScrollViewDelegate {
+class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_XQFosterViewSelectHouseViewDelegate, XQNumberViewDelegate, UIScrollViewDelegate {
     
     var xq_ngbCurrentType: AC_XQBaseVCSrollNavigationBarGradientsProtocolTransparentType = .transparent
 
@@ -81,7 +81,7 @@ class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_X
                     urlArr.append(url)
                 }
             }
-            self.contentView.headerView.cycleScrollView.imageURLStringsGroup = urlArr
+            self.contentView.cycleScrollView.imageURLStringsGroup = urlArr
         }
         
         
@@ -105,7 +105,7 @@ class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_X
     
     /// 获取猫舍
     func getCatdormitory() {
-        let reqModel = XQACNTGetShopCatdormitoryReqModel.init(shopid: self.ShopInfo?.Id ?? 0)
+        let reqModel = XQACNTGetShopCatdormitoryReqModel.init(shopid: self.ShopInfo?.Id ?? 0, StartTime: Date().xq_toString("yyyy-MM-dd HH:mm"), day: self.contentView.dayView.numberView.tf.text ?? "1")
         XQACFosterNetwork.getShopCatdormitory(reqModel).subscribe(onNext: { (resModel) in
             
             if resModel.ErrCode != .succeed {
@@ -425,19 +425,8 @@ class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_X
     ///   - number: 当前值
     ///   - increaseStatus: 是否为加状态
     func numberView(_ numberView: XQNumberView, number: Float, increaseStatus: Bool) {
-        self.calculation()
+        self.getCatdormitory()
     }
     
-    // MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.xq_nbgDidScroll(with: Float(scrollView.contentOffset.y))
-    }
-    
-    // MARK: - AC_XQBaseVCSrollNavigationBarGradientsProtocol
-    
-    /// 导航栏变化回调
-    func xq_nbgChange(_ type: AC_XQBaseVCSrollNavigationBarGradientsProtocolTransparentType) {
-        print(#function, type)
-    }
     
 }
