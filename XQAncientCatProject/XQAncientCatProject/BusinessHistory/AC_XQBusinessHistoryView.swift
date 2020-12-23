@@ -175,7 +175,8 @@ class AC_XQBusinessHistoryViewBottomView: UIView {
         self.priceDesLab.text = "合计"
         self.priceDesLab.font = UIFont.systemFont(ofSize: 15)
         
-        self.settlementBtn.titleLab.text = "购买"
+        self.settlementBtn.titleLab.text = "结算"
+        self.settlementBtn.titleLab.font = UIFont.systemFont(ofSize: 20)
         
         self.managerUILayout(false)
         

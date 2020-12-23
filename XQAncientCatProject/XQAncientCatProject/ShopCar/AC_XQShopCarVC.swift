@@ -11,6 +11,7 @@ import MJRefresh
 import SVProgressHUD
 import XQAlert
 
+/// 购物车界面
 class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
     
     let contentView = AC_XQShopCarView()
@@ -25,7 +26,20 @@ class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
             make.edges.equalToSuperview()
         }
         
-        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "管理", style: .plain, target: self, action: #selector(respondsToManager)))
+        
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .ac_mainColor))
+        let rightBtn = UIButton()
+        rightBtn.setTitle("管理", for: .normal)
+        rightBtn.setTitleColor(.ac_mainColor, for: .normal)
+        rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        rightBtn.addTarget(self, action: #selector(respondsToManager), for: .touchUpInside)
+        self.xq_navigationBar.contentView.addSubview(rightBtn)
+        rightBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-8)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+            make.top.equalTo(0)
+        }
         
         self.contentView.delegate = self
         
@@ -64,6 +78,7 @@ class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
         }else {
             self.xq_navigationBar.setTitle("购物车(\(self.contentView.dataArr.count))")
         }
+        self.xq_navigationBar.backView.titleLab.textColor = .ac_mainColor
     }
     
     /// 去结算
@@ -190,3 +205,4 @@ class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
     
 
 }
+

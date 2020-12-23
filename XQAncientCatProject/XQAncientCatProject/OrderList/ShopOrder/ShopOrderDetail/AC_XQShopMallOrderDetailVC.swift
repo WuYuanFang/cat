@@ -93,16 +93,18 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             }
         }
         
-        
+        self.contentView.infoView.couponView.contentLab.text = "¥\(fosterModel.RankDiscountPrice)"
         self.contentView.infoView.moneyView.contentLab.text = "¥\(fosterModel.SurplusMoney)"
         
         self.contentView.infoView.remarkView.contentLab.text = fosterModel.BuyerRemark
         
         self.contentView.infoView.orderLab.text = "订单编号 \(fosterModel.OSN)"
-        
+        self.contentView.statusLabel.text = fosterModel.OrderStateStr
         self.contentView.infoView.refundBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true
+        self.contentView.animalImg.isHidden = true
+        self.contentView.signBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { (sender) in
             
         }
@@ -112,23 +114,36 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.refundBtn.isHidden = false
             self.contentView.infoView.cancelOrderBtn.isHidden = false
             self.contentView.infoView.cancelOrderLab.isHidden = false
+            self.contentView.animalImg.isHidden = false
+            self.contentView.infoView.refundBtn.setTitle("去付款", for: .normal)
             self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.cancelOrder()
             }
             self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                self.cancelOrder()
+                self.payOrder()
             }
             
+        }else if fosterModel.OrderState == .inInspection {
+            self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
+            self.contentView.infoView.refundBtn.isHidden = false
+            self.contentView.animalImg.isHidden = false
+            self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.refundAction()
+            }
+            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
         }else {
             
             if fosterModel.OrderState == .delivered {
+                self.contentView.signBtn.isHidden = false
                 self.contentView.infoView.refundBtn.setTitle("确认收货", for: .normal)
                 self.contentView.infoView.refundBtn.isHidden = false
                 self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                     self.sureOrder()
                 }
             }
-            
+            if fosterModel.OrderState == .refund || fosterModel.OrderState == .inStock  {
+                self.contentView.animalImg.isHidden = false
+            }
             
             self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
             
@@ -161,6 +176,22 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             }).disposed(by: self.disposeBag)
             
         }, cancelCallback: nil)
+    }
+    
+    /// 去付款
+    func payOrder() {
+        guard let model = self.orderBaseInfoModel else {
+            SVProgressHUD.showError(withStatus: "订单有误，无法支付")
+            return
+        }
+        
+        AC_XQAlertSelectPayView.show(String(model.Oid), money: model.SurplusMoney, payType: .shopMall, callback: { (payId, payType) in
+            print("支付成功: ", payType)
+            SVProgressHUD.showSuccess(withStatus: "支付成功")
+            self.getDetail()
+        }) {
+            print("隐藏了")
+        }
     }
     
     /// 取消订单

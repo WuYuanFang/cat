@@ -46,26 +46,27 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         // 布局
         
         self.orderCodeLab.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.left.equalTo(20)
+            make.top.bottom.equalTo(0)
+            make.left.equalTo(12)
             make.right.equalTo(self.statusLab.snp.left).offset(-5)
         }
         
         self.statusLab.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.right.equalTo(-20)
+            make.right.equalTo(-12)
+            make.width.greaterThanOrEqualTo(72)
         }
         
         self.iconImgView.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.bottom.equalTo(-10)
-            make.left.equalTo(20)
+            make.left.equalTo(12)
             make.width.equalTo(self.iconImgView.snp.height)
         }
         
         self.titleLab.snp.makeConstraints { (make) in
             make.top.equalTo(self.iconImgView)
-            make.left.equalTo(self.iconImgView.snp.right).offset(16)
+            make.left.equalTo(self.iconImgView.snp.right).offset(12)
             make.right.equalTo(self.originPriceLab.snp.left).offset(-5)
         }
         
@@ -76,7 +77,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         self.originPriceLab.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.titleLab)
-            make.right.equalTo(-20)
+            make.right.equalTo(-12)
         }
         
         self.numberLab.snp.makeConstraints { (make) in
@@ -92,7 +93,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         self.deleteBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(20)
+            make.left.equalTo(12)
             make.size.equalTo(CGSize.init(width: 20, height: 20))
         }
         
@@ -118,7 +119,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         // 设置属性
         
-        
+        self.orderCodeLab.numberOfLines = 2
         self.orderCodeLab.textColor = UIColor.init(hex: "#666666")
         self.orderCodeLab.font = UIFont.systemFont(ofSize: 13)
         

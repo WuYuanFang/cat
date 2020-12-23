@@ -17,10 +17,14 @@ class AC_XQShopMallOrderDetailView: AC_XQFosterOrderViewBaseView {
     
     let bottomView = AC_XQWashProtectOrderDetailViewBottomView()
     
+    let signBtn = UIButton()
+    let statusLabel = UILabel()
+    let animalImg = UIImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.headerView, self.infoView, self.bottomView)
+        self.contentView.xq_addSubviews(self.headerView, self.infoView, self.bottomView, statusLabel, animalImg, signBtn)
         
         // 布局
         
@@ -39,16 +43,51 @@ class AC_XQShopMallOrderDetailView: AC_XQFosterOrderViewBaseView {
         self.bottomView.snp.makeConstraints { (make) in
             make.top.equalTo(self.infoView.snp.bottom).offset(25)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-30)
+            make.bottom.equalTo(-FootSafeHeight-70)
         }
         
+        signBtn.setImage(UIImage(named: "icon_sign_order"), for: .normal)
+        signBtn.setTitleColor(UIColor.init(fromHexString: "#8a8a8a"), for: .normal)
+        signBtn.setTitle("3天后系统自动收货", for: .normal)
+        signBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+        signBtn.isEnabled = false
+        signBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        signBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.contentView)
+            make.height.equalTo(18)
+            make.top.equalTo(bottomView.snp.bottom)
+        }
+        
+        statusLabel.font = UIFont.systemFont(ofSize: 20)
+        statusLabel.textColor = .ac_mainColor
+        statusLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(-12)
+            make.bottom.equalTo(-FootSafeHeight-10)
+            make.height.equalTo(30)
+        }
+        animalImg.image = UIImage(named: "icon_waiting")
+        animalImg.contentMode = .scaleAspectFit
+        animalImg.snp.makeConstraints { (make) in
+            make.right.equalTo(statusLabel.snp.left).offset(-12)
+            make.height.width.equalTo(30)
+            make.centerY.equalTo(statusLabel)
+        }
+        
+        // 创建动画
+        let anim = CABasicAnimation(keyPath: "transform.rotation")
+        // 设置动画属性
+        anim.toValue = 2 * Double.pi
+        anim.repeatCount = MAXFLOAT
+        anim.duration = 1
+        anim.isRemovedOnCompletion = false
+        // 将动画添加到图层上
+        animalImg.layer.add(anim, forKey: nil)
         
         // 设置属性
         self.headerView.arrowImgView.isHidden = true
-        
-        
         self.bottomView.isHidden = true
-        
+        animalImg.isHidden = true
+        signBtn.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -71,6 +110,8 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     
     /// 会员抵扣
     let vipZKView = AC_XQFosterOrderViewInfoViewLabelView()
+    /// 优惠卷
+    let couponView = AC_XQFosterOrderViewInfoViewLabelView()
     /// 支付金额
     let moneyView = AC_XQFosterOrderViewInfoViewLabelView()
     
@@ -97,7 +138,7 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.moneyView, self.refundBtn, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.couponView, self.moneyView, self.refundBtn, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
         
         
         // 布局
@@ -126,8 +167,14 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
             make.right.equalTo(self.buyNumberView)
         }
         
-        self.moneyView.snp.makeConstraints { (make) in
+        self.couponView.snp.makeConstraints { (make) in
             make.top.equalTo(self.vipZKView.snp.bottom).offset(spacing)
+            make.left.equalTo(self.buyNumberView)
+            make.right.equalTo(self.buyNumberView)
+        }
+        
+        self.moneyView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.couponView.snp.bottom).offset(spacing)
             make.left.equalTo(self.buyNumberView)
             make.right.equalTo(self.buyNumberView)
         }
@@ -219,6 +266,8 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         
         
         self.vipZKView.titleLab.text = "会员折扣"
+        
+        self.couponView.titleLab.text = "优惠券"
         
         self.moneyView.titleLab.text = "支付金额"
         

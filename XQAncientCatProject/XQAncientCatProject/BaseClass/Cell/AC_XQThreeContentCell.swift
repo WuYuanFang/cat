@@ -23,7 +23,7 @@ class AC_XQThreeContentCell: AC_XQShadowCell {
         // 布局
         self.topContentView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(40)
+            make.height.greaterThanOrEqualTo(40)
         }
         
         self.centerContentView.snp.makeConstraints { (make) in

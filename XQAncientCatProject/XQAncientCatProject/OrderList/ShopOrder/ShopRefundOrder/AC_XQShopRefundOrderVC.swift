@@ -24,6 +24,9 @@ class AC_XQShopRefundOrderVC: XQACBaseVC {
         super.viewDidLoad()
         
         self.xq_navigationBar.setCenterTitle("申请退款")
+        self.xq_navigationBar.titleLab.textColor = .white
+        self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .white))
+        
         
         self.xq_navigationBar.statusView.backgroundColor = UIColor.init(hex: "#A9C0C2")
         self.xq_navigationBar.contentView.backgroundColor = UIColor.init(hex: "#A9C0C2")

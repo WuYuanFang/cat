@@ -101,7 +101,7 @@ class AC_XQShopMallOrderView: AC_XQFosterOrderViewBaseView {
         self.remarkTV.layer.cornerRadius = 4
         
         
-        self.payView.payBtn.titleLab.text = "确认下单"
+        self.payView.payBtn.titleLab.text = "确认订单"
         self.payView.moneyLab.textColor = UIColor.black
         
         self.xq_showTextField_Navigation()

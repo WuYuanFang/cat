@@ -17,6 +17,9 @@ class AC_XQWashProtectOrderDetailView: AC_XQFosterOrderViewBaseView {
     
     let bottomView = AC_XQWashProtectOrderDetailViewBottomView()
     
+    let statusLabel = UILabel()
+    let animalImg = UIImageView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -304,7 +304,7 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
                 }) {
                     print("隐藏了")
                     // 弹框
-                    self.navigationController?.popViewController(animated: true)
+                    self.getDetail(id: resModel.OrderInfo?.Oid ?? 0)
                 }
                 
             }, onError: { (error) in
@@ -312,6 +312,33 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
             }).disposed(by: self.disposeBag)
         }
         
+    }
+    
+    
+    // 获取订单详情
+    func getDetail(id:Int) {
+        weak var nc = self.navigationController
+        SVProgressHUD.show(withStatus: nil)
+        XQSMOrderNetwork.getOrderById(id).subscribe(onNext: { (resModel) in
+            
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            
+            SVProgressHUD.dismiss()
+            
+            
+            nc?.popViewController(animated: false)
+            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
+                let vc = AC_XQShopMallOrderDetailVC()
+                vc.orderBaseInfoModel = resModel.OrderList
+                nc?.pushViewController(vc, animated: true)
+            })
+            
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
     }
     
     // MARK: - XQNumberViewDelegate

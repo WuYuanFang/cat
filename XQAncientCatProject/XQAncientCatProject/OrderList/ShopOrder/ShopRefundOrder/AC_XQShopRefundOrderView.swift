@@ -28,18 +28,31 @@ class AC_XQShopRefundOrderView: AC_XQFosterOrderViewBaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.headerView, self.payTimeView, self.orderView, self.moneyView, self.reasonView, self.commitBtn)
+        let topV = UIView()
+        let bottomV = UIView()
+        self.contentView.xq_addSubviews(topV, bottomV, self.headerView, self.payTimeView, self.orderView, self.moneyView, self.reasonView, self.commitBtn)
+        
         
         // 布局
+        topV.backgroundColor = .white
+        topV.snp.makeConstraints { (make) in
+            make.left.top.right.equalTo(0)
+            make.height.equalTo(30)
+        }
         self.headerView.snp.makeConstraints { (make) in
-//            make.top.equalTo(20)
-            make.top.equalToSuperview()
+            make.top.equalTo(topV.snp.bottom)
             make.left.right.equalToSuperview()
             make.height.equalTo(90)
         }
+        bottomV.backgroundColor = .white
+        bottomV.snp.makeConstraints { (make) in
+            make.left.right.equalTo(0)
+            make.top.equalTo(headerView.snp.bottom)
+            make.height.equalTo(12)
+        }
         
         self.payTimeView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.headerView.snp.bottom).offset(12)
+            make.top.equalTo(bottomV.snp.bottom).offset(12)
             make.left.right.equalToSuperview()
         }
         

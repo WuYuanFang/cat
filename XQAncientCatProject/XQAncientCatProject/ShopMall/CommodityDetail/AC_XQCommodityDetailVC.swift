@@ -18,7 +18,7 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
     
     /// 外部一定要传 pId
     var pId: Int?
-    
+    let shopCarBtn = ShopCarBtn()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,15 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
             make.edges.equalToSuperview()
         }
         
-        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(image: UIImage.init(named: "shopCar_mainColor"), style: .plain, target: self, action: #selector(respondsToShopCar)))
+        shopCarBtn.setImage(UIImage.init(named: "icon_shopCar"), for: .normal)
+        shopCarBtn.addTarget(self, action: #selector(respondsToShopCar), for: .touchUpInside)
+        self.xq_navigationBar.contentView.addSubview(shopCarBtn)
+        shopCarBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-12)
+            make.top.equalTo(0)
+            make.width.height.equalTo(40)
+        }
+//        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(image: UIImage.init(named: "icon_shopCar"), style: .plain, target: self, action: ))
         
         self.contentView.headerView.commentView.xq_addTap { [unowned self] (gesture) in
             let vc = AC_XQShopMallCommentVC()
@@ -241,6 +249,7 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
                 callback(attrProductInfoModel.PId)
             }else {
                 SVProgressHUD.showSuccess(withStatus: "已加入购物车")
+                self.getShopCarNumData()
             }
             
         }, onError: { (error) in
@@ -263,6 +272,24 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
         }, onError: { (error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }).disposed(by: self.disposeBag)
+    }
+    
+    
+    /// 获取购物车商品数量
+    func getShopCarNumData() {
+        XQSMCartNetwork.getMyCart().subscribe(onNext: { (resModel) in
+            if resModel.ErrCode != .succeed {
+                return
+            }
+            self.shopCarBtn.num = resModel.CartInfo?.TotalCount ?? 0
+        }, onError: { (error) in
+        }).disposed(by: self.disposeBag)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.getShopCarNumData()
     }
     
     // MARK: - responds
@@ -305,6 +332,42 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
     /// 导航栏变化回调
     func xq_nbgChange(_ type: AC_XQBaseVCSrollNavigationBarGradientsProtocolTransparentType) {
         print(#function, type)
+    }
+    
+}
+
+class ShopCarBtn: UIButton {
+    
+    var num = 0 {
+        didSet{
+            numLabel.isHidden = num <= 0
+            numLabel.text = "\(num)"
+        }
+    }
+    
+    let numLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        numLabel.backgroundColor = .red
+        numLabel.textColor = .white
+        numLabel.font = UIFont.systemFont(ofSize: 10)
+        numLabel.textAlignment = .center
+        numLabel.layer.cornerRadius = 9
+        numLabel.clipsToBounds = true
+        addSubview(numLabel)
+        numLabel.snp.makeConstraints { (make) in
+            make.top.right.equalTo(0)
+            make.height.equalTo(18)
+            make.width.greaterThanOrEqualTo(18)
+        }
+        numLabel.isHidden = true
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }
