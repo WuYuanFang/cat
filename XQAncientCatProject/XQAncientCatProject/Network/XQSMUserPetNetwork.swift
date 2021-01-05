@@ -145,6 +145,8 @@ struct XQSMNTGetMyPetListUserPetInfoModel: HandyJSON {
     /// 年龄描述
     var AgeDesc = ""
     
+    /// 订单id
+    var oid: Int = 0
     
     
 }

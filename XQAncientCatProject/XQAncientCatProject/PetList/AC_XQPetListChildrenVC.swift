@@ -118,7 +118,49 @@ class AC_XQPetListChildrenVC: XQACBaseVC, AC_XQPetListChildrenViewDelegate {
     /// 点击前往对应的订单页面
     func getToOrderDetail(_ petListChildrenView: AC_XQPetListChildrenView, didSelectAt indexPath: IndexPath) {
         let model = self.contentView.dataArr[indexPath.row]
-        
+        if model.State == .foster {
+            // 寄养
+            getFosterDetailData(id: model.oid)
+        }else if model.State == .washProtect {
+            // 洗护
+            getWashOrderDetail(id: model.oid)
+        }
+    }
+    
+    
+    /// 获取洗护订单详情
+    func getWashOrderDetail(id:Int) {
+        SVProgressHUD.show(withStatus: nil)
+        XQSMToShopOrderNetwork.getToOrderById(id).subscribe(onNext: { (resModel) in
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            SVProgressHUD.dismiss()
+            let vc = AC_XQWashProtectOrderDetailVC()
+            vc.fosterModel = resModel.ToOrderItem
+            self.navigationController?.pushViewController(vc, animated: true)
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
+    }
+    
+    /// 获取寄养订单详情
+    func getFosterDetailData(id:Int) {
+        XQACFosterNetwork.fosterDetails(id).subscribe(onNext: { (resModel) in
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            let vc = AC_XQFosterOrderDetailVC()
+            vc.fosterModel = resModel.model
+            vc.refreshCallback = { [unowned self] in
+                self.getData()
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
     }
     
 }

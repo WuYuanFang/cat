@@ -161,7 +161,7 @@ class AC_XQVIPViewHeaderViewCarView: UIView {
         
         self.couponView.bottomLabel.text = "优惠券"
         
-        self.scoreView.bottomLabel.text = "积分"
+        self.scoreView.bottomLabel.text = "等级积分"
         
         
 //        self.couponView.topLabel.text = "0"

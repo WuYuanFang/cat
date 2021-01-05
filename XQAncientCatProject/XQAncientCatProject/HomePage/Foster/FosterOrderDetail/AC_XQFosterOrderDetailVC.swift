@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import XQAlert
+import SwiftRichString
 
 /// 寄养订单详情
 class AC_XQFosterOrderDetailVC: XQACBaseVC {
@@ -107,13 +108,18 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.payOrReservedBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true
+        if fosterModel.PayType == 2 {
+            // PayType
+            self.contentView.infoView.payTimeLab.text = "付款时间: \(fosterModel.PayTime)"
+            self.contentView.infoView.payTypeLab.text = "支付方式: \(fosterModel.PayTime)"
+        }
         if fosterModel.PayType == 2, fosterModel.State == .orderPlaced {
             self.contentView.infoView.payOrReservedBtn.isHidden = false
             self.contentView.infoView.payOrReservedBtn.setTitle("申请退款", for: .normal)
             self.contentView.infoView.payOrReservedBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.refundToOrder()
             }
-            self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
+//            self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
         }else if fosterModel.PayType == 1, fosterModel.State == .orderPlaced {
             self.contentView.infoView.payTimeLab.text = ""
             self.contentView.infoView.payOrReservedBtn.isHidden = false
@@ -134,8 +140,8 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
 //                self.cancelOrder()
 //            }
             
-        }else {
-            self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
+//        }else {
+//            self.contentView.infoView.payTimeLab.text = fosterModel.PayTime
         }
         
         

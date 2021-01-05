@@ -88,6 +88,8 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
     let copyBtn = UIButton()
     /// 支付时间
     let payTimeLab = UILabel()
+    /// 支付方式
+    let payTypeLab = UILabel()
     
     
     let spacing: CGFloat = 12
@@ -95,7 +97,7 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.dayView, self.vipZKView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.dayView, self.vipZKView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab, self.payTypeLab)
         
         
         // 布局
@@ -176,9 +178,12 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
         self.payTimeLab.snp.makeConstraints { (make) in
             make.top.equalTo(self.orderLab.snp.bottom).offset(5)
             make.left.equalTo(self.orderLab)
+        }
+        self.payTypeLab.snp.makeConstraints { (make) in
+            make.top.equalTo(self.payTimeLab.snp.bottom).offset(5)
+            make.left.equalTo(self.orderLab)
             make.bottom.equalTo(-30)
         }
-        
         
         // 设置属性
         
