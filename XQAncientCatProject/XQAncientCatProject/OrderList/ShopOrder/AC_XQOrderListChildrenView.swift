@@ -94,11 +94,11 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             cell.originPriceLab.text = ""
             cell.numberLab.text = ""
             
+            cell.messageLab.text = product.Specs
         }
         
         cell.priceLab.text = "¥\(model.SurplusMoney)"
         
-        cell.messageLab.text = ""
         
         cell.deleteBtn.isHidden = true
         
@@ -113,14 +113,16 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             
         }
         
-//        #if DEBUG
+        #if DEBUG
 //        cell.statusBtn.isHidden = false
 //
 //        cell.statusBtn.setTitle("查看物流", for: .normal)
 //        cell.statusBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
 //            self.delegate?.orderListChildrenView(viewLogistics: self, didSelectRowAt: indexPath)
 //        }
-//        #endif
+        #endif
+        
+        cell.model = model
         
         switch model.OrderState {
         /// 等待付款
@@ -139,10 +141,13 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             /// 已确认
             /// 备货中
         case .inInspection, .confirmed, .inStock:
-            cell.funcBtn.isHidden = false
-            cell.funcBtn.setTitle("退款", for: .normal)
-            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                self.delegate?.orderListChildrenView(refundOrder: self, didSelectRowAt: indexPath)
+            if DK_TimerManager.getLastTime("2021-01-06 13:43:00").count > 0 {
+                cell.funcBtn.isHidden = false
+                cell.funcBtn.setTitle("申请退款", for: .normal)
+                cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                    self.delegate?.orderListChildrenView(refundOrder: self, didSelectRowAt: indexPath)
+                }
+                cell.statusBtn.isHidden = false
             }
             
             /// 已发货

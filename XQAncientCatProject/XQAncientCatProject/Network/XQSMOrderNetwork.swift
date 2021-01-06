@@ -252,6 +252,8 @@ struct XQSMNTOrderProductDtoModel: HandyJSON {
     var PayCredits: Int = 0
     /// AddTime (string, optional): 添加时间
     var AddTime: String = ""
+    /// 商品规格
+    var Specs: String = ""
     
     mutating func mapping(mapper: HelpingMapper) {
         mapper <<<

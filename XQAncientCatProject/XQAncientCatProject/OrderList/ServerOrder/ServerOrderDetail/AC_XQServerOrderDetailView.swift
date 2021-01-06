@@ -20,20 +20,20 @@ class AC_XQServerOrderDetailView: UIView {
     let dayLab = UILabel()
     
     let videoImgView = UIImageView()
-    let videoLab = UILabel()
+    let videoBtn = UIButton()
     
     /// 订单详情
     let detailBtn = UIButton()
     /// 结束寄养
     let cancelBtn = UIButton()
     /// 增加天数
-    let dayBtn = UIButton()
+//    let dayBtn = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.xq_addSubviews(self.bottomView)
-        self.bottomView.xq_addSubviews(self.lineView, self.imgView, self.titleLab, self.dayLab, self.videoLab, self.videoImgView, self.detailBtn, self.dayBtn)
+        self.bottomView.xq_addSubviews(self.lineView, self.imgView, self.titleLab, self.dayLab, self.videoBtn, self.videoImgView, self.detailBtn)
         
         // 布局
         self.bottomView.snp.makeConstraints { (make) in
@@ -69,7 +69,7 @@ class AC_XQServerOrderDetailView: UIView {
             make.size.centerX.equalTo(self.imgView)
         }
         
-        self.videoLab.snp.makeConstraints { (make) in
+        self.videoBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.videoImgView)
             make.left.equalTo(self.titleLab)
             make.right.equalTo(-12)
@@ -78,15 +78,15 @@ class AC_XQServerOrderDetailView: UIView {
         self.detailBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self.videoImgView.snp.bottom).offset(30)
             make.size.equalTo(CGSize.init(width: 80, height: 40))
-            make.centerX.equalToSuperview().multipliedBy(0.65)
+            make.centerX.equalToSuperview()
             make.bottom.equalTo(-49)
         }
         
-        self.dayBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self.detailBtn)
-            make.centerX.equalToSuperview().multipliedBy(1.35)
-            make.size.equalTo(self.detailBtn)
-        }
+//        self.dayBtn.snp.makeConstraints { (make) in
+//            make.top.equalTo(self.detailBtn)
+//            make.centerX.equalToSuperview().multipliedBy(1.35)
+//            make.size.equalTo(self.detailBtn)
+//        }
         
         
         // 设置属性
@@ -100,18 +100,18 @@ class AC_XQServerOrderDetailView: UIView {
         self.dayLab.textColor = UIColor.init(hex: "#9A9A9A")
         self.dayLab.font = UIFont.systemFont(ofSize: 15)
         
-        self.videoLab.textColor = UIColor.ac_mainColor
+        self.videoBtn.setTitleColor(.ac_mainColor, for: .normal)
         
         self.imgView.image = UIImage.init(named: "fosterOrder_phone")
         self.videoImgView.image = UIImage.init(named: "fosterOrder_camera")
         
         self.configBtn(self.detailBtn, title: "查看订单")
-        self.configBtn(self.dayBtn, title: "增加天数")
+//        self.configBtn(self.dayBtn, title: "增加天数")
         
         self.titleLab.text = "宠物寄养中，请安心等待"
 //        self.dayLab.text = "寄养还剩0天"
         self.dayLab.text = ""
-        self.videoLab.text = "实时监控"
+        self.videoBtn.setTitle("实时监控", for: .normal)
         
     }
     

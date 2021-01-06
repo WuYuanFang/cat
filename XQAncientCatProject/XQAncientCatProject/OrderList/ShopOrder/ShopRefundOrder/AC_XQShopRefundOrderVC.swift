@@ -9,6 +9,7 @@
 import UIKit
 import XQProjectTool
 import SVProgressHUD
+import SwiftRichString
 
 class AC_XQShopRefundOrderVC: XQACBaseVC {
     
@@ -60,8 +61,10 @@ class AC_XQShopRefundOrderVC: XQACBaseVC {
         if let model = self.orderBaseInfoModel?.ProductList?.first {
             self.contentView.headerView.imgView.sd_setImage(with: model.ShowImg.sm_getImgUrl())
             self.contentView.headerView.nameLab.text = model.Name
-            self.contentView.headerView.messageLab.text = "¥\(self.orderBaseInfoModel?.SurplusMoney.xq_removeDecimalPointZero() ?? "")"
-            self.contentView.headerView.priceLab.text = "x\(model.BuyCount)"
+            self.contentView.headerView.messageLab.text = model.Specs
+            self.contentView.headerView.priceLab.text = "¥ \(self.orderBaseInfoModel?.SurplusMoney.xq_removeDecimalPointZero() ?? "")"
+            self.contentView.headerView.haveNumberUILayout()
+            self.contentView.headerView.numberLab.text = "x\(model.BuyCount)"
         }
         
         

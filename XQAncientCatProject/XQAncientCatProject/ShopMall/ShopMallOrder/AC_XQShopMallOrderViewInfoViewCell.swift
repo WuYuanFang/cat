@@ -59,16 +59,15 @@ class AC_XQShopMallOrderViewInfoViewCellContentView: UIView {
         self.xq_addSubviews(self.imgView, self.nameLab, self.messageLab, self.priceLab, self.numberLab)
         
         // 布局
-        
-        
         self.imgView.snp.makeConstraints { (make) in
-            make.top.left.bottom.equalToSuperview()
+            make.left.top.equalTo(6)
+            make.bottom.equalTo(-6)
+//            make.top.left.bottom.equalToSuperview()
             make.width.equalTo(self.imgView.snp.height).multipliedBy(72.0/63.0)
         }
-        
         self.nameLab.snp.makeConstraints { (make) in
-            make.top.equalTo(10)
-            make.left.equalTo(self.imgView.snp.right).offset(20)
+            make.top.equalTo(8)
+            make.left.equalTo(self.imgView.snp.right).offset(12)
             make.right.equalTo(self.priceLab.snp.left).offset(-5)
         }
         
@@ -79,8 +78,8 @@ class AC_XQShopMallOrderViewInfoViewCellContentView: UIView {
         
         self.priceLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.priceLab.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.right.equalTo(-12)
+            make.top.equalTo(8)
+            make.right.equalTo(-8)
         }
         
         // 设置属性
@@ -93,6 +92,7 @@ class AC_XQShopMallOrderViewInfoViewCellContentView: UIView {
         self.imgView.layer.masksToBounds = true
         self.imgView.contentMode = .scaleAspectFill
         
+        self.nameLab.numberOfLines = 2
         self.nameLab.font = UIFont.systemFont(ofSize: 15)
         
         self.messageLab.font = self.nameLab.font

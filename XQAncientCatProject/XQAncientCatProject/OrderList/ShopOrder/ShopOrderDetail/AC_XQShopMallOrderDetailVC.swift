@@ -78,6 +78,7 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.productView.nameLab.text = orderProductInfo.Name
 //            self.contentView.infoView.productView.priceLab.text = "¥\(orderProductInfo.ShopPrice)"
             self.contentView.infoView.productView.priceLab.text = "¥\(fosterModel.SurplusMoney)"
+            self.contentView.infoView.productView.messageLab.text = orderProductInfo.Specs
             
             self.contentView.infoView.buyNumberView.contentLab.text = "\(orderProductInfo.BuyCount)"
         }

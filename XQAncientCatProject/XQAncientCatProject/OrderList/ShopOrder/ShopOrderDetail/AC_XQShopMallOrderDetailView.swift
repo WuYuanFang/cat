@@ -145,8 +145,8 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         self.productView.snp.makeConstraints { (make) in
             make.top.equalTo(12)
             make.left.equalTo(12)
-            make.right.equalTo(-20)
-            make.height.equalTo(75)
+            make.right.equalTo(-12)
+            make.height.equalTo(80)
         }
         
         self.buyNumberView.snp.makeConstraints { (make) in

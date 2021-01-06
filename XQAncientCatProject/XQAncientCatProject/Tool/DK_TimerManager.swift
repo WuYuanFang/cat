@@ -57,8 +57,8 @@ class DK_TimerManager{
         guard let time = timeStr?.xq_toDate() else {
             return ""
         }
-        if (time + 1.hours).timeIntervalSince(Date()+8.hours) > 0 {
-            return transToHourMinSec(time: (time + 1.hours).timeIntervalSince(Date()+8.hours))
+        if (time + 1.hours).timeIntervalSince(Date()) > 0 {
+            return transToHourMinSec(time: (time + 1.hours).timeIntervalSince(Date()))
         }else{
             return ""
         }

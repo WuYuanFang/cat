@@ -10,6 +10,8 @@ import UIKit
 
 class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
     
+    var model:XQSMNTOrderBaseInfoDtoModel?
+    
     
     let orderCodeLab = UILabel()
     let statusLab = UILabel()
@@ -25,16 +27,28 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
     let dateLab = UILabel()
     let statusBtn = UIButton()
     let funcBtn = UIButton()
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @objc func updateTime() {
+        if let m = model, (m.OrderState == .inInspection || m.OrderState == .confirmed || m.OrderState == .inStock) {
+            if DK_TimerManager.getLastTime(m.PayTime).count > 0 {
+                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime), for: .normal)
+            }else{
+                statusBtn.isHidden = true
+                funcBtn.isHidden = true
+                NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
+            }
+        }
     }
     
+    deinit {
+        print("cell已经销毁")
+        NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: timeNoti, object: nil)
         
         self.topContentView.xq_addSubviews(self.orderCodeLab, self.statusLab)
         

@@ -27,18 +27,20 @@ class AC_XQServerOrderDetailVC: XQACBaseVC {
         }
         
         
-        self.contentView.dayBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-            
-            if let shopModel = XQSMNTToShopIndexModel.xq_getModel() {
-                let vc = AC_XQFosterVC()
-                vc.ShopInfo = shopModel
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else {
-                SVProgressHUD.showInfo(withStatus: "获取不到附近商店信息")
-            }
-            
+//        self.contentView.dayBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+//
+//            if let shopModel = XQSMNTToShopIndexModel.xq_getModel() {
+//                let vc = AC_XQFosterVC()
+//                vc.ShopInfo = shopModel
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }else {
+//                SVProgressHUD.showInfo(withStatus: "获取不到附近商店信息")
+//            }
+//
+//        }
+        self.contentView.videoBtn.xq_addEvent(.touchUpInside) { (sender) in
+            SVProgressHUD.showInfo(withStatus: "即将上线,敬请期待")
         }
-        
         self.contentView.detailBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
             
             if let _ = self.fosterModel {

@@ -34,7 +34,7 @@ class AC_XQShadowCollectionViewCell: UICollectionViewCell {
         
         self.xq_shadowContentView.backgroundColor = UIColor.white
         self.xq_shadowContentView.layer.cornerRadius = 15
-        self.xq_shadowContentView.layer.shadowOffset = CGSize.init(width: 6, height: 6)
+        self.xq_shadowContentView.layer.shadowOffset = CGSize.init(width: 0, height: 0)
         self.xq_shadowContentView.layer.shadowOpacity = 0.15
         self.xq_shadowContentView.layer.shadowColor = UIColor.black.cgColor
         

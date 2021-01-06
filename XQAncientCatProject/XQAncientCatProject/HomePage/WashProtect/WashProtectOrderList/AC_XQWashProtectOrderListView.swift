@@ -88,6 +88,14 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
         
         cell.funcBtn.isHidden = true
         
+        
+//        #if DEBUG
+//        model.State = .reserved
+//        model.CanRefund = true
+//        #endif
+        
+        cell.washModel = model
+        
         switch model.State {
         case .waitPay:
 //            cell.statusLab.text = "待支付"
@@ -105,10 +113,13 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
             
         case .reserved:
             if model.CanRefund {
-                cell.funcBtn.isHidden = false
-                cell.funcBtn.setTitle("退款", for: .normal)
-                cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                    self.delegate?.washProtectOrderListView(refund: self, didSelectRowAt: indexPath)
+                if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
+                    cell.funcBtn.isHidden = false
+                    cell.funcBtn.setTitle("申请退款", for: .normal)
+                    cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                        self.delegate?.washProtectOrderListView(refund: self, didSelectRowAt: indexPath)
+                    }
+                    cell.statusBtn.isHidden = false
                 }
             }
             
