@@ -367,6 +367,7 @@
 		A4FEB90C24B5760300955072 /* XQSMHomePageNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB90B24B5760300955072 /* XQSMHomePageNetwork.swift */; };
 		A4FEB90E24B5766900955072 /* XQSMAroundShopNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB90D24B5766900955072 /* XQSMAroundShopNetwork.swift */; };
 		A4FEB91024B576ED00955072 /* XQSMToShopOrderNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB90F24B576ED00955072 /* XQSMToShopOrderNetwork.swift */; };
+		ABCE742325A4ACE500FE6B0A /* DK_TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCE742225A4ACE500FE6B0A /* DK_TimerManager.swift */; };
 		FE4FBD974BE2ED40C08FAAA8 /* Pods_XQAncientCatProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B93739139CDAC3B4768A0B3C /* Pods_XQAncientCatProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -738,6 +739,7 @@
 		A4FEB90B24B5760300955072 /* XQSMHomePageNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XQSMHomePageNetwork.swift; sourceTree = "<group>"; };
 		A4FEB90D24B5766900955072 /* XQSMAroundShopNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XQSMAroundShopNetwork.swift; sourceTree = "<group>"; };
 		A4FEB90F24B576ED00955072 /* XQSMToShopOrderNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XQSMToShopOrderNetwork.swift; sourceTree = "<group>"; };
+		ABCE742225A4ACE500FE6B0A /* DK_TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DK_TimerManager.swift; sourceTree = "<group>"; };
 		B93739139CDAC3B4768A0B3C /* Pods_XQAncientCatProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XQAncientCatProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA7E6616401782BC824EBB /* Pods-XQAncientCatProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XQAncientCatProject.debug.xcconfig"; path = "Target Support Files/Pods-XQAncientCatProject/Pods-XQAncientCatProject.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1672,6 +1674,7 @@
 				6853C0582593482600FACD00 /* DKAttributes.swift */,
 				A412124124BBEE9C0026D0A0 /* XQDateString.swift */,
 				A4D999D725119D8800294CFD /* ACXQCommon.swift */,
+				ABCE742225A4ACE500FE6B0A /* DK_TimerManager.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -2348,6 +2351,7 @@
 				A42DF7E9250A0AD300627A6F /* AC_XQShopRefundOrderVC.swift in Sources */,
 				A49DE9632490E44A0012B709 /* AC_XQSetVC.swift in Sources */,
 				A4FEB91024B576ED00955072 /* XQSMToShopOrderNetwork.swift in Sources */,
+				ABCE742325A4ACE500FE6B0A /* DK_TimerManager.swift in Sources */,
 				A4919B5823B35CAA00965AA8 /* XQACTabBarContentView.swift in Sources */,
 				A4A03EE624908D04003D628F /* XQWaterfallCollectionImageView.swift in Sources */,
 				A496BE7B249312AA005890EF /* AC_XQScoreViewHeaderView.swift in Sources */,
@@ -2770,6 +2774,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = NAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = XQAncientCatProject/XQAncientCatProject.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = UJ7TWWYC32;
@@ -2793,6 +2798,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.miacid.catwxq;
 				PRODUCT_NAME = "小古猫";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XQAncientCatProject/XQAncientCatProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2808,6 +2814,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = NAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = XQAncientCatProject/XQAncientCatProject.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = UJ7TWWYC32;
@@ -2831,6 +2838,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.miacid.catwxq;
 				PRODUCT_NAME = "小古猫";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "XQAncientCatProject/XQAncientCatProject-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

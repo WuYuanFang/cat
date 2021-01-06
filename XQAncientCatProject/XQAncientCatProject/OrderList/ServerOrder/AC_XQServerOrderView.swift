@@ -69,11 +69,11 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: result, for: indexPath) as! AC_XQServerOrderViewCell
         
-        let model = self.dataArr[indexPath.row]
+        var model = self.dataArr[indexPath.row]
         
-//        #if DEBUG
-//        model.PayType = 2
-//        #endif
+        #if DEBUG
+        model.PayType = 2
+        #endif
         
         cell.originPriceLab.isHidden = false
         cell.statusBtn.isHidden = true
@@ -100,12 +100,16 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
         case .orderPlaced:
             
             if model.PayType == 2 {
-                cell.funcBtn.isHidden = false
-                cell.funcBtn.setTitle("申请退款", for: .normal)
-                cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                    self.delegate?.serverOrderView(refundToOrder: self, didSelectRowAt: indexPath)
+                // 超过了退款时间
+                if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
+                    cell.funcBtn.isHidden = false
+                    cell.funcBtn.setTitle("申请退款", for: .normal)
+                    cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                        self.delegate?.serverOrderView(refundToOrder: self, didSelectRowAt: indexPath)
+                    }
+                    cell.statusBtn.isHidden = false
+                    cell.statusBtn.setTitle(DK_TimerManager.getLastTime(model.PayTime), for: .normal)
                 }
-                
             }else {
                 cell.funcBtn.isHidden = false
                 cell.funcBtn.setTitle("去付款", for: .normal)
