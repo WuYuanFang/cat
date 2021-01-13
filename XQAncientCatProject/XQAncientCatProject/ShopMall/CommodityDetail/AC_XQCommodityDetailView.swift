@@ -72,7 +72,17 @@ class AC_XQCommodityDetailView: UIView {
             self.headerView.originMoneyLab.text = "¥\(productInfoModel.MarketPrice)"
             self.headerView.originMoneyLab.xqAtt_setStrikethroughStyle(.single, range: NSRange.init(location: 0, length: self.headerView.originMoneyLab.text?.count ?? 0))
             
-            self.contentView.detailView.webView.loadHTMLString(productInfoModel.xq_description, baseURL: nil)
+            let htmlStr = String(format: "<head><style>img{max-width:%f !important;height:auto}</style></head>%@", SCREEN_WIDTH, productInfoModel.xq_description)
+            
+            if let data:Data = htmlStr.data(using: .unicode, allowLossyConversion: true) {
+                do {
+                    let attrStr = try NSMutableAttributedString(data: data, options: [NSAttributedString.DocumentReadingOptionKey.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+                    self.contentView.detailView.detailLabel.attributedText = attrStr
+                }catch{
+                }
+            }
+            
+//            self.contentView.detailView.webView.loadHTMLString(htmlStr, baseURL: nil)
             
             
             self.payView.priceLab.text = "¥\(productInfoModel.ShopPrice * self.contentView.specView.numberView.numberView.currentNumber)"

@@ -16,7 +16,7 @@ class AC_XQCommodityDetailViewContentView: UIView {
     private let contentView = UIView()
     
     /// 产品详情
-    let detailView = XQAutoHeightWebView()
+    let detailView = DKAutoContentView()
 //    let paramView = AC_XQCommodityDetailViewContentViewParamView()
 //    let detailView = AC_XQLiveBusinessDetailViewDetailView()
 //    let showView = AC_XQLiveBusinessDetailViewShowView()

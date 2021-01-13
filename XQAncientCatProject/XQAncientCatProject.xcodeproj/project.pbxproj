@@ -18,6 +18,7 @@
 		397EBF5C23C02577007EC8D4 /* AC_XQMallSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397EBF5B23C02577007EC8D4 /* AC_XQMallSearchView.swift */; };
 		3991552223B4F48C004AE781 /* XQUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3991552123B4F48C004AE781 /* XQUIViewExtension.swift */; };
 		6853C0592593482600FACD00 /* DKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853C0582593482600FACD00 /* DKAttributes.swift */; };
+		68587F9325AEF6F200DCE19B /* DKAutoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68587F9225AEF6F200DCE19B /* DKAutoContentView.swift */; };
 		9E02A170248289AE000630A8 /* AC_YCMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */; };
 		9E02A17424829552000630A8 /* AC_YCMyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */; };
 		9E02A1762482A383000630A8 /* AC_YCMyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A1752482A383000630A8 /* AC_YCMyInfoHeaderView.swift */; };
@@ -383,6 +384,7 @@
 		397EBF5B23C02577007EC8D4 /* AC_XQMallSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_XQMallSearchView.swift; sourceTree = "<group>"; };
 		3991552123B4F48C004AE781 /* XQUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XQUIViewExtension.swift; sourceTree = "<group>"; };
 		6853C0582593482600FACD00 /* DKAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAttributes.swift; sourceTree = "<group>"; };
+		68587F9225AEF6F200DCE19B /* DKAutoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKAutoContentView.swift; sourceTree = "<group>"; };
 		7A418D6247D45242F5AA4AC9 /* Pods-XQAncientCatProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XQAncientCatProject.release.xcconfig"; path = "Target Support Files/Pods-XQAncientCatProject/Pods-XQAncientCatProject.release.xcconfig"; sourceTree = "<group>"; };
 		9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyViewController.swift; sourceTree = "<group>"; };
 		9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyHeaderView.swift; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 				A45B4E6224A881FD00496C47 /* AC_XQCommodityDetailViewHeaderView.swift */,
 				A45B4E6024A87D5D00496C47 /* AC_XQCommodityDetailViewPayView.swift */,
 				A44B292024AB277C00C14B7E /* Spec */,
+				68587F9225AEF6F200DCE19B /* DKAutoContentView.swift */,
 			);
 			path = CommodityDetail;
 			sourceTree = "<group>";
@@ -2607,6 +2610,7 @@
 				A40871EB24D1732200024841 /* AC_XQScoreMallDetailVC.swift in Sources */,
 				A485E91F246D79AB00B8A179 /* AC_XQShopCarVC.swift in Sources */,
 				A424FADD246FE74100E50564 /* AC_XQSegmentView.swift in Sources */,
+				68587F9325AEF6F200DCE19B /* DKAutoContentView.swift in Sources */,
 				A4B3217124ADD7250025292D /* AC_XQFosterOrderViewHeaderView.swift in Sources */,
 				A48BAB7624C144C2004D0E39 /* XQAlertSelectFoodViewCell.swift in Sources */,
 				A40871F724D17DE700024841 /* AC_XQSetPersonalInformationVCCell.swift in Sources */,
