@@ -36,6 +36,11 @@ class AC_XQScoreMallView: UIView {
         self.welfareView.titleLab.text = "热门兑换"
         
         self.allView.titleLab.text = "全部"
+        self.allView.sortBtn.setTitle("积分排序", for: .normal)
+        self.allView.sortBtn.setImage(UIImage(named: "icon_jifen_sort_3"), for: .normal)
+        self.allView.sortBtn.setImage(UIImage(named: "icon_jifen_sort_2"), for: .selected)
+        self.allView.sortBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 16)
+        self.allView.sortBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 70, bottom: 0, right: -70)
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +58,7 @@ protocol AC_XQScoreMallViewAllViewDelegate: NSObjectProtocol {
 class AC_XQScoreMallViewAllView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let titleLab = UILabel()
+    let sortBtn = UIButton()
     
     var collectionView: UICollectionView!
     private let cellReuseIdentifier = "cellReuseIdentifier"
@@ -74,12 +80,19 @@ class AC_XQScoreMallViewAllView: UIView, UICollectionViewDataSource, UICollectio
         
         self.addSubview(self.collectionView)
         self.addSubview(self.titleLab)
-        
+        self.addSubview(self.sortBtn)
+        self.sortBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        self.sortBtn.setTitleColor(.ac_mainColor, for: .normal)
         // 布局
         
         self.titleLab.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.left.equalTo(16)
+        }
+        self.sortBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(-20)
+            make.height.equalTo(24)
+            make.centerY.equalTo(self.titleLab)
         }
         
         self.collectionView.snp.makeConstraints { (make) in

@@ -137,6 +137,8 @@ enum XQSMNTGetOrderListReqModelState: Int, HandyJSONEnum {
     case refund = 180
     /// 退款完成
     case refundDone = 200
+    /// 退款失败
+    case refundFail = 210
     
     /// 已完成
     case done = 230

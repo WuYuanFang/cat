@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import XQAlert
 import SwiftDate
+import SwiftRichString
 
 // 洗护订单详情
 class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
@@ -144,7 +145,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         if fosterModel.State == .waitPay || fosterModel.State == .cancel {
             self.contentView.infoView.payTimeLab.text = ""
         }else {
-            self.contentView.infoView.payTimeLab.text = "付款时间: \(fosterModel.PayTime)"
+            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(getPayModel(fosterModel.PayType))".set(style: lineSpace6)
         }
     }
     

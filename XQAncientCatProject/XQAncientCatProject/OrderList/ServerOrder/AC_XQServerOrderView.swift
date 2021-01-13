@@ -93,6 +93,7 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.funcBtn.isHidden = true
+        cell.downStatusLab.isHidden = true
         
         cell.statusLab.text = model.getStateDes()
         cell.serverModel = model
@@ -141,7 +142,7 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
             
         case .successfulRefund:
             cell.deleteBtn.isHidden = false
-        
+            cell.downStatusLab.text = "退款成功"
         }
         
         return cell

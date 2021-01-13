@@ -132,7 +132,7 @@ class AC_XQShopMallViewHeaderView: UIView {
 //
 //        let imgHeight = width / imgScale
         
-        let height = CGFloat(20 + 35 + 16 + 30 + 12) + XQIOSDevice.getStatusHeight() + 16
+        let height = CGFloat(20 + 35 + 16 + 12) + XQIOSDevice.getStatusHeight() + 16
         
         return CGSize.init(width: width, height: height)
     }

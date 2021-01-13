@@ -370,7 +370,7 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
             return "服务结束"
             
         case .cancel:
-            return "已取消"
+            return "交易关闭"
             
         case .waitingComments:
             return "已完成"
@@ -379,7 +379,7 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
             return "退款中"
             
         case .successfulRefund:
-            return "退款成功"
+            return "交易关闭"
         
         }
         
@@ -451,6 +451,9 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
     
     /// PayTime (string, optional): 支付时间 ,
     var PayTime = ""
+    
+    /// PayModel (string, optional): 支付方式 aliPay、wechat ,
+    var PayModel = ""
     
     /// State (integer, optional): 订单状态 1 已下单 2接送中 3已完成 4取消 ,
     var State: XQACNTFosterGM_FosterModel.State = .orderPlaced

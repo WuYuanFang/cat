@@ -27,6 +27,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
     let dateLab = UILabel()
     let statusBtn = UIButton()
     let funcBtn = UIButton()
+    let downStatusLab = UILabel()
     
     @objc func updateTime() {
         if let m = model, (m.OrderState == .inInspection || m.OrderState == .confirmed || m.OrderState == .inStock) {
@@ -54,7 +55,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         self.centerContentView.xq_addSubviews(self.iconImgView, self.titleLab, self.messageLab, self.priceLab, self.numberLab, self.originPriceLab)
         
-        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.dateLab, self.funcBtn, self.statusBtn)
+        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.dateLab, self.funcBtn, self.statusBtn, self.downStatusLab)
         
         
         // 布局
@@ -118,6 +119,11 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         }
         
         let funcBtnHeight: CGFloat = 26
+        self.downStatusLab.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-10)
+            make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
+        }
         self.funcBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
@@ -140,6 +146,10 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         self.statusLab.textColor = UIColor.ac_mainColor
         self.statusLab.font = UIFont.systemFont(ofSize: 14)
         self.statusLab.textAlignment = .right
+        
+        self.downStatusLab.textColor = UIColor.systemYellow
+        self.downStatusLab.font = UIFont.systemFont(ofSize: 14)
+        self.downStatusLab.isHidden = true
         
         self.originPriceLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.originPriceLab.textColor = UIColor.init(hex: "#999999")

@@ -104,6 +104,7 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         
         cell.statusBtn.isHidden = true
         cell.funcBtn.isHidden = true
+        cell.downStatusLab.isHidden = true
         
         cell.funcBtn.xq_addEvent(.touchUpInside) { (sender) in
             
@@ -141,7 +142,7 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             /// 已确认
             /// 备货中
         case .inInspection, .confirmed, .inStock:
-            if DK_TimerManager.getLastTime("2021-01-06 13:43:00").count > 0 {
+            if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
                 cell.funcBtn.isHidden = false
                 cell.funcBtn.setTitle("申请退款", for: .normal)
                 cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
@@ -202,6 +203,11 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.orderListChildrenView(delete: self, didSelectRowAt: indexPath)
             }
+            cell.downStatusLab.isHidden = false
+            cell.downStatusLab.text = "退款成功"
+        case .refundFail:
+            cell.downStatusLab.isHidden = false
+            cell.downStatusLab.text = "退款失败"
             
         /// 已完成
         case .done:

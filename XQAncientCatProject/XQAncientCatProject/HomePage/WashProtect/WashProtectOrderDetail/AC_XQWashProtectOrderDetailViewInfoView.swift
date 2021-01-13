@@ -142,6 +142,7 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
         self.orderLab.textColor = UIColor.init(hex: "#999999")
         
         self.payTimeLab.font = UIFont.systemFont(ofSize: 13)
+        self.payTimeLab.numberOfLines = 2
         self.payTimeLab.textColor = UIColor.init(hex: "#999999")
         
         self.payOrReservedBtn.setTitle("去付款", for: .normal)

@@ -87,7 +87,7 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
         cell.statusLab.text = model.StateDesc
         
         cell.funcBtn.isHidden = true
-        
+        cell.downStatusLab.isHidden = true
         
 //        #if DEBUG
 //        model.State = .reserved
@@ -142,6 +142,8 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
             cell.deleteBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
                 self.delegate?.washProtectOrderListView(delete: self, didSelectRowAt: indexPath)
             }
+            cell.downStatusLab.isHidden = false
+            cell.downStatusLab.text = "退款成功"
 //            cell.funcBtn.isHidden = false
 //            cell.funcBtn.setTitle("删除", for: .normal)
 //            cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in

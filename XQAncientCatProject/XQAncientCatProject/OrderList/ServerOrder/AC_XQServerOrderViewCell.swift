@@ -28,6 +28,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
     let deleteBtn = UIButton()
     let statusBtn = UIButton()
     let funcBtn = UIButton()
+    let downStatusLab = UILabel()
     
     @objc func updateTime() {
         if let m = serverModel, m.State == .orderPlaced, m.PayType == 2 {
@@ -64,7 +65,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         
         self.centerContentView.xq_addSubviews(self.iconImgView, self.titleLab, self.messageLab, self.dateLab, self.priceLab, self.numberLab, self.originPriceLab)
         
-        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.funcBtn, self.statusBtn)
+        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.funcBtn, self.statusBtn, self.downStatusLab)
         
         
         // 布局
@@ -131,12 +132,16 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         }
         
         let funcBtnHeight: CGFloat = 26
+        self.downStatusLab.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-10)
+            make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
+        }
         self.funcBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
             make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
         }
-        
         self.statusBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalTo(self.funcBtn.snp.left).offset(-10)
@@ -153,6 +158,10 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         
         self.statusLab.textColor = UIColor.ac_mainColor
         self.statusLab.font = UIFont.systemFont(ofSize: 14)
+        
+        self.downStatusLab.textColor = UIColor.systemYellow
+        self.downStatusLab.font = UIFont.systemFont(ofSize: 14)
+        
         
         self.originPriceLab.textColor = UIColor.init(hex: "#999999")
         self.originPriceLab.font = UIFont.systemFont(ofSize: 14)
@@ -188,7 +197,7 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         
         self.originPriceLab.isHidden = true
         self.numberLab.isHidden = true
-        
+        self.downStatusLab.isHidden = true
         
 //        self.titleLab.text = "小古猫宠物店"
 //        self.messageLab.text = "寄养 5天"

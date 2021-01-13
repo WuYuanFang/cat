@@ -67,6 +67,8 @@ struct XQSMNTIntegralReqModel: XQSMNTBaseReqModelProtocol {
     
     /// 页码
     var pageNumber = 1
+    /// 排序字段 1 从大到小， 0 从小到大
+    var SortType = 1
 }
 
 struct XQSMNTIntegralResModel: XQSMNTBaseResModelProtocol {

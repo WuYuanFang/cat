@@ -16,6 +16,7 @@ class AC_XQScoreMallVC: XQACBaseVC, AC_XQScoreHotViewDelegate, AC_XQScoreMallVie
     let contentView = AC_XQScoreMallView()
     
     var page = 0
+    var sortType = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,13 @@ class AC_XQScoreMallVC: XQACBaseVC, AC_XQScoreHotViewDelegate, AC_XQScoreMallVie
             
             self.nextProducts()
         })
-        
+        self.contentView.allView.sortBtn.xq_addEvent(.touchUpInside) { (btn) in
+            if let b = btn {
+                b.isSelected = !b.isSelected
+                self.sortType = b.isSelected ? 0 : 1
+                self.contentView.allView.collectionView.mj_header?.beginRefreshing()
+            }
+        }
         self.contentView.allView.collectionView.mj_header?.beginRefreshing()
         
         self.getHotData()
@@ -74,7 +81,7 @@ class AC_XQScoreMallVC: XQACBaseVC, AC_XQScoreHotViewDelegate, AC_XQScoreMallVie
     /// 下一页商品
     func nextProducts() {
         self.page += 1
-        let reqModel = XQSMNTIntegralReqModel.init(pageNumber: self.page)
+        let reqModel = XQSMNTIntegralReqModel.init(pageNumber: self.page, SortType: self.sortType)
         XQSMIntegralNetwork.getIntegralProductInfo(reqModel).subscribe(onNext: { (resModel) in
             
             

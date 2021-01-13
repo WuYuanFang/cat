@@ -156,6 +156,9 @@ struct XQSMNTTinnyToOrderInfoModel: HandyJSON {
     /// PayTime (string, optional): 支付时间 ,
     var PayTime: String = ""
     
+    /// PayType 支付方式  aliPay、wechat 
+    var PayType: String = ""
+    
     /// SubscribeTime (string, optional): 预约时间 ,
     var SubscribeTime: String = ""
     

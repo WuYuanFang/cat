@@ -124,12 +124,14 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
                 self.payOrder()
             }
             
-        }else if fosterModel.OrderState == .inInspection {
-            self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
-            self.contentView.infoView.refundBtn.isHidden = false
-            self.contentView.animalImg.isHidden = false
-            self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                self.refundAction()
+        }else if fosterModel.OrderState == .inInspection || fosterModel.OrderState == .confirmed || fosterModel.OrderState == .inStock {
+            if DK_TimerManager.getLastTime(fosterModel.PayTime).count > 0 {
+                self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
+                self.contentView.infoView.refundBtn.isHidden = false
+                self.contentView.animalImg.isHidden = false
+                self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                    self.refundAction()
+                }
             }
             self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
         }else {
