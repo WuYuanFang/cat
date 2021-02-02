@@ -12,6 +12,9 @@ import SVProgressHUD
 class AC_XQOrderLogisticsView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     let headerView = AC_XQOrderLogisticsViewHeaderView()
+    
+    let bgView = UIView()
+    let addressL = UILabel()
 
     let result = "cell"
     var tableView: UITableView!
@@ -24,7 +27,8 @@ class AC_XQOrderLogisticsView: UIView, UITableViewDelegate, UITableViewDataSourc
         super.init(frame: frame)
         
         self.tableView = UITableView.init(frame: CGRect.zero, style: .plain)
-        self.xq_addSubviews(self.tableView, self.headerView)
+        self.xq_addSubviews(self.bgView, self.headerView)
+        self.bgView.xq_addSubviews(self.tableView, self.addressL)
         
         // 布局
         self.headerView.snp.makeConstraints { (make) in
@@ -33,10 +37,41 @@ class AC_XQOrderLogisticsView: UIView, UITableViewDelegate, UITableViewDataSourc
             make.right.equalTo(-16)
         }
         
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.headerView.snp.bottom).offset(16)
+        self.bgView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.headerView.snp.bottom).offset(12)
             make.left.right.equalTo(self.headerView)
-            make.bottom.equalTo(-30)
+            make.bottom.equalTo(-20)
+        }
+        
+        let sL = UILabel()
+        sL.textAlignment = .center
+        sL.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        sL.textColor = .white
+        sL.text = "收"
+        sL.backgroundColor = .ac_mainColor
+        sL.layer.cornerRadius = 16
+        sL.clipsToBounds = true
+        self.bgView.addSubview(sL)
+        sL.snp.makeConstraints { (make) in
+            make.left.equalTo(40 - 16)
+            make.width.height.equalTo(32)
+            make.top.equalTo(12)
+        }
+        self.addressL.textColor = .ac_mainColor
+        self.addressL.font = UIFont.systemFont(ofSize: 15)
+        self.addressL.numberOfLines = 0
+        self.bgView.addSubview(self.addressL)
+        
+        
+        self.addressL.snp.makeConstraints { (make) in
+            make.right.equalTo(0)
+            make.centerY.equalTo(sL)
+            make.left.equalTo(sL.snp.right).offset(6)
+            make.height.greaterThanOrEqualTo(32)
+        }
+        self.tableView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalTo(0)
+            make.top.equalTo(self.addressL.snp.bottom).offset(12)
         }
         
         // 设置顺序
@@ -47,11 +82,11 @@ class AC_XQOrderLogisticsView: UIView, UITableViewDelegate, UITableViewDataSourc
         
         self.tableView.separatorStyle = .none
         self.tableView.estimatedRowHeight = 80
-        self.tableView.backgroundColor = UIColor.white
-        self.tableView.layer.cornerRadius = 15
-        self.tableView.layer.masksToBounds = true
+        self.bgView.backgroundColor = UIColor.white
+        self.bgView.layer.cornerRadius = 15
+        self.bgView.layer.masksToBounds = true
         
-        self.backgroundColor = UIColor.init(hex: "#EEEEEE")
+        self.backgroundColor = UIColor.init(hex: "#F0F0F0")
         
     }
     
@@ -99,7 +134,8 @@ class AC_XQOrderLogisticsView: UIView, UITableViewDelegate, UITableViewDataSourc
 
 class AC_XQOrderLogisticsViewHeaderView: UIView {
     
-    let imgView = UIImageView()
+//    let imgView = UIImageView()
+    let sLabel = UILabel()
     let titleLab = UILabel()
     
     let orderLab = UILabel()
@@ -108,26 +144,26 @@ class AC_XQOrderLogisticsViewHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.xq_addSubviews(self.imgView, self.titleLab, self.orderLab, self.copyBtn)
+        self.xq_addSubviews(self.sLabel, self.titleLab, self.orderLab, self.copyBtn)
         
         // 布局
-        let imgViewSize = 40
-        self.imgView.snp.makeConstraints { (make) in
-            make.left.equalTo(30)
+        let imgViewSize = 50
+        self.sLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(20)
             make.top.equalTo(12)
             make.size.equalTo(imgViewSize)
         }
         
         self.titleLab.snp.makeConstraints { (make) in
-            make.left.equalTo(self.imgView.snp.right).offset(20)
+            make.left.equalTo(self.sLabel.snp.right).offset(20)
 //            make.top.equalTo(self.imgView)
-            make.centerY.equalTo(self.imgView)
+            make.centerY.equalTo(self.sLabel)
             make.right.equalTo(-12)
         }
         
         self.orderLab.snp.makeConstraints { (make) in
-            make.left.equalTo(self.imgView)
-            make.top.equalTo(self.imgView.snp.bottom).offset(20)
+            make.left.equalTo(self.sLabel)
+            make.top.equalTo(self.sLabel.snp.bottom).offset(20)
         }
         
         self.copyBtn.snp.makeConstraints { (make) in
@@ -139,9 +175,15 @@ class AC_XQOrderLogisticsViewHeaderView: UIView {
         
         // 设置属性
         
-        self.imgView.layer.cornerRadius = CGFloat(imgViewSize)/2
-        self.imgView.layer.masksToBounds = true
-        self.imgView.backgroundColor = UIColor.init(hex: "#55A6CB")
+        self.sLabel.layer.cornerRadius = CGFloat(imgViewSize)/2
+        self.sLabel.layer.masksToBounds = true
+        self.sLabel.backgroundColor = UIColor.init(hex: "#cccccc")
+        self.sLabel.textAlignment = .center
+        self.sLabel.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        self.sLabel.textColor = .white
+        self.sLabel.text = "收"
+        
+        self.titleLab.numberOfLines = 0
         
         self.orderLab.font = UIFont.systemFont(ofSize: 14)
         

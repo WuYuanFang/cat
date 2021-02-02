@@ -68,6 +68,7 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
         if (model.State == .orderPlaced && model.PayType == 1) ||
             model.State == .done ||
             model.State == .cancel ||
+            model.State == .refundInProgress ||
             model.State == .successfulRefund {
             // 没开始寄养 or 结束了
             let vc = AC_XQFosterOrderDetailVC()

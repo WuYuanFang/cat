@@ -41,7 +41,8 @@ class AC_XQOrderLogisticsVC: XQACBaseVC {
         
         if let orderBIModel = self.orderBIModel {
             self.contentView.headerView.titleLab.text = orderBIModel.ShipFriendName
-            self.contentView.headerView.orderLab.text = "\(orderBIModel.ShipFriendName) \(orderBIModel.ShipSN)"
+            self.contentView.headerView.orderLab.text = "快递号： \(orderBIModel.ShipSN)"
+            self.contentView.addressL.text = "[收货地址]\(orderBIModel.Address)"
         }
         
     }

@@ -72,7 +72,7 @@ class AC_XQServerOrderDetailView: UIView {
         self.videoBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.videoImgView)
             make.left.equalTo(self.titleLab)
-            make.right.equalTo(-12)
+//            make.right.equalTo(-12)
         }
         
         self.detailBtn.snp.makeConstraints { (make) in
