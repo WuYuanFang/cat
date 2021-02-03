@@ -135,10 +135,22 @@ struct XQSMNTCommonGetSystemConfigResModel: XQSMNTBaseResModelProtocol {
     var ErrMsg: String?
     
     
-    /// TrueManPrice (number, optional): 实名认证优惠 ,
+    ///   TrueManPrice (number, optional): 实名认证优惠 ,
     var TrueManPrice: Float = 0
-    
-    /// TrueManMinPrice (number, optional): 实名认证最小金额 ,
+    ///   TrueManMinPrice (number, optional): 实名认证最小金额 ,
     var TrueManMinPrice: Float = 0
+    ///   ToOrderCanRefundTime (integer, optional): 洗护订单可申请退款时间(小时) ,
+    var ToOrderCanRefundTime: Int = 0
+    ///   OrderAutoCompleteExpire (integer, optional): 洗护预约超时自动完成(小时) ,
+    var OrderAutoCompleteExpire: Int = 0
+    ///   OnlinePayExpire (integer, optional): 预约订单在线支付过期时间(分钟) ,
+    var OnlinePayExpire: Int = 0
+    ///   FosterRefundTime (integer, optional): 寄养订单可申请退款时间(小时) ,
+    var FosterRefundTime: Int = 0
+    ///   ReceiveExpire (integer, optional): 商城收货过期时间(小时) ,
+    var ReceiveExpire: Int = 0
+    ///   Signintegration (integer, optional): 签到获取消费积分 ,
+    var Signintegration: Int = 0
+   
     
 }

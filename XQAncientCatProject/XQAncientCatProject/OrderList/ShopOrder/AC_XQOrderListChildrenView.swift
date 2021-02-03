@@ -142,7 +142,7 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             /// 已确认
             /// 备货中
         case .inInspection, .confirmed, .inStock:
-            if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
+            if DK_TimerManager.getLastTime(model.PayTime, .shop).count > 0 {
                 cell.funcBtn.isHidden = false
                 cell.funcBtn.setTitle("申请退款", for: .normal)
                 cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in

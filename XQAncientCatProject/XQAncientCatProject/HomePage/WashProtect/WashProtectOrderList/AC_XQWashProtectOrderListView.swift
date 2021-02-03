@@ -113,7 +113,7 @@ class AC_XQWashProtectOrderListView: UIView, UITableViewDataSource, UITableViewD
             
         case .reserved:
             if model.CanRefund {
-                if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
+                if DK_TimerManager.getLastTime(model.PayTime, .wash).count > 0 {
                     cell.funcBtn.isHidden = false
                     cell.funcBtn.setTitle("申请退款", for: .normal)
                     cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in

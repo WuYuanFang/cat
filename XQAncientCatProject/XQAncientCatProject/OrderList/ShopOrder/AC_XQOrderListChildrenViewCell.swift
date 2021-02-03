@@ -31,8 +31,8 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
     
     @objc func updateTime() {
         if let m = model, (m.OrderState == .inInspection || m.OrderState == .confirmed || m.OrderState == .inStock) {
-            if DK_TimerManager.getLastTime(m.PayTime).count > 0 {
-                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime), for: .normal)
+            if DK_TimerManager.getLastTime(m.PayTime, .shop).count > 0 {
+                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime, .shop), for: .normal)
             }else{
                 statusBtn.isHidden = true
                 funcBtn.isHidden = true

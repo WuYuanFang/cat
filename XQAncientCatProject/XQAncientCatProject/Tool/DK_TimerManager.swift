@@ -53,12 +53,17 @@ class DK_TimerManager{
     }
     
     // 获取时长
-    static func getLastTime(_ timeStr:String?) -> String {
+    static func getLastTime(_ timeStr:String?,_ type:RefundType) -> String {
+        let json = UserDefaults.standard.string(forKey: "XQSMNTCommonGetSystemConfigResModel")
+        guard let config = XQSMNTCommonGetSystemConfigResModel.deserialize(from: json) else{
+            return ""
+        }
+        let hours = type == .wash ? config.ToOrderCanRefundTime : type == .foster ? config.FosterRefundTime : 1
         guard let time = timeStr?.xq_toDate() else {
             return ""
         }
-        if (time + 1.hours).timeIntervalSince(Date()) > 0 {
-            return transToHourMinSec(time: (time + 1.hours).timeIntervalSince(Date()))
+        if (time + hours.hours).timeIntervalSince(Date()) > 0 {
+            return transToHourMinSec(time: (time + hours.hours).timeIntervalSince(Date()))
         }else{
             return ""
         }
@@ -131,4 +136,10 @@ class DK_TimerManager{
         return "\(hoursText):\(minutesText):\(secondsText)"
     }
     
+}
+
+enum RefundType {
+    case wash      // 洗护
+    case foster     // 寄养
+    case shop       // 商城
 }

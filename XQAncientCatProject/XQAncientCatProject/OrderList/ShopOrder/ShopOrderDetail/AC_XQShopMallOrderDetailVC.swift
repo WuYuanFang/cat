@@ -125,7 +125,7 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             }
             
         }else if fosterModel.OrderState == .inInspection || fosterModel.OrderState == .confirmed || fosterModel.OrderState == .inStock {
-            if DK_TimerManager.getLastTime(fosterModel.PayTime).count > 0 {
+            if DK_TimerManager.getLastTime(fosterModel.PayTime, .shop).count > 0 {
                 self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
                 self.contentView.infoView.refundBtn.isHidden = false
                 self.contentView.animalImg.isHidden = false

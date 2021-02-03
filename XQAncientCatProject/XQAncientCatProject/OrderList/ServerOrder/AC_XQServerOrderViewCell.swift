@@ -32,8 +32,8 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
     
     @objc func updateTime() {
         if let m = serverModel, m.State == .orderPlaced, m.PayType == 2 {
-            if DK_TimerManager.getLastTime(m.PayTime).count > 0 {
-                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime), for: .normal)
+            if DK_TimerManager.getLastTime(m.PayTime, .foster).count > 0 {
+                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime, .foster), for: .normal)
             }else{
                 statusBtn.isHidden = true
                 funcBtn.isHidden = true
@@ -41,8 +41,8 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
             }
         }
         if let m = washModel, m.CanRefund {
-            if DK_TimerManager.getLastTime(m.PayTime).count > 0 {
-                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime), for: .normal)
+            if DK_TimerManager.getLastTime(m.PayTime, .wash).count > 0 {
+                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime, .wash), for: .normal)
             }else{
                 statusBtn.isHidden = true
                 funcBtn.isHidden = true

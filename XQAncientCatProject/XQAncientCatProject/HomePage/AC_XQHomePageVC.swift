@@ -30,6 +30,9 @@ class AC_XQHomePageVC: XQACBaseVC, AC_XQHomePageViewAppointmentViewDelegate, AC_
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 缓存系统配置信息
+        getCommonConfig()
+        
         self.xq_navigationBar.statusView.backgroundColor = UIColor.clear
         self.xq_navigationBar.contentView.backgroundColor = UIColor.clear
         self.xq_navigationBar.backgroundColor = UIColor.clear
@@ -245,6 +248,22 @@ class AC_XQHomePageVC: XQACBaseVC, AC_XQHomePageViewAppointmentViewDelegate, AC_
             
         }, onError: { (error) in
             
+        }).disposed(by: self.disposeBag)
+    }
+    
+    // 获取系统配置，缓存去来
+    func getCommonConfig() {
+        XQSMCommonNetwork.getSystemConfig().subscribe(onNext: { (resModel) in
+            
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            let json = resModel.toJSONString()
+            UserDefaults.standard.setValue(json, forKey: "XQSMNTCommonGetSystemConfigResModel")
+            
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }).disposed(by: self.disposeBag)
     }
     

@@ -102,7 +102,7 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
             
             if model.PayType == 2 {
                 // 超过了退款时间 model.PayTime
-                if DK_TimerManager.getLastTime(model.PayTime).count > 0 {
+                if DK_TimerManager.getLastTime(model.PayTime, .foster).count > 0 {
                     cell.funcBtn.isHidden = false
                     cell.funcBtn.setTitle("申请退款", for: .normal)
                     cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
