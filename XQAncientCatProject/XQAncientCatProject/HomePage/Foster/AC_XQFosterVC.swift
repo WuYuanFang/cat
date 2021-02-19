@@ -55,7 +55,8 @@ class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_X
         self.getData()
         
         self.contentView.appointmentView.callback = { [unowned self] in
-            self.calculation()
+            self.getCatdormitory()
+//            self.calculation()
         }
         
         self.contentView.optionView.fSwitchView.xq_switch.addTarget(self, action: #selector(respondsToFood(_:)), for: .valueChanged)
@@ -105,7 +106,9 @@ class AC_XQFosterVC: XQACBaseVC, AC_XQWashProtectViewSelectPetViewDelegate, AC_X
     
     /// 获取猫舍
     func getCatdormitory() {
-        let reqModel = XQACNTGetShopCatdormitoryReqModel.init(shopid: self.ShopInfo?.Id ?? 0, StartTime: Date().xq_toString("yyyy-MM-dd HH:mm"), day: self.contentView.dayView.numberView.tf.text ?? "1")
+        let starT = self.contentView.appointmentView.date?.xq_toString("yyyy-MM-dd HH:mm") ?? "" // Date().xq_toString("yyyy-MM-dd HH:mm")
+        print(self.contentView.appointmentView.date?.xq_toString("yyyy-MM-dd HH:mm") ?? "")
+        let reqModel = XQACNTGetShopCatdormitoryReqModel.init(shopid: self.ShopInfo?.Id ?? 0, StartTime: starT, day: self.contentView.dayView.numberView.tf.text ?? "1")
         XQACFosterNetwork.getShopCatdormitory(reqModel).subscribe(onNext: { (resModel) in
             
             if resModel.ErrCode != .succeed {
