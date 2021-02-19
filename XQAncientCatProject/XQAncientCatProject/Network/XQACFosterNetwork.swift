@@ -373,7 +373,7 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
             return "交易关闭"
             
         case .waitingComments:
-            return "已完成"
+            return "服务结束"
             
         case .refundInProgress:
             return "退款中"
@@ -496,6 +496,10 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
     
     /// FeedingList (string, optional): 投食列表 ,
     var FeedingList = ""
+    
+    var sumjmmoney: Float = 0
+    
+    var couponsId: Int = 0
     
     /// FeedingMoney (number, optional): 投食金额 ,
     var FeedingMoney: Float = 0

@@ -69,7 +69,8 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
             model.State == .done ||
             model.State == .cancel ||
             model.State == .refundInProgress ||
-            model.State == .successfulRefund {
+            model.State == .successfulRefund ||
+            model.State == .waitingComments {
             // 没开始寄养 or 结束了
             let vc = AC_XQFosterOrderDetailVC()
             vc.fosterModel = self.contentView.dataArr[indexPath.row]

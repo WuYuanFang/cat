@@ -94,6 +94,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
             }
         }
         
+        self.contentView.infoView.couponView.contentLab.text = "¥ \(fosterModel.CouponMoney)"
         
         self.contentView.infoView.serverView.contentLab.text = "¥\(fosterModel.TotalPrice)"
         self.contentView.infoView.serverView.desLab.text = fosterModel.xq_getOrderPdListPName()

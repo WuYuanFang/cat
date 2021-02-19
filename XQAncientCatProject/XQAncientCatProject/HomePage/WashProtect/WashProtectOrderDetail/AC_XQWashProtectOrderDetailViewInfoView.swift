@@ -20,6 +20,8 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
     
     /// 会员抵扣
     let vipZKView = AC_XQFosterOrderViewInfoViewLabelView()
+    /// 优惠券抵扣
+    let couponView = AC_XQFosterOrderViewInfoViewLabelView()
     /// 支付金额
     let moneyView = AC_XQFosterOrderViewInfoViewLabelView()
     
@@ -50,7 +52,7 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.endTimeView, self.vipZKView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.endTimeView, self.vipZKView, self.couponView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
         
         
         // 布局
@@ -78,8 +80,14 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
             make.right.equalTo(self.serverView)
         }
         
-        self.moneyView.snp.makeConstraints { (make) in
+        self.couponView.snp.makeConstraints { (make) in
             make.top.equalTo(self.vipZKView.snp.bottom).offset(spacing)
+            make.left.equalTo(self.serverView)
+            make.right.equalTo(self.serverView)
+        }
+        
+        self.moneyView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.couponView.snp.bottom).offset(spacing)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }
@@ -180,6 +188,7 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
         self.endTimeView.titleLab.text = "预计结束时间"
         
         self.vipZKView.titleLab.text = "会员折扣"
+        self.couponView.titleLab.text = "优惠券"
         
         self.moneyView.titleLab.text = "支付金额"
         self.moneyView.contentLab.textColor = UIColor.ac_mainColor

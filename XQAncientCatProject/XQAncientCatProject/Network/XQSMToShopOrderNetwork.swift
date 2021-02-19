@@ -162,6 +162,10 @@ struct XQSMNTTinnyToOrderInfoModel: HandyJSON {
     /// SubscribeTime (string, optional): 预约时间 ,
     var SubscribeTime: String = ""
     
+    var CouponMoney: Float = 0
+    
+    var CouponId: Int = 0
+    
     /// IntegralPrice (number, optional): 积分抵扣费用 ,
     var IntegralPrice: Float = 0
     

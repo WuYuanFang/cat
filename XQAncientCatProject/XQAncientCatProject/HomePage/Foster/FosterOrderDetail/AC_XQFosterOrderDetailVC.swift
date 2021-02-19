@@ -97,6 +97,7 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.timeView.contentLab.text = fosterModel.StartTime
         
         //            self.contentView.infoView.timeView.contentLab.text = fosterModel.StartTime
+        self.contentView.infoView.couponView.contentLab.text = "¥ \(fosterModel.sumjmmoney)"
         self.contentView.infoView.moneyView.contentLab.text = "¥\(fosterModel.Totalamount)"
         
         self.contentView.infoView.phoneView.contentLab.text = fosterModel.Mobile

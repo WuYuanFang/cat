@@ -65,6 +65,8 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
     let dayView = AC_XQFosterOrderViewInfoViewLabelView()
     /// 会员抵扣
     let vipZKView = AC_XQFosterOrderViewInfoViewLabelView()
+    /// 优惠券抵扣
+    let couponView = AC_XQFosterOrderViewInfoViewLabelView()
     /// 支付金额
     let moneyView = AC_XQFosterOrderViewInfoViewLabelView()
     
@@ -97,7 +99,7 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.dayView, self.vipZKView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab, self.payTypeLab)
+        self.contentView.xq_addSubviews(self.serverView, self.timeView, self.dayView, self.vipZKView, self.couponView, self.moneyView, self.payOrReservedBtn, self.cancelOrderBtn, self.cancelOrderLab, self.phoneView, self.nameView, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab, self.payTypeLab)
         
         
         // 布局
@@ -125,8 +127,14 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
             make.right.equalTo(self.serverView)
         }
         
-        self.moneyView.snp.makeConstraints { (make) in
+        self.couponView.snp.makeConstraints { (make) in
             make.top.equalTo(self.vipZKView.snp.bottom).offset(spacing)
+            make.left.equalTo(self.serverView)
+            make.right.equalTo(self.serverView)
+        }
+        
+        self.moneyView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.couponView.snp.bottom).offset(spacing)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }
@@ -229,6 +237,7 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
         self.dayView.titleLab.text = "寄养天数"
         
         self.vipZKView.titleLab.text = "会员折扣"
+        self.couponView.titleLab.text = "优惠券"
         
         self.moneyView.titleLab.text = "支付金额"
         

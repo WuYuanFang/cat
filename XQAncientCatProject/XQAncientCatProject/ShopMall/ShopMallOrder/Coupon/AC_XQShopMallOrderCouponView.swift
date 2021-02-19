@@ -60,8 +60,11 @@ class AC_XQShopMallOrderCouponView: UIView, UITableViewDataSource, UITableViewDe
         
         let model = self.dataArr[indexPath.row]
         cell.reloadUI(with: model)
-        
-        
+        if model.StateInt == 1 {
+            cell.useBtn.isHidden = false
+        }else {
+            cell.useBtn.isHidden = true
+        }
         
         return cell
     }
