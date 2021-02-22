@@ -201,6 +201,9 @@ class AC_XQFosterOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView {
         self.payTimeLab.font = UIFont.systemFont(ofSize: 13)
         self.payTimeLab.textColor = UIColor.init(hex: "#999999")
         
+        self.payTypeLab.font = UIFont.systemFont(ofSize: 13)
+        self.payTypeLab.textColor = UIColor.init(hex: "#999999")
+        
         self.payOrReservedBtn.setTitle("去付款", for: .normal)
         self.payOrReservedBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
         self.payOrReservedBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
