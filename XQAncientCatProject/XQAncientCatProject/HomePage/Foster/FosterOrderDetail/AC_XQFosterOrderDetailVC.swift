@@ -112,7 +112,7 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         if fosterModel.PayType == 2 {
             // PayType
             self.contentView.infoView.payTimeLab.text = "付款时间: \(fosterModel.PayTime)"
-            self.contentView.infoView.payTypeLab.text = "支付方式: \(getPayModel(fosterModel.PayModel))"
+            self.contentView.infoView.payTypeLab.text = fosterModel.PayMode.count == 0 ? "" : "支付方式: \(getPayMode(fosterModel.PayMode))"
         }
         if fosterModel.PayType == 2, fosterModel.State == .orderPlaced {
             self.contentView.infoView.payOrReservedBtn.isHidden = false
@@ -238,7 +238,7 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
     
 }
 
-func getPayModel(_ str:String) -> String {
+func getPayMode(_ str:String) -> String {
     switch str {
     case "aliPay":return "支付宝支付"
     case "wechat":return "微信支付"

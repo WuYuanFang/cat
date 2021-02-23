@@ -146,7 +146,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         if fosterModel.State == .waitPay || fosterModel.State == .cancel {
             self.contentView.infoView.payTimeLab.text = ""
         }else {
-            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(getPayModel(fosterModel.PayType))".set(style: lineSpace6)
+            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(getPayMode(fosterModel.PayType))".set(style: lineSpace6)
         }
     }
     

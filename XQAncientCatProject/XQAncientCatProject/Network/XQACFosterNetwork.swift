@@ -452,8 +452,8 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
     /// PayTime (string, optional): 支付时间 ,
     var PayTime = ""
     
-    /// PayModel (string, optional): 支付方式 aliPay、wechat ,
-    var PayModel = ""
+    /// PayMode (string, optional): 支付方式 aliPay、wechat ,
+    var PayMode = ""
     
     /// State (integer, optional): 订单状态 1 已下单 2接送中 3已完成 4取消 ,
     var State: XQACNTFosterGM_FosterModel.State = .orderPlaced
