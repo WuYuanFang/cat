@@ -44,7 +44,7 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
         
         self.contentView.headerView.commentView.xq_addTap { [unowned self] (gesture) in
             let vc = AC_XQShopMallCommentVC()
-            vc.pId = self.contentView.attrProductInfoModel?.PId ?? 0
+            vc.pId = self.pId ?? 0
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
