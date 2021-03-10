@@ -49,7 +49,7 @@ extension CMPageTitleConfig {
     
     /// 一些基础配置
     func sm_config() {
-        self.cm_selectedColor = UIColor.black
+        self.cm_selectedColor = .ac_mainColor
         self.cm_normalColor = UIColor.init(hex: "#999999")
         
         self.cm_underlineColor = UIColor.black

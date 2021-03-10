@@ -19,6 +19,9 @@
 		3991552223B4F48C004AE781 /* XQUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3991552123B4F48C004AE781 /* XQUIViewExtension.swift */; };
 		6853C0592593482600FACD00 /* DKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853C0582593482600FACD00 /* DKAttributes.swift */; };
 		68587F9325AEF6F200DCE19B /* DKAutoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68587F9225AEF6F200DCE19B /* DKAutoContentView.swift */; };
+		68D8DB4B25F86E6B00638045 /* DK_XQShopMallSecondFilterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D8DB4A25F86E6B00638045 /* DK_XQShopMallSecondFilterAlertView.swift */; };
+		68D8DB5D25F8734300638045 /* TTGTagCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D8DB5B25F8734300638045 /* TTGTagCollectionView.m */; };
+		68D8DB5E25F8734300638045 /* TTGTextTagCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D8DB5C25F8734300638045 /* TTGTextTagCollectionView.m */; };
 		9E02A170248289AE000630A8 /* AC_YCMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */; };
 		9E02A17424829552000630A8 /* AC_YCMyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */; };
 		9E02A1762482A383000630A8 /* AC_YCMyInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E02A1752482A383000630A8 /* AC_YCMyInfoHeaderView.swift */; };
@@ -385,6 +388,11 @@
 		3991552123B4F48C004AE781 /* XQUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XQUIViewExtension.swift; sourceTree = "<group>"; };
 		6853C0582593482600FACD00 /* DKAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKAttributes.swift; sourceTree = "<group>"; };
 		68587F9225AEF6F200DCE19B /* DKAutoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKAutoContentView.swift; sourceTree = "<group>"; };
+		68D8DB4A25F86E6B00638045 /* DK_XQShopMallSecondFilterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DK_XQShopMallSecondFilterAlertView.swift; sourceTree = "<group>"; };
+		68D8DB5925F8734300638045 /* TTGTagCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGTagCollectionView.h; sourceTree = "<group>"; };
+		68D8DB5A25F8734300638045 /* TTGTextTagCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGTextTagCollectionView.h; sourceTree = "<group>"; };
+		68D8DB5B25F8734300638045 /* TTGTagCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGTagCollectionView.m; sourceTree = "<group>"; };
+		68D8DB5C25F8734300638045 /* TTGTextTagCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGTextTagCollectionView.m; sourceTree = "<group>"; };
 		7A418D6247D45242F5AA4AC9 /* Pods-XQAncientCatProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XQAncientCatProject.release.xcconfig"; path = "Target Support Files/Pods-XQAncientCatProject/Pods-XQAncientCatProject.release.xcconfig"; sourceTree = "<group>"; };
 		9E02A16F248289AE000630A8 /* AC_YCMyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyViewController.swift; sourceTree = "<group>"; };
 		9E02A17324829552000630A8 /* AC_YCMyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AC_YCMyHeaderView.swift; sourceTree = "<group>"; };
@@ -809,6 +817,17 @@
 				397EBF5B23C02577007EC8D4 /* AC_XQMallSearchView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		68D8DB5825F8734300638045 /* TTGTagView */ = {
+			isa = PBXGroup;
+			children = (
+				68D8DB5925F8734300638045 /* TTGTagCollectionView.h */,
+				68D8DB5A25F8734300638045 /* TTGTextTagCollectionView.h */,
+				68D8DB5B25F8734300638045 /* TTGTagCollectionView.m */,
+				68D8DB5C25F8734300638045 /* TTGTextTagCollectionView.m */,
+			);
+			path = TTGTagView;
 			sourceTree = "<group>";
 		};
 		9E02A17124829403000630A8 /* Controller */ = {
@@ -1586,8 +1605,8 @@
 				A4BEBB782466984A009362EE /* XQAncientCatProject.entitlements */,
 				A4919B3323B3110500965AA8 /* AppDelegate.swift */,
 				A4919B3723B3110500965AA8 /* ViewController.swift */,
-				A49DE97B2490F9F30012B709 /* XQTestCollectionVC.swift */,
 				A4C6537A247CEC6C0050C9E6 /* XQTestAlertVC.swift */,
+				A49DE97B2490F9F30012B709 /* XQTestCollectionVC.swift */,
 				A43C8CA423C3366600F7012C /* XQTestViewController.swift */,
 				A497A74123C2DF18008DCFC2 /* XQBezierPathView.swift */,
 				A4C9317B24E3BC6600668941 /* Launch */,
@@ -1668,6 +1687,7 @@
 				A440C4B0248F167F003E76FB /* XQNumberButton */,
 				A44C01F92489F53B00F894F8 /* XQLabelCollectionView */,
 				A4548DD724890AAC00E5EA8D /* BubbleView */,
+				68D8DB5825F8734300638045 /* TTGTagView */,
 				A4919B5C23B3657400965AA8 /* XQACColor.swift */,
 				3991552123B4F48C004AE781 /* XQUIViewExtension.swift */,
 				0F5DF87D23CC57D500FC8899 /* Int+Extension.swift */,
@@ -1743,6 +1763,7 @@
 			children = (
 				A49D89E52501F0B3007F0907 /* AC_XQShopMallFilterAlertView.swift */,
 				A4253CC325021C1A00DB4C41 /* AC_XQShopMallFilterAlertViewCell.swift */,
+				68D8DB4A25F86E6B00638045 /* DK_XQShopMallSecondFilterAlertView.swift */,
 			);
 			path = ShopMallFilter;
 			sourceTree = "<group>";
@@ -2349,6 +2370,7 @@
 				A4C9318124E3C5F700668941 /* AC_XQLaunchVC.swift in Sources */,
 				A4239EEA24C038E2002C0DE3 /* XQACFosterNetwork.swift in Sources */,
 				A4ABCB572491F8F200D054E3 /* AC_XQLevelPrivilegeViewRowCell.swift in Sources */,
+				68D8DB5D25F8734300638045 /* TTGTagCollectionView.m in Sources */,
 				A485E923246D79BA00B8A179 /* AC_XQShopCarViewCell.swift in Sources */,
 				A4DE92AC24CE75D6000677B4 /* AC_XQReviewVC.swift in Sources */,
 				A42DF7E9250A0AD300627A6F /* AC_XQShopRefundOrderVC.swift in Sources */,
@@ -2426,6 +2448,7 @@
 				A48B8F222480B3C300DD265A /* AC_XQHomePageViewShopInfoView.swift in Sources */,
 				A4FEB90C24B5760300955072 /* XQSMHomePageNetwork.swift in Sources */,
 				A44399CF24C2DA9F00A85809 /* XQSMOrderNetwork.swift in Sources */,
+				68D8DB5E25F8734300638045 /* TTGTextTagCollectionView.m in Sources */,
 				A4F58F3324700AFF005E8674 /* AC_XQLiveBusinessViewHeaderViewCell.swift in Sources */,
 				A426C675247E6E080075F3EF /* AC_XQLiveBusinessDetailVC.swift in Sources */,
 				397EBF5323C01693007EC8D4 /* AC_XQMallView.swift in Sources */,
@@ -2461,6 +2484,7 @@
 				A4C5C2B824865E58000A1142 /* XQAlertSelectAppointmentView.swift in Sources */,
 				A4E15B3B24C1B1CD00AE69E8 /* AC_XQFosterCouponView.swift in Sources */,
 				A49DE9652490E4540012B709 /* AC_XQSetView.swift in Sources */,
+				68D8DB4B25F86E6B00638045 /* DK_XQShopMallSecondFilterAlertView.swift in Sources */,
 				A49CD06424936C7B00D9F8A7 /* AC_XQLevelPrivilegeViewLevelView.swift in Sources */,
 				A45B4E6124A87D5D00496C47 /* AC_XQCommodityDetailViewPayView.swift in Sources */,
 				A49A3D6B24AC641900B8B53E /* AC_XQFosterView.swift in Sources */,

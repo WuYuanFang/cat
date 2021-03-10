@@ -10,6 +10,7 @@ import UIKit
 import CMPageTitleView
 import XQProjectTool_iPhoneUI
 import SDCycleScrollView
+import JXSegmentedView
 
 class AC_XQShopMallViewHeaderView: UIView {
     
@@ -17,7 +18,9 @@ class AC_XQShopMallViewHeaderView: UIView {
     
     let searchView = AC_XQShopMallViewHeaderViewSearchView()
     
-    let titleView = CMPageTitleView()
+//    let titleView = CMPageTitleView()
+    let segmentView = JXSegmentedView()
+    let segmentedDataSource = JXSegmentedTitleDataSource()
     /// 价格
     let sortBtn = UIButton()
     /// 筛选
@@ -32,7 +35,7 @@ class AC_XQShopMallViewHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.xq_addSubviews(self.searchView, self.titleView, self.sortBtn, self.typeBtn)
+        self.xq_addSubviews(self.searchView, self.segmentView, self.sortBtn, self.typeBtn)
         
         // 布局
 //
@@ -49,18 +52,18 @@ class AC_XQShopMallViewHeaderView: UIView {
             make.height.equalTo(35)
         }
         
-        self.titleView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(-12)
-            make.left.equalToSuperview()
-//            make.right.equalTo(-94)
-            make.right.equalTo(self.sortBtn.snp.left).offset(-8)
-            make.height.equalTo(30)
+        self.segmentView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(-10)
+            make.left.equalTo(0)
+            make.right.equalTo(-94)
+//            make.right.equalTo(self.sortBtn.snp.left).offset(-8)
+            make.height.equalTo(32)
         }
         
         self.typeBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(-12)
+            make.bottom.equalTo(-2)
             make.right.equalToSuperview().offset(-12)
-            make.size.equalTo(30)
+            make.size.equalTo(40)
         }
         
         self.sortBtn.snp.makeConstraints { (make) in
@@ -71,24 +74,33 @@ class AC_XQShopMallViewHeaderView: UIView {
         
         
         // 设置属性
-        
-        let config = CMPageTitleConfig.default()
-        
-        config.sm_config()
-        
-//        config.cm_contentMode = .left
-        
-//        config.cm_titles = [
-//            "全部",
-//            "食品",
-//            "零食",
-//            "护理",
-//            "保健",
-//            "其他",
-//        ]
-        
-//        self.titleView.delegate = self
-        self.titleView.cm_config = config
+        //segmentedDataSource一定要通过属性强持有，不然会被释放掉
+        //配置数据源相关配置属性
+        segmentedDataSource.titles = []
+        segmentedDataSource.titleSelectedColor = .ac_mainColor
+        segmentedDataSource.titleNormalColor = UIColor.qmui_color(withHexString: "888888") ?? .lightGray
+        segmentedDataSource.isTitleZoomEnabled = true
+        segmentedDataSource.titleNormalFont = UIFont.systemFont(ofSize: 14)
+        segmentedDataSource.isTitleColorGradientEnabled = true
+        //关联dataSource
+        self.segmentView.dataSource = self.segmentedDataSource
+//        let config = CMPageTitleConfig.default()
+//
+//        config.sm_config()
+//        config.cm_childControllers = []
+////        config.cm_contentMode = .left
+//
+////        config.cm_titles = [
+////            "全部",
+////            "食品",
+////            "零食",
+////            "护理",
+////            "保健",
+////            "其他",
+////        ]
+//
+////        self.titleView.delegate = self
+//        self.titleView.cm_config = config
         
 //        self.cycleScrollView.backgroundColor = UIColor.clear
 //        self.cycleScrollView.bannerImageViewContentMode = .scaleAspectFill
@@ -111,12 +123,14 @@ class AC_XQShopMallViewHeaderView: UIView {
     
     func reloadTitles() {
         var titles = [String]()
-        titles.append("全部")
+//        titles.append("全部")
         for item in self.menuList {
             titles.append(item.Name)
         }
-        self.titleView.cm_config.cm_titles = titles
-        self.titleView.cm_reloadConfig()
+        segmentedDataSource.titles = titles
+        segmentView.reloadData()
+//        self.titleView.cm_config.cm_titles = titles
+//        self.titleView.cm_reloadConfig()
     }
     
     /// 获取图片宽高比

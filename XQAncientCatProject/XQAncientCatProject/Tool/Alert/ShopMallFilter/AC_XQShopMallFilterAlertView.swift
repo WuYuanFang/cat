@@ -15,7 +15,7 @@ import RxSwift
 
 class AC_XQShopMallFilterAlertView: UIView, AC_XQBottomAlertDelegate {
     
-    typealias AC_XQShopMallFilterAlertViewCallback = (_ brandModel: XQSMNTAroundShopBrandInfoModel?, _ minPrice: Float, _ maxPrice: Float, _ showType: XQSMNTGetProductReqModel.XQSMNTGetProductReqModelShowType) -> ()
+    typealias AC_XQShopMallFilterAlertViewCallback = (_ brandModel: XQSMNTAroundShopBrandInfoModel?, _ minPrice: Float, _ maxPrice: Float, _ showType: XQSMNTGetProductReqModel.XQSMNTGetProductReqModelShowType,_ isReset:Bool) -> ()
     
     static func show(_ brandModel: XQSMNTAroundShopBrandInfoModel?, _ minPrice: Float, _ maxPrice: Float, _ showType: XQSMNTGetProductReqModel.XQSMNTGetProductReqModelShowType, callback: AC_XQShopMallFilterAlertViewCallback? = nil) {
         
@@ -146,7 +146,7 @@ class AC_XQShopMallFilterAlertView: UIView, AC_XQBottomAlertDelegate {
         
         self.resetBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
             self.endEditing(true)
-            self.callback?(nil, 0, 0, XQSMNTGetProductReqModel.XQSMNTGetProductReqModelShowType.all)
+            self.callback?(nil, 0, 0, XQSMNTGetProductReqModel.XQSMNTGetProductReqModelShowType.all, true)
             AC_XQShopMallFilterAlertView.hide()
         }
         
@@ -173,7 +173,7 @@ class AC_XQShopMallFilterAlertView: UIView, AC_XQBottomAlertDelegate {
                 showType = .inStock
             }
             
-            self.callback?(brandModel, min, max, showType)
+            self.callback?(brandModel, min, max, showType, false)
             AC_XQShopMallFilterAlertView.hide()
         }
         

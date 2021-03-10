@@ -12,6 +12,7 @@
 
 // 打开百度地图, 导航
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
+#import "TTGTextTagCollectionView.h"
 
 #if DEBUG
 #import <PgyUpdate/PgyUpdateManager.h>

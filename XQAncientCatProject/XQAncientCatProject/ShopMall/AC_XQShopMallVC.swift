@@ -10,13 +10,15 @@ import UIKit
 import SVProgressHUD
 import CMPageTitleView
 import MJRefresh
+import JXSegmentedView
 
 /// 商城
-class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDelegate {
+class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, JXSegmentedViewDelegate {
     
     let contentView = AC_XQShopMallView()
     
     var newModelArr: [XQSMNTAroundShopNewModel]?
+    var selSecond: XQSMNTAroundShopTopMenuModel?
     
     /// 当前选中分类的id
     var currentCateId = 0
@@ -47,7 +49,7 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
             self.presentSearch()
         }
         
-        self.contentView.headerView.titleView.delegate = self
+        self.contentView.headerView.segmentView.delegate = self
         
         
         self.contentView.shopCarBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
@@ -61,14 +63,7 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
         
         // 过滤规则
         self.contentView.headerView.typeBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-            AC_XQShopMallFilterAlertView.show(self.brandModel, Float(self.minPrice), Float(self.maxPrice), self.showType) { [unowned self] (brandInfoModel, min, max, showType) in
-                self.brandModel = brandInfoModel
-                self.minPrice = Int(min)
-                self.maxPrice = Int(max)
-                self.showType = showType
-                self.contentView.collectionView.mj_header?.beginRefreshing()
-            }
-            
+            self.showSecondView()
         }
         
         self.contentView.collectionView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: { [unowned self] in
@@ -112,7 +107,6 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
                 SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                 return
             }
-            
             self.contentView.headerView.menuList = resModel.MenuList ?? []
             self.contentView.headerView.reloadTitles()
             
@@ -127,21 +121,47 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
         self.nextProducts()
     }
     
-    /// 下一页商品
-    func nextProducts() {
-        self.page += 1
-        
+    /// 显示二级菜单
+    func showSecondView() {
 //        /api/AroundShop/GetSecOrThrMenuList
         let trq = XQSMNTSecOrThrMenuReqModel.init(CateId: self.currentCateId)
         XQSMAroundShopNetwork.getSecOrThrMenuList(trq).subscribe { (resModel) in
-            
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            if let arr = resModel.MenuList, arr.count > 0 {
+                DK_XQShopMallSecondFilterAlertView.showMenu(bgView: self.view, menus: arr, selM: self.selSecond) { (tmpM) in
+                    self.selSecond = tmpM
+                    self.showPingpai()
+                }
+            }
         } onError: { (error) in
             
         }.disposed(by: self.disposeBag)
-
-        
+    }
+    /// 显示品牌
+    func showPingpai() {
+        AC_XQShopMallFilterAlertView.show(self.brandModel, Float(self.minPrice), Float(self.maxPrice), self.showType) { [unowned self] (brandInfoModel, min, max, showType, isreset) in
+            self.brandModel = brandInfoModel
+            self.minPrice = Int(min)
+            self.maxPrice = Int(max)
+            self.showType = showType
+            
+            if isreset {
+                self.selSecond = nil
+            }
+            
+            self.contentView.collectionView.mj_header?.beginRefreshing()
+        }
+    }
+    
+    
+    /// 下一页商品
+    func nextProducts() {
+        self.page += 1
 //        let reqModel = XQSMNTGetProductReqModel.init(CateId: self.currentCateId, PageNumber: self.page, PageSize: 20)
-        let reqModel = XQSMNTGetProductReqModel.init(CateId: self.currentCateId,
+        let reqModel = XQSMNTGetProductReqModel.init(CateId: self.selSecond?.CateId ?? self.currentCateId,
                                                      PageNumber: self.page,
                                                      PageSize: 20,
                                                      SortType: self.contentView.headerView.selectType,
@@ -280,18 +300,25 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, CMPageTitleViewDel
             return
         }
         
-        if index == 0 {
-            // 全部
-            self.currentCateId = 0
-            self.getProducts()
-        }else {
-            let model = self.contentView.headerView.menuList[index - 1]
-            self.currentCateId = model.CateId
-            self.getProducts()
-        }
+//        if index == 0 {
+//            // 全部
+//            self.currentCateId = 0
+//            self.getProducts()
+//        }else {
+        self.selSecond = nil
+        let model = self.contentView.headerView.menuList[index]
+        self.currentCateId = model.CateId
+        self.getProducts()
+//        }
         
     }
     
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        self.selSecond = nil
+        let model = self.contentView.headerView.menuList[index]
+        self.currentCateId = model.CateId
+        self.getProducts()
+    }
     
     
 }
