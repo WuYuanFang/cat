@@ -147,9 +147,10 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         self.statusLab.font = UIFont.systemFont(ofSize: 14)
         self.statusLab.textAlignment = .right
         
-        self.downStatusLab.textColor = UIColor.systemYellow
+        self.downStatusLab.textColor = UIColor.qmui_color(withHexString: "EF9F14")
         self.downStatusLab.font = UIFont.systemFont(ofSize: 14)
         self.downStatusLab.isHidden = true
+        self.downStatusLab.textAlignment = .right
         
         self.originPriceLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.originPriceLab.textColor = UIColor.init(hex: "#999999")

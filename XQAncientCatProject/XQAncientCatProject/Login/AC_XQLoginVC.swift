@@ -131,6 +131,7 @@ class AC_XQLoginVC: XQACBaseVC, XQThirdPartyLoginProtocol {
         loginVC.firstVC = true
         loginVC.modalPresentationStyle = .fullScreen
         vc.present(loginVC, animated: flag, completion: nil)
+        DK_TimerManager.shared.cancelTimer()
     }
     
     

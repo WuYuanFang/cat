@@ -24,14 +24,8 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
     /// 活体订单
     let liveOrderTitleView = CMPageTitleView()
     
-    
-    deinit {
-        DK_TimerManager.shared.cancelTimer()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        DK_TimerManager.shared.startTimer()
 //        self.navigationItem.title = "福利订单"
         
         self.headerView.delegate = self

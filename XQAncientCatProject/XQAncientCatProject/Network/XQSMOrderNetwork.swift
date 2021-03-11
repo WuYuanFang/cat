@@ -229,6 +229,39 @@ struct XQSMNTOrderBaseInfoDtoModel: HandyJSON {
     /// PaySystemName (string, optional): 支付方式 值有： "支付宝支付" "微信支付" ,
     var PaySystemName: String = ""
     
+    
+    func getStateDes() -> String {
+        switch self.OrderState {
+        case .waitPay:
+            return "等待付款"
+        case .inInspection:
+            return "确认中"
+        case .toBeDelivered:
+            return "待发货"
+        case .confirmed:
+            return "已确认"
+        case .inStock:
+            return "备货中"
+        case .delivered:
+            return "待收货"
+        case .receivedGoods:
+            return "已收货"
+        case .cancel:
+            return "交易关闭"
+        case .refund:
+            return "退款中"
+        case .refundDone:
+            return "交易关闭"
+        case .refundFail:
+            return "退款失败"
+        case .refundAndAfterSale:
+            return "交易关闭"
+        case .done:
+            return "交易成功"
+        default:
+            return self.OrderStateStr
+        }
+    }
 }
 
 /// 产品列表

@@ -109,20 +109,20 @@ class AC_XQWashProtectOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseV
             make.right.equalTo(self.cancelOrderBtn.snp.left).offset(-5)
         }
         
-        self.phoneView.snp.makeConstraints { (make) in
+        self.nameView.snp.makeConstraints { (make) in
             make.top.equalTo(self.cancelOrderBtn.snp.bottom).offset(20)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }
         
-        self.nameView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneView.snp.bottom).offset(spacing)
+        self.phoneView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.nameView.snp.bottom).offset(spacing)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }
         
         self.remarkView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.nameView.snp.bottom).offset(spacing)
+            make.top.equalTo(self.phoneView.snp.bottom).offset(spacing)
             make.left.equalTo(self.serverView)
             make.right.equalTo(self.serverView)
         }

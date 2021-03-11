@@ -82,7 +82,7 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         let model = self.dataArr[indexPath.row]
         
         cell.orderCodeLab.text = "订单号: \(model.OSN)"
-        cell.statusLab.text = model.OrderStateStr
+        cell.statusLab.text = model.getStateDes()
         
         cell.dateLab.text = model.AddTime
         

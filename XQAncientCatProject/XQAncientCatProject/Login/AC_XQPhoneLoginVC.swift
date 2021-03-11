@@ -196,6 +196,7 @@ class AC_XQPhoneLoginVC: XQACBaseVC, XQThirdPartyLoginProtocol {
     
     static func xq_loginDismiss(_ viewController: UIViewController) {
         
+        DK_TimerManager.shared.startTimer()
         if let vc = viewController.presentingViewController?.presentingViewController,
             let _ = viewController.presentingViewController?.presentingViewController?.presentingViewController {
             weak var weakVC = vc

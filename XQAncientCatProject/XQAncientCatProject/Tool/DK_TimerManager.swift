@@ -62,8 +62,9 @@ class DK_TimerManager{
         guard let time = timeStr?.xq_toDate() else {
             return ""
         }
-        if (time + hours.hours).timeIntervalSince(Date()) > 0 {
-            return transToHourMinSec(time: (time + hours.hours).timeIntervalSince(Date()))
+        let secondS = (time + hours.hours).timeIntervalSince(Date())
+        if secondS > 0 {
+            return transToHourMinSec(time: secondS)
         }else{
             return ""
         }

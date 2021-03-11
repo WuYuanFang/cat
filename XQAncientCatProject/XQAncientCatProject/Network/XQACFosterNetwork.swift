@@ -379,7 +379,7 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
             return "退款中"
             
         case .successfulRefund:
-            return "交易关闭"
+            return "退款成功"
         
         }
         

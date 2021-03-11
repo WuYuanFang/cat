@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TencentLoginDelegate, XQW
         
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
-        
+        DK_TimerManager.shared.startTimer()
 //        #if DEBUG
 //        UserDefaults.standard.setValue(false, forKey: "ac_xq_launch")
 //        #endif

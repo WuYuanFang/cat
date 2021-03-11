@@ -159,8 +159,9 @@ class AC_XQServerOrderViewCell: AC_XQThreeContentCell {
         self.statusLab.textColor = UIColor.ac_mainColor
         self.statusLab.font = UIFont.systemFont(ofSize: 14)
         
-        self.downStatusLab.textColor = UIColor.systemYellow
+        self.downStatusLab.textColor = UIColor.qmui_color(withHexString: "EF9F14")
         self.downStatusLab.font = UIFont.systemFont(ofSize: 14)
+        self.downStatusLab.textAlignment = .right
         
         
         self.originPriceLab.textColor = UIColor.init(hex: "#999999")
