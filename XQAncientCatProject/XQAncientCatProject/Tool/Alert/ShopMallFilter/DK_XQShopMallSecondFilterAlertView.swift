@@ -11,7 +11,7 @@ import XQProjectTool_iPhoneUI
 
 class DK_XQShopMallSecondFilterAlertView: UIView {
     
-    typealias SelectSecondMenuBlock = (_ model:XQSMNTAroundShopTopMenuModel) -> Void
+    typealias SelectSecondMenuBlock = (_ model:XQSMNTAroundShopTopMenuModel?) -> Void
     
     var selectMenuBlock:SelectSecondMenuBlock?
     var tagView: TTGTextTagCollectionView!
@@ -137,6 +137,9 @@ class DK_XQShopMallSecondFilterAlertView: UIView {
     }
     
     @objc func cancelAction() {
+        if let selBlock = selectMenuBlock {
+            selBlock(nil)
+        }
         DK_XQShopMallSecondFilterAlertView.hide()
     }
     

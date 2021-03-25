@@ -187,7 +187,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         AC_XQAlertSelectPayView.show(String(model.Id), money: model.TotalPrice, payType: .appointment, callback: { (payId, payType) in
             print("支付成功: ", payType)
             SVProgressHUD.showSuccess(withStatus: "支付成功")
-            self.reloadUI()
+            self.getWashOrderDetail(id: model.Id)
             self.refreshCallback?()
         }) {
             print("隐藏了")
@@ -227,6 +227,23 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
             }).disposed(by: self.disposeBag)
             
         }, cancelCallback: nil)
+    }
+    
+    /// 获取洗护订单详情
+    func getWashOrderDetail(id:Int) {
+        SVProgressHUD.show(withStatus: nil)
+        XQSMToShopOrderNetwork.getToOrderById(id).subscribe(onNext: { (resModel) in
+            if resModel.ErrCode != .succeed {
+                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+                return
+            }
+            SVProgressHUD.dismiss()
+            self.fosterModel = resModel.ToOrderItem
+            self.reloadUI()
+            self.refreshCallback?()
+        }, onError: { (error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }).disposed(by: self.disposeBag)
     }
 
 }

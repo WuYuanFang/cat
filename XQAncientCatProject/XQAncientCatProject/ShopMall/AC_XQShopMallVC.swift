@@ -63,7 +63,7 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, JXSegmentedViewDel
         
         // 过滤规则
         self.contentView.headerView.typeBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-            self.showSecondView()
+            self.showPingpai()
         }
         
         self.contentView.collectionView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: { [unowned self] in
@@ -133,7 +133,7 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, JXSegmentedViewDel
             if let arr = resModel.MenuList, arr.count > 0 {
                 DK_XQShopMallSecondFilterAlertView.showMenu(bgView: self.view, menus: arr, selM: self.selSecond) { (tmpM) in
                     self.selSecond = tmpM
-                    self.showPingpai()
+                    self.getProducts()
                 }
             }
         } onError: { (error) in
@@ -314,10 +314,12 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, JXSegmentedViewDel
     }
     
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        self.selSecond = nil
+//        self.selSecond = nil
         let model = self.contentView.headerView.menuList[index]
         self.currentCateId = model.CateId
-        self.getProducts()
+//        self.getProducts()
+        
+        self.showSecondView()
     }
     
     

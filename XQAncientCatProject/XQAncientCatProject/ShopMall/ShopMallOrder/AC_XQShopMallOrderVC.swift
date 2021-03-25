@@ -274,37 +274,41 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
                 }
                 SVProgressHUD.dismiss()
                 
-                self.callback?()
                 
                 weak var nc = self.navigationController
                 AC_XQAlertSelectPayView.show(String(resModel.OrderInfo?.Oid ?? 0), money: resModel.OrderInfo?.OrderAmount ?? 0, payType: .shopMall, callback: { (payId, payType) in
                     print("点击了支付: ", payType)
                     
-                    if let id = Int(payId) {
-                        SVProgressHUD.show(withStatus: nil)
-                        XQSMOrderNetwork.getOrderById(id).subscribe(onNext: { (resModel) in
-                            
-                            if resModel.ErrCode != .succeed {
-                                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
-                                return
-                            }
-                            
-                            SVProgressHUD.dismiss()
-                            let vc = AC_XQShopMallOrderDetailVC()
-                            vc.orderBaseInfoModel = resModel.OrderList
-                            
-                            nc?.popViewController(animated: false)
-                            nc?.pushViewController(vc, animated: true)
-                            
-                        }, onError: { (error) in
-                            SVProgressHUD.showError(withStatus: error.localizedDescription)
-                        }).disposed(by: self.disposeBag)
-                    }
+                    self.callback?()
+//                    if let id = Int(payId) {
+//                        SVProgressHUD.show(withStatus: nil)
+//                        XQSMOrderNetwork.getOrderById(id).subscribe(onNext: { (resModel) in
+//
+//                            if resModel.ErrCode != .succeed {
+//                                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+//                                return
+//                            }
+//
+//                            SVProgressHUD.dismiss()
+//                            let vc = AC_XQShopMallOrderDetailVC()
+//                            vc.orderBaseInfoModel = resModel.OrderList
+//
+//                            nc?.popViewController(animated: false)
+//                            nc?.pushViewController(vc, animated: true)
+//
+//                        }, onError: { (error) in
+//                            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//                        }).disposed(by: self.disposeBag)
+//                    }
+                    SVProgressHUD.showSuccess(withStatus: "支付成功")
+                    nc?.pushViewController(AC_XQOrderListVC(), animated: true)
                     
                 }) {
                     print("隐藏了")
+                    SVProgressHUD.showSuccess(withStatus: "已取消支付")
+                    nc?.popViewController(animated: true)
                     // 弹框
-                    self.getDetail(id: resModel.OrderInfo?.Oid ?? 0)
+//                    self.getDetail(id: resModel.OrderInfo?.Oid ?? 0)
                 }
                 
             }, onError: { (error) in
