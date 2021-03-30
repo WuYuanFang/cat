@@ -87,7 +87,7 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.vipZKView.titleLab.text = ""
             self.contentView.infoView.vipZKView.contentLab.text = ""
         }else {
-            if fosterModel.RankDiscount >= 10 {
+            if fosterModel.RankDiscount >= 10 || fosterModel.RankDiscount == 0 {
                 self.contentView.infoView.vipZKView.contentLab.text = "无"
             }else {
                 self.contentView.infoView.vipZKView.contentLab.text = "\(fosterModel.RankDiscount)折"
@@ -125,6 +125,9 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             }
             
         }else if fosterModel.OrderState == .inInspection || fosterModel.OrderState == .confirmed || fosterModel.OrderState == .inStock {
+            
+            
+            self.contentView.signBtn.isHidden = false
             if DK_TimerManager.getLastTime(fosterModel.PayTime, .shop).count > 0 {
                 self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
                 self.contentView.infoView.refundBtn.isHidden = false
@@ -136,6 +139,7 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
         }else {
             
+            
             if fosterModel.OrderState == .delivered {
                 self.contentView.signBtn.isHidden = false
                 self.contentView.infoView.refundBtn.setTitle("确认收货", for: .normal)
@@ -144,7 +148,7 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
                     self.sureOrder()
                 }
             }
-            if fosterModel.OrderState == .refund || fosterModel.OrderState == .inStock  {
+            if fosterModel.OrderState == .refund {
                 self.contentView.animalImg.isHidden = false
             }
             

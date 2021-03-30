@@ -517,7 +517,7 @@ struct XQSMNTAroundShopProductReviewsModel: HandyJSON {
     var State = 0
     
     /// Star (integer, optional): 评价星级 ,
-    var Star = 0
+    var Start = 0
     
     /// Message (string, optional): 评价 ,
     var Message = ""

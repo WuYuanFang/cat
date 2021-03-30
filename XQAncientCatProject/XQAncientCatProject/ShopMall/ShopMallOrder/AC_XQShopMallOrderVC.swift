@@ -310,8 +310,12 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
                     
                 }) {
                     print("隐藏了")
-                    SVProgressHUD.showSuccess(withStatus: "已取消支付")
-                    nc?.popViewController(animated: true)
+                    SVProgressHUD.showSuccess(withStatus: "支付已取消")
+                    
+                    nc?.popViewController(animated: false)
+                    nc?.pushViewController(AC_XQOrderListVC(), animated: true)
+                    self.callback?()
+//                    nc?.popViewController(animated: true)
                     // 弹框
 //                    self.getDetail(id: resModel.OrderInfo?.Oid ?? 0)
                 }

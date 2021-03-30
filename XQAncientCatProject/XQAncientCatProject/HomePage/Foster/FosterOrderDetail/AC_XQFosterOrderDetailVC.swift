@@ -186,6 +186,7 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
             print("支付成功: ", payType)
             SVProgressHUD.showSuccess(withStatus: "支付成功")
             self.getDetailData()
+            NotificationCenter.default.post(name: NSNotification.Name.init("RefreshServerList"), object: nil)
         }) {
             print("隐藏了")
         }

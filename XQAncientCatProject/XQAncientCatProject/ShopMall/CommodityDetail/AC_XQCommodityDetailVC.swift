@@ -43,6 +43,7 @@ class AC_XQCommodityDetailVC: XQACBaseVC, AC_XQCommodityDetailViewContentViewSpe
 //        self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(image: UIImage.init(named: "icon_shopCar"), style: .plain, target: self, action: ))
         
         self.contentView.headerView.commentView.xq_addTap { [unowned self] (gesture) in
+            // 点击评价
             let vc = AC_XQShopMallCommentVC()
             vc.pId = self.pId ?? 0
             self.navigationController?.pushViewController(vc, animated: true)

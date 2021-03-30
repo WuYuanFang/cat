@@ -18,7 +18,7 @@ class AC_XQWashProtectOrderListVC: XQACBaseVC, AC_XQWashProtectOrderListViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name.init("RefreshWashList"), object: nil)
         self.xq_navigationBar.isHidden = true
         self.xq_view.isHidden = true
 
@@ -37,7 +37,7 @@ class AC_XQWashProtectOrderListVC: XQACBaseVC, AC_XQWashProtectOrderListViewDele
     }
     
     /// 获取预约数据
-    func getData() {
+    @objc func getData() {
         
         let reqModel = XQSMNTToShopOrderReqModel.init(State: .all)
         XQSMToShopOrderNetwork.getMyToOrder(reqModel).subscribe(onNext: { (resModel) in

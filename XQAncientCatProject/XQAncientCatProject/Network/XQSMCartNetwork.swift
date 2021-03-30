@@ -258,7 +258,8 @@ struct XQSMNTOrderProductInfoModel: HandyJSON {
     var ExtCode5: Int = 0
     /// AddTime (string, optional): 添加时间
     var AddTime: String = ""
-    
+    /// 商品规格
+    var Specs: String = ""
     /// IsVip (boolean, optional): 是否VIP
     var IsVip = false
     

@@ -18,7 +18,7 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name.init("RefreshServerList"), object: nil)
         self.xq_navigationBar.isHidden = true
         self.xq_view.isHidden = true
 
@@ -38,7 +38,7 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
     }
     
     /// 获取寄养数据
-    func getData() {
+    @objc func getData() {
         let reqModel = XQSMNTBaseReqModel()
         XQACFosterNetwork.fosterList(reqModel).subscribe(onNext: { (resModel) in
             

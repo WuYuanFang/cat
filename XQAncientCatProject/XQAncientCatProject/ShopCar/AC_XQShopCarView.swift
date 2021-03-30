@@ -115,7 +115,7 @@ class AC_XQShopCarView: UIView, UITableViewDelegate, UITableViewDataSource {
             cell.iconImgView.sd_setImage(with: orderProductInfo.ShowImgWithAddress.sm_getImgUrl())
             
             // 这里，看UI，好像是要让用户, 能在购物车选规格，和淘宝那些相似
-            cell.messageLab.text = ""
+            cell.messageLab.text = orderProductInfo.Specs
             
             cell.priceLab.text = "¥\(orderProductInfo.ShopPrice)"
             

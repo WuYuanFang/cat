@@ -9,6 +9,7 @@
 import UIKit
 import HandyJSON
 
+// 商品评价
 protocol AC_XQShopMallCommentViewDelegate: NSObjectProtocol {
     
     /// 点击评论图片
@@ -79,7 +80,7 @@ class AC_XQShopMallCommentView: UIView, UITableViewDelegate, UITableViewDataSour
         
         cell.jggView.setImgUrl(model.imgArr)
         cell.dateLab.text = model.xq_ReviewTime
-        cell.starView.starSelectIndex = model.Star - 1
+        cell.starView.starSelectIndex = model.Start - 1
         cell.starView.isUserInteractionEnabled = false
         
         cell.delegate = self

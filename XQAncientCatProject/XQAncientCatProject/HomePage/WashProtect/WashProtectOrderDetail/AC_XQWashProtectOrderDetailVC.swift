@@ -188,6 +188,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
             print("支付成功: ", payType)
             SVProgressHUD.showSuccess(withStatus: "支付成功")
             self.getWashOrderDetail(id: model.Id)
+            NotificationCenter.default.post(name: NSNotification.Name.init("RefreshWashList"), object: nil)
             self.refreshCallback?()
         }) {
             print("隐藏了")
