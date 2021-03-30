@@ -186,9 +186,18 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         }
         AC_XQAlertSelectPayView.show(String(model.Id), money: model.TotalPrice, payType: .appointment, callback: { (payId, payType) in
             print("支付成功: ", payType)
+            
+            self.fosterModel?.StateDesc = "已预约"
+            self.fosterModel?.State = .reserved
+            self.fosterModel?.PayTime = Date().xq_toString()
+            // 默认，以防报错
+            self.fosterModel?.PayType = "wechat"
+            self.reloadUI()
             SVProgressHUD.showSuccess(withStatus: "支付成功")
-            self.getWashOrderDetail(id: model.Id)
             NotificationCenter.default.post(name: NSNotification.Name.init("RefreshWashList"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.getWashOrderDetail(id: model.Id)
+            }
             self.refreshCallback?()
         }) {
             print("隐藏了")
@@ -243,7 +252,7 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
             self.reloadUI()
             self.refreshCallback?()
         }, onError: { (error) in
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//            SVProgressHUD.showError(withStatus: error.localizedDescription)
         }).disposed(by: self.disposeBag)
     }
 

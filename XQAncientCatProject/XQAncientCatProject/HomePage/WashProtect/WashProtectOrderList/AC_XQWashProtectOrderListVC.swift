@@ -65,7 +65,7 @@ class AC_XQWashProtectOrderListVC: XQACBaseVC, AC_XQWashProtectOrderListViewDele
             self.contentView.tableView.reloadData()
             
         }, onError: { (error) in
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//            SVProgressHUD.showError(withStatus: error.localizedDescription)
             self.contentView.tableView.mj_header?.endRefreshing()
         }).disposed(by: self.disposeBag)
         
