@@ -15,6 +15,7 @@ import XQAlert
 class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
     
     let contentView = AC_XQShopCarView()
+    let rightBtn = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,6 @@ class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
         
         
         self.xq_navigationBar.backView.setBackImg(with: UIImage.init(named: "back_arrow")?.xq_image(withTintColor: .ac_mainColor))
-        let rightBtn = UIButton()
         rightBtn.setTitle("管理", for: .normal)
         rightBtn.setTitleColor(.ac_mainColor, for: .normal)
         rightBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
@@ -164,9 +164,11 @@ class AC_XQShopCarVC: XQACBaseVC, AC_XQShopCarViewDelegate {
         self.contentView.xq_isEditing = !self.contentView.xq_isEditing
         
         if self.contentView.xq_isEditing {
-            self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "完成", style: .plain, target: self, action: #selector(respondsToManager)))
+            self.rightBtn.setTitle("完成", for: .normal)
+//            self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "完成", style: .plain, target: self, action: #selector(respondsToManager)))
         }else {
-            self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "管理", style: .plain, target: self, action: #selector(respondsToManager)))
+            self.rightBtn.setTitle("管理", for: .normal)
+//            self.xq_navigationBar.addRightBtn(with: UIBarButtonItem.init(title: "管理", style: .plain, target: self, action: #selector(respondsToManager)))
         }
         
         self.contentView.footerView.managerUILayout(self.contentView.xq_isEditing)

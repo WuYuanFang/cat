@@ -87,7 +87,7 @@ pod 'CocoaDebug', :configurations => ['Debug']
 
 pod 'PgyUpdate', :configurations => ['Debug']
 
-pod 'JXSegmentedView'
+pod 'JXSegmentedView', '~> 1.0.4'
 
 end
 
