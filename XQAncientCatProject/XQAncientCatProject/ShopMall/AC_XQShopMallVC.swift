@@ -318,8 +318,11 @@ class AC_XQShopMallVC: XQACBaseVC, AC_XQShopMallViewDelegate, JXSegmentedViewDel
         let model = self.contentView.headerView.menuList[index]
         self.currentCateId = model.CateId
 //        self.getProducts()
+        DK_XQShopMallSecondFilterAlertView.hide()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.showSecondView()
+        }
         
-        self.showSecondView()
     }
     
     
