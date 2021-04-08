@@ -20,7 +20,7 @@ class AC_XQSegmentView: UIView {
     
     weak var delegate: AC_XQSegmentViewDelegate?
     
-    init(frame: CGRect = CGRect.zero, titleArr: [String]) {
+    init(frame: CGRect = CGRect.zero, titleArr: [String], defaultIndex:Int = 0) {
         super.init(frame: frame)
         
         self.addSubview(self.contentView)
@@ -68,8 +68,12 @@ class AC_XQSegmentView: UIView {
                 }
             }
             
-            if index == 0 {
+            if index == defaultIndex {
                 self.configPaddingView(paddingView, status: 1)
+            }
+            
+            if index == 0 {
+                
                 paddingView.snp.makeConstraints { (make) in
                     make.top.equalTo(4)
                     make.bottom.equalTo(-4)

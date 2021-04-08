@@ -301,9 +301,9 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
 //                        }).disposed(by: self.disposeBag)
 //                    }
                     SVProgressHUD.showSuccess(withStatus: "支付成功")
-                    
-                    nc?.popViewController(animated: false)
-                    nc?.pushViewController(AC_XQOrderListVC(), animated: true)
+                    nc?.qmui_popToRootViewController(animated: false, completion: {
+                        nc?.pushViewController(AC_XQOrderListVC(), animated: true)
+                    })
 //                    nc?.qmui_popViewController(animated: false, completion: {
 //                        nc?.pushViewController(AC_XQOrderListVC(), animated: true)
 //                    })
@@ -312,8 +312,9 @@ class AC_XQShopMallOrderVC: XQACBaseVC, XQNumberViewDelegate, AC_XQRealNameProto
                     print("隐藏了")
                     SVProgressHUD.showSuccess(withStatus: "支付已取消")
                     
-                    nc?.popViewController(animated: false)
-                    nc?.pushViewController(AC_XQOrderListVC(), animated: true)
+                    nc?.qmui_popToRootViewController(animated: false, completion: {
+                        nc?.pushViewController(AC_XQOrderListVC(), animated: true)
+                    })
                     self.callback?()
 //                    nc?.popViewController(animated: true)
                     // 弹框

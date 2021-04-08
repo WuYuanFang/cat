@@ -75,7 +75,7 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
         }
         
         self.contentView.payView.payBtn.xq_addTap { [unowned self] (sender) in
-            self.payOrder()
+            self.payOrderBefore()
         }
     }
     
@@ -133,7 +133,7 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
     
     /// 计算价格
     @discardableResult
-    func calculation() -> XQSMNTBeginOrderReqModel? {
+    func calculation(_ isPay:Bool = false) -> XQSMNTBeginOrderReqModel? {
         
         if XQSMBaseNetwork.default.token.count == 0 {
             return nil
@@ -155,7 +155,7 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
         
         let productInfoModelArr = self.getPdList()
         
-        let reqModel = XQSMNTBeginOrderReqModel.init(ShopId: shopId,
+        var reqModel = XQSMNTBeginOrderReqModel.init(ShopId: shopId,
                                                      PetId: petModel.Id,
                                                      SubscribeTime: startTime ?? "",
                                                      Phone: "",
@@ -181,7 +181,9 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
                 SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                 return
             }
-            
+            if isPay {
+                self.payOrder(reqModel: &reqModel)
+            }
             self.contentView.payView.moneyLab.text = "合计 ¥\(resModel.TotalPrice.xq_removeDecimalPointZero())"
             self.contentView.infoView.serverView.contentLab.text = "¥\(resModel.TotalPrice.xq_removeDecimalPointZero())"
             
@@ -231,7 +233,7 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
     }
     
     /// 下单
-    func payOrder() {
+    func payOrderBefore() {
         
         if self.contentView.nameView.tf.text?.count ?? 0 == 0 {
             SVProgressHUD.showInfo(withStatus: "请填写姓名")
@@ -242,10 +244,12 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
             SVProgressHUD.showInfo(withStatus: "请填写正确电话号码")
             return
         }
-        
-        guard var reqModel = self.calculation() else {
-            return
-        }
+        self.calculation(true)
+//        guard var reqModel = self.calculation() else {
+//            return
+//        }
+    }
+    func payOrder(reqModel:inout XQSMNTBeginOrderReqModel) {
         
         self.view.endEditing(true)
         
@@ -256,19 +260,20 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
         SVProgressHUD.show(withStatus: nil)
         XQSMToShopNetwork.beginOrder(reqModel).subscribe(onNext: { (resModel) in
 
+            SVProgressHUD.dismiss()
             if resModel.ErrCode != .succeed {
                 SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                 return
             }
 
-            SVProgressHUD.dismiss()
             
             AC_XQAlertSelectPayView.show(String(resModel.OId), money: resModel.TotalPrice, payType: .appointment, callback: { (payId, payType) in
                 print("点击了支付: ", payType)
                 
-                if let id = Int(payId) {
-                    self.presentOrderDetail(id)
-                }
+                self.presentOrderDetail(0)
+//                if let id = Int(payId) {
+//                    self.presentOrderDetail(id)
+//                }
                 
             }) {
                 print("隐藏了")
@@ -283,28 +288,35 @@ class AC_XQWashProtectOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoP
     }
     
     func presentOrderDetail(_ id: Int) {
+        
         weak var nc = self.navigationController
-        SVProgressHUD.show(withStatus: nil)
-        XQSMToShopOrderNetwork.getToOrderById(id).subscribe(onNext: { (resModel) in
-            
-            if resModel.ErrCode != .succeed {
-                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
-                return
-            }
-            
-            SVProgressHUD.dismiss()
-            
-            nc?.popViewController(animated: false)
-            
-            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
-                let vc = AC_XQWashProtectOrderDetailVC()
-                vc.fosterModel = resModel.ToOrderItem
-                nc?.pushViewController(vc, animated: true)
-            })
-            
-        }, onError: { (error) in
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
-        }).disposed(by: self.disposeBag)
+        nc?.qmui_popToRootViewController(animated: false, completion: {
+            let vc = AC_XQOrderListVC()
+            vc.selIndex = 1
+            vc.selServerIndex = 0
+            nc?.pushViewController(vc, animated: true)
+        })
+//        SVProgressHUD.show(withStatus: nil)
+//        XQSMToShopOrderNetwork.getToOrderById(id).subscribe(onNext: { (resModel) in
+//
+//            if resModel.ErrCode != .succeed {
+//                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+//                return
+//            }
+//
+//            SVProgressHUD.dismiss()
+//
+//            nc?.popViewController(animated: false)
+//
+//            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
+//                let vc = AC_XQWashProtectOrderDetailVC()
+//                vc.fosterModel = resModel.ToOrderItem
+//                nc?.pushViewController(vc, animated: true)
+//            })
+//
+//        }, onError: { (error) in
+//            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//        }).disposed(by: self.disposeBag)
     }
     
 }

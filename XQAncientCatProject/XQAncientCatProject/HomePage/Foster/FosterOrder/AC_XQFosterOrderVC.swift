@@ -229,28 +229,34 @@ class AC_XQFosterOrderVC: XQACBaseVC, AC_XQRealNameProtocol, AC_XQUserInfoProtoc
     
     func presentOrderDetail(_ id: Int) {
         weak var nc = self.navigationController
-        SVProgressHUD.show(withStatus: nil)
-        XQACFosterNetwork.fosterDetails(id).subscribe(onNext: { (resModel) in
-            
-            if resModel.ErrCode != .succeed {
-                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
-                return
-            }
-            
-            SVProgressHUD.dismiss()
-            
-            nc?.popViewController(animated: false)
-            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
-                let vc = AC_XQFosterOrderDetailVC()
-                vc.fosterModel = resModel.model
-                nc?.pushViewController(vc, animated: true)
-            })
-            
-            
-            
-        }, onError: { (error) in
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
-        }).disposed(by: self.disposeBag)
+        nc?.qmui_popToRootViewController(animated: false, completion: {
+            let vc = AC_XQOrderListVC()
+            vc.selIndex = 1
+            vc.selServerIndex = 1
+            nc?.pushViewController(vc, animated: true)
+        })
+//        SVProgressHUD.show(withStatus: nil)
+//        XQACFosterNetwork.fosterDetails(id).subscribe(onNext: { (resModel) in
+//
+//            if resModel.ErrCode != .succeed {
+//                SVProgressHUD.showError(withStatus: resModel.ErrMsg)
+//                return
+//            }
+//
+//            SVProgressHUD.dismiss()
+//
+//            nc?.popViewController(animated: false)
+//            nc?.qmui_pushViewController(AC_XQOrderListVC(), animated: true, completion: {
+//                let vc = AC_XQFosterOrderDetailVC()
+//                vc.fosterModel = resModel.model
+//                nc?.pushViewController(vc, animated: true)
+//            })
+//
+//
+//
+//        }, onError: { (error) in
+//            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//        }).disposed(by: self.disposeBag)
     }
 
 }

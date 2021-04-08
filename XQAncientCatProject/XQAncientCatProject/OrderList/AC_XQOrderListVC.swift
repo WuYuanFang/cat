@@ -12,8 +12,11 @@ import CMPageTitleView
 /// 订单列表
 class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDelegate {
     
+    var selIndex = 0 // 默认近来展示商品订单，1是服务订单
+    var selServerIndex = 0 // 默认选中洗护列表
+    
 //    let headerView = AC_XQSegmentView.init(titleArr: ["商品订单", "服务订单", "活体订单"])
-    let headerView = AC_XQSegmentView.init(titleArr: ["商品订单", "服务订单"])
+    var headerView : AC_XQSegmentView!
     
     /// 商品订单
     let titleView = CMPageTitleView()
@@ -26,6 +29,8 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        headerView = AC_XQSegmentView.init(titleArr: ["商品订单", "服务订单"], defaultIndex: selIndex)
 //        self.navigationItem.title = "福利订单"
         
         self.headerView.delegate = self
@@ -53,6 +58,7 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
             make.edges.equalToSuperview()
         }
         
+        
         self.configTitleView(self.titleView, titleArr: [
             "全部",
             "待付款",
@@ -75,43 +81,43 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
             
         ], cl: AC_XQOrderListChildrenVC.self)
         
-        
-        var vcArr = [UIViewController]()
-        for (index, item) in self.titleView.cm_config.cm_titles.enumerated() {
-            let vc = AC_XQOrderListChildrenVC()
-            
-            vc.title = item
-            
-            switch index {
-            case 0:
-                vc.state = .all
+        if selIndex == 0 {
+            var vcArr = [UIViewController]()
+            for (index, item) in self.titleView.cm_config.cm_titles.enumerated() {
+                let vc = AC_XQOrderListChildrenVC()
                 
-            case 1:
-                vc.state = .waitPay
+                vc.title = item
                 
-            case 2:
-                vc.state = .toBeDelivered
+                switch index {
+                case 0:
+                    vc.state = .all
+                    
+                case 1:
+                    vc.state = .waitPay
+                    
+                case 2:
+                    vc.state = .toBeDelivered
+                    
+                case 3:
+                    vc.state = .delivered
+                    
+                case 4:
+                    vc.state = .receivedGoods
+                    
+                case 5:
+                    vc.state = .refundAndAfterSale
+                    
+                default:
+                    vc.state = .all
+                    break
+                }
                 
-            case 3:
-                vc.state = .delivered
-                
-            case 4:
-                vc.state = .receivedGoods
-                
-            case 5:
-                vc.state = .refundAndAfterSale
-                
-            default:
-                vc.state = .all
-                break
+                vcArr.append(vc)
             }
             
-            vcArr.append(vc)
+            self.titleView.cm_config.cm_childControllers = vcArr
+            self.titleView.cm_reloadConfig()
         }
-        
-        self.titleView.cm_config.cm_childControllers = vcArr
-        self.titleView.cm_reloadConfig()
-        
         
         let arr = [AC_XQWashProtectOrderListVC.self, AC_XQServerOrderVC.self]
         self.configTitleView(self.serverOrderTitleView, titleArr: [
@@ -120,7 +126,18 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
             "寄养订单",
             //            "繁育订单", // 暂时没有繁育
         ], clArr: arr)
-        
+        if selIndex == 1 {
+            var vcArr = [UIViewController]()
+            let vc1 = AC_XQWashProtectOrderListVC()
+            vc1.title = "洗护订单"
+            vcArr.append(vc1)
+            let vc2 = AC_XQServerOrderVC()
+            vc2.title = "寄养订单"
+            vcArr.append(vc2)
+            
+            self.serverOrderTitleView.cm_config.cm_childControllers = vcArr
+            self.serverOrderTitleView.cm_config.cm_defaultIndex = selServerIndex
+        }
         
         self.configTitleView(self.liveOrderTitleView, titleArr: [
             "没有UI1",
@@ -129,8 +146,8 @@ class AC_XQOrderListVC: XQACBaseVC, CMPageTitleViewDelegate, AC_XQSegmentViewDel
         
         
         
-        
-        self.serverOrderTitleView.isHidden = true
+        self.titleView.isHidden = selIndex == 1
+        self.serverOrderTitleView.isHidden = selIndex == 0
         self.liveOrderTitleView.isHidden = true
         
     }
