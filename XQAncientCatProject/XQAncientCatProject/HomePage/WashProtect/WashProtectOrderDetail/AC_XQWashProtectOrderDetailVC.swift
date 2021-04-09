@@ -101,6 +101,8 @@ class AC_XQWashProtectOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.serverView.desDetailLab.text = fosterModel.xq_getOrderPdListInfo()
         
         self.contentView.infoView.timeView.contentLab.text = fosterModel.SubscribeTime
+        self.contentView.bottomView.stateL.text = fosterModel.StateDesc
+        
 //        self.contentView.infoView.endTimeView.contentLab.text = fosterModel.FinishTime
         let startTime = fosterModel.SubscribeTime.xq_toDate()
         var endTime = startTime

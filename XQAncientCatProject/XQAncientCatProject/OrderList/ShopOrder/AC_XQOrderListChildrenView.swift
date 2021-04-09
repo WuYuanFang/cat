@@ -84,20 +84,20 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         cell.orderCodeLab.text = "订单号: \(model.OSN)"
         cell.statusLab.text = model.getStateDes()
         
-        cell.dateLab.text = model.AddTime
+//        cell.dateLab.text = model.AddTime
         
         // 暂时只用第一个. 后面有需求要改，再说
         if let product = model.ProductList?.first {
             cell.titleLab.text = product.Name
             cell.iconImgView.sd_setImage(with: product.ShowImg.sm_getImgUrl())
             
-            cell.originPriceLab.text = ""
-            cell.numberLab.text = ""
+            cell.originPriceLab.text = "¥\(product.DiscountPrice)"
+            cell.numberLab.text = "x\(product.BuyCount)"
             
             cell.messageLab.text = product.Specs
         }
         
-        cell.priceLab.text = "¥\(model.SurplusMoney)"
+        cell.priceLab.text = "总金额¥\(model.SurplusMoney)"
         
         
         cell.deleteBtn.isHidden = true
@@ -105,14 +105,15 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         cell.statusBtn.isHidden = true
         cell.funcBtn.isHidden = true
         cell.downStatusLab.isHidden = true
+        cell.refundBtn.isHidden = true
         
-        cell.funcBtn.xq_addEvent(.touchUpInside) { (sender) in
-            
-        }
-        
-        cell.statusBtn.xq_addEvent(.touchUpInside) { (sender) in
-            
-        }
+//        cell.funcBtn.xq_addEvent(.touchUpInside) { (sender) in
+//            
+//        }
+//        
+//        cell.statusBtn.xq_addEvent(.touchUpInside) { (sender) in
+//            
+//        }
         
         #if DEBUG
 //        cell.statusBtn.isHidden = false
@@ -142,14 +143,7 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
             /// 已确认
             /// 备货中
         case .inInspection, .confirmed, .inStock:
-            if DK_TimerManager.getLastTime(model.PayTime, .shop).count > 0 {
-                cell.funcBtn.isHidden = false
-                cell.funcBtn.setTitle("申请退款", for: .normal)
-                cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                    self.delegate?.orderListChildrenView(refundOrder: self, didSelectRowAt: indexPath)
-                }
-                cell.statusBtn.isHidden = false
-            }
+                break
             
             /// 已发货
         case .delivered:
@@ -219,7 +213,25 @@ class AC_XQOrderListChildrenView: UIView, UITableViewDelegate ,UITableViewDataSo
         default:
             break
         }
-        
+        // 在下单后，发货前都可以退款
+        if model.OrderState.rawValue > 20 && model.OrderState.rawValue < 120 {
+            if model.OrderState != .delivered {
+                cell.funcBtn.isHidden = false
+                cell.funcBtn.setTitle("申请退款", for: .normal)
+                cell.funcBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                    self.delegate?.orderListChildrenView(refundOrder: self, didSelectRowAt: indexPath)
+                }
+            }else{
+                cell.refundBtn.isHidden = false
+                cell.refundBtn.setTitle("申请退款", for: .normal)
+                cell.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                    self.delegate?.orderListChildrenView(refundOrder: self, didSelectRowAt: indexPath)
+                }
+            }
+        }
+        cell.funcBtn.snp.updateConstraints { (make) in
+            make.right.equalTo(model.OrderState == .delivered ? -103 : -10)
+        }
 //        self.titleLab.text = "好之味全价狗粮"
 //        self.messageLab.text = "10kg | 牛肉味"
 //

@@ -65,12 +65,14 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
         
         let model = self.contentView.dataArr[indexPath.row]
         
-        if (model.State == .orderPlaced && model.PayType == 1) ||
-            model.State == .done ||
-            model.State == .cancel ||
-            model.State == .refundInProgress ||
-            model.State == .successfulRefund ||
-            model.State == .waitingComments {
+        if model.State == .fostering {
+            let vc = AC_XQServerOrderDetailVC()
+            vc.fosterModel = self.contentView.dataArr[indexPath.row]
+            vc.refreshCallback = { [unowned self] in
+                self.getData()
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
             // 没开始寄养 or 结束了
             let vc = AC_XQFosterOrderDetailVC()
             vc.fosterModel = self.contentView.dataArr[indexPath.row]
@@ -78,17 +80,27 @@ class AC_XQServerOrderVC: XQACBaseVC, AC_XQServerOrderViewDelegate {
                 self.getData()
             }
             self.navigationController?.pushViewController(vc, animated: true)
-            
-        }else {
-            
-            let vc = AC_XQServerOrderDetailVC()
-            vc.fosterModel = self.contentView.dataArr[indexPath.row]
-            vc.refreshCallback = { [unowned self] in
-                self.getData()
-            }
-            self.navigationController?.pushViewController(vc, animated: true)
-            
         }
+        
+//        if (model.State == .orderPlaced && model.PayType == 1) ||
+//            model.State == .done ||
+//            model.State == .cancel ||
+//            model.State == .refundInProgress ||
+//            model.State == .successfulRefund ||
+//            model.State == .waitingComments {
+//            // 没开始寄养 or 结束了
+//            let vc = AC_XQFosterOrderDetailVC()
+//            vc.fosterModel = self.contentView.dataArr[indexPath.row]
+//            vc.refreshCallback = { [unowned self] in
+//                self.getData()
+//            }
+//            self.navigationController?.pushViewController(vc, animated: true)
+//
+//        }else {
+//
+//
+//
+//        }
     }
     
     /// 去支付

@@ -143,6 +143,8 @@ class AC_XQServerOrderView: UIView, UITableViewDelegate, UITableViewDataSource {
         case .successfulRefund:
             cell.deleteBtn.isHidden = false
             cell.downStatusLab.text = "退款成功"
+        case .fostering:
+            break
         }
         
         return cell

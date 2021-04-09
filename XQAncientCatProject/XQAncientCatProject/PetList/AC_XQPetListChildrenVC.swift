@@ -152,7 +152,13 @@ class AC_XQPetListChildrenVC: XQACBaseVC, AC_XQPetListChildrenViewDelegate {
                 SVProgressHUD.showError(withStatus: resModel.ErrMsg)
                 return
             }
-            let vc = AC_XQFosterOrderDetailVC()
+//            let vc = AC_XQFosterOrderDetailVC()
+//            vc.fosterModel = resModel.model
+//            vc.refreshCallback = { [unowned self] in
+//                self.getData()
+//            }
+//            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = AC_XQServerOrderDetailVC()
             vc.fosterModel = resModel.model
             vc.refreshCallback = { [unowned self] in
                 self.getData()

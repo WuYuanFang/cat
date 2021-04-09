@@ -76,10 +76,11 @@ class AC_XQShopMallOrderViewInfoViewCellContentView: UIView {
             make.left.right.equalTo(self.nameLab)
         }
         
-        self.priceLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
+//        self.priceLab.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.priceLab.snp.makeConstraints { (make) in
             make.top.equalTo(8)
             make.right.equalTo(-8)
+            make.width.equalTo(50)
         }
         
         // 设置属性

@@ -96,6 +96,7 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.dayView.contentLab.text = "\(fosterModel.SeveralNights)天"
         self.contentView.infoView.timeView.contentLab.text = fosterModel.StartTime
         
+        self.contentView.bottomView.stateL.text = fosterModel.getStateDes()
         //            self.contentView.infoView.timeView.contentLab.text = fosterModel.StartTime
         self.contentView.infoView.couponView.contentLab.text = "¥ \(fosterModel.sumjmmoney)"
         self.contentView.infoView.moneyView.contentLab.text = "¥\(fosterModel.Totalamount)"
@@ -105,7 +106,6 @@ class AC_XQFosterOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.remarkView.contentLab.text = fosterModel.Remarks
         
         self.contentView.infoView.orderLab.text = "订单编号 \(fosterModel.OSN)"
-        
         self.contentView.infoView.payOrReservedBtn.isHidden = true
         self.contentView.infoView.cancelOrderBtn.isHidden = true
         self.contentView.infoView.cancelOrderLab.isHidden = true

@@ -346,12 +346,16 @@ struct XQACNTFosterGM_FosterModel: HandyJSON {
         case refundInProgress = 5
         /// 退款成功
         case successfulRefund = 6
+        /// 寄养中
+        case fostering = 7
         
     }
     
     func getStateDes() -> String {
         
         switch self.State {
+        case .fostering:
+            return "寄养中"
         
         case .orderPlaced:
             

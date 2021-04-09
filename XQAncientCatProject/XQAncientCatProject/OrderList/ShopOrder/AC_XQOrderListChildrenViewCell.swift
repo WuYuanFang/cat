@@ -24,38 +24,39 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
     let originPriceLab = UILabel()
     
     let deleteBtn = UIButton()
-    let dateLab = UILabel()
+//    let dateLab = UILabel()
     let statusBtn = UIButton()
+    let refundBtn = UIButton()
     let funcBtn = UIButton()
     let downStatusLab = UILabel()
     
-    @objc func updateTime() {
-        if let m = model, (m.OrderState == .inInspection || m.OrderState == .confirmed || m.OrderState == .inStock) {
-            if DK_TimerManager.getLastTime(m.PayTime, .shop).count > 0 {
-                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime, .shop), for: .normal)
-            }else{
-                statusBtn.isHidden = true
-                funcBtn.isHidden = true
-                NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
-            }
-        }
-    }
+//    @objc func updateTime() {
+//        if let m = model, (m.OrderState == .inInspection || m.OrderState == .confirmed || m.OrderState == .inStock) {
+//            if DK_TimerManager.getLastTime(m.PayTime, .shop).count > 0 {
+//                statusBtn.setTitle(DK_TimerManager.getLastTime(m.PayTime, .shop), for: .normal)
+//            }else{
+//                statusBtn.isHidden = true
+//                funcBtn.isHidden = true
+//                NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
+//            }
+//        }
+//    }
     
-    deinit {
-        print("cell已经销毁")
-        NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
-    }
+//    deinit {
+//        print("cell已经销毁")
+//        NotificationCenter.default.removeObserver(self, name: timeNoti, object: nil)
+//    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: timeNoti, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateTime), name: timeNoti, object: nil)
         
         self.topContentView.xq_addSubviews(self.orderCodeLab, self.statusLab)
         
         self.centerContentView.xq_addSubviews(self.iconImgView, self.titleLab, self.messageLab, self.priceLab, self.numberLab, self.originPriceLab)
         
-        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.dateLab, self.funcBtn, self.statusBtn, self.downStatusLab)
+        self.bottomContentView.xq_addSubviews(self.deleteBtn, self.funcBtn, self.statusBtn, self.downStatusLab, self.refundBtn)
         
         
         // 布局
@@ -73,9 +74,9 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         }
         
         self.iconImgView.snp.makeConstraints { (make) in
-            make.top.equalTo(10)
-            make.bottom.equalTo(-10)
-            make.left.equalTo(12)
+            make.top.equalTo(15)
+            make.bottom.equalTo(-15)
+            make.left.equalTo(8)
             make.width.equalTo(self.iconImgView.snp.height)
         }
         
@@ -101,7 +102,8 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         }
         
         self.priceLab.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.iconImgView)
+            make.bottom.equalTo(0)
+            make.height.equalTo(24)
             make.right.equalTo(self.originPriceLab)
         }
         
@@ -112,11 +114,11 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
             make.size.equalTo(CGSize.init(width: 20, height: 20))
         }
         
-        self.dateLab.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.left.equalTo(self.deleteBtn.snp.right).offset(10)
-            make.right.equalTo(self.statusBtn.snp.left).offset(-5)
-        }
+//        self.dateLab.snp.makeConstraints { (make) in
+//            make.centerY.equalToSuperview()
+//            make.left.equalTo(self.deleteBtn.snp.right).offset(10)
+//            make.right.equalTo(self.statusBtn.snp.left).offset(-5)
+//        }
         
         let funcBtnHeight: CGFloat = 26
         self.downStatusLab.snp.makeConstraints { (make) in
@@ -124,9 +126,14 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
             make.right.equalToSuperview().offset(-10)
             make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
         }
+        self.refundBtn.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalTo(-10)
+            make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
+        }
         self.funcBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-10)
+            make.right.equalTo(-10)
             make.size.equalTo(CGSize.init(width: 83, height: funcBtnHeight))
         }
         
@@ -162,6 +169,7 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         self.titleLab.font = UIFont.systemFont(ofSize: 15)
         
+        
         self.messageLab.textColor = UIColor.init(hex: "#999999")
         self.messageLab.font = UIFont.systemFont(ofSize: 14)
         
@@ -172,12 +180,18 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         
         self.deleteBtn.setBackgroundImage(UIImage.init(named: "review_delete_list"), for: .normal)
         
-        self.dateLab.textColor = UIColor.init(hex: "#999999")
-        self.dateLab.font = UIFont.systemFont(ofSize: 13)
+//        self.dateLab.textColor = UIColor.init(hex: "#999999")
+//        self.dateLab.font = UIFont.systemFont(ofSize: 13)
         
         self.statusBtn.snp.contentHuggingHorizontalPriority = UILayoutPriority.required.rawValue
         self.statusBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
         self.statusBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        
+        self.refundBtn.layer.borderWidth = 1;
+        self.refundBtn.layer.borderColor = UIColor.ac_mainColor.cgColor;
+        self.refundBtn.layer.cornerRadius = funcBtnHeight/2;
+        self.refundBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
+        self.refundBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         self.funcBtn.layer.borderWidth = 1;
         self.funcBtn.layer.borderColor = UIColor.ac_mainColor.cgColor;
@@ -186,9 +200,10 @@ class AC_XQOrderListChildrenViewCell: AC_XQThreeContentCell {
         self.funcBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         
         self.statusBtn.setTitle("查看物流", for: .normal)
+        self.refundBtn.setTitle("申请退款", for: .normal)
         
         self.funcBtn.setTitle("评价", for: .normal)
-        
+        self.refundBtn.isHidden = true
         
 //        self.iconImgView.backgroundColor = UIColor.ac_mainColor
         

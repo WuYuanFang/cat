@@ -45,10 +45,13 @@ class AC_XQShopMallOrderDetailView: AC_XQFosterOrderViewBaseView {
             make.left.right.equalToSuperview()
             make.bottom.equalTo(-FootSafeHeight-70)
         }
+        let json = UserDefaults.standard.string(forKey: "XQSMNTCommonGetSystemConfigResModel")
+        let days = XQSMNTCommonGetSystemConfigResModel.deserialize(from: json)?.ReceiveExpire ?? 3
+        let str = days / 24
         
         signBtn.setImage(UIImage(named: "icon_sign_order"), for: .normal)
         signBtn.setTitleColor(UIColor.init(fromHexString: "#8a8a8a"), for: .normal)
-        signBtn.setTitle("3天后系统自动收货", for: .normal)
+        signBtn.setTitle("\(str)天后系统自动收货", for: .normal)
         signBtn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
         signBtn.isEnabled = false
         signBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -119,6 +122,8 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     let cancelOrderBtn = UIButton()
     /// 申请退款
     let refundBtn = UIButton()
+    /// 功能按钮
+    let funBtn = UIButton()
     /// 取消订单
     let cancelOrderLab = UILabel()
     
@@ -138,7 +143,7 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.couponView, self.moneyView, self.refundBtn, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab)
+        self.contentView.xq_addSubviews(self.productView, self.buyNumberView, self.freightView, self.vipZKView, self.couponView, self.moneyView, self.refundBtn, self.cancelOrderBtn, self.cancelOrderLab, self.remarkView, self.orderLab, self.copyBtn, self.payTimeLab, self.funBtn)
         
         
         // 布局
@@ -182,6 +187,12 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         self.refundBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self.moneyView.snp.bottom).offset(6)
             make.right.equalTo(self.buyNumberView)
+            make.size.equalTo(CGSize.init(width: 80, height: 30))
+        }
+        
+        self.funBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(self.moneyView.snp.bottom).offset(6)
+            make.right.equalTo(self.refundBtn.snp.left).offset(-12)
             make.size.equalTo(CGSize.init(width: 80, height: 30))
         }
         
@@ -237,6 +248,13 @@ class AC_XQShopMallOrderDetailViewInfoView: AC_XQFosterOrderViewInfoViewBaseView
         self.refundBtn.layer.cornerRadius = 15
         self.refundBtn.layer.borderWidth = 1
         self.refundBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
+        
+        self.funBtn.setTitle("确认收货", for: .normal)
+        self.funBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
+        self.funBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.funBtn.layer.cornerRadius = 15
+        self.funBtn.layer.borderWidth = 1
+        self.funBtn.layer.borderColor = UIColor.ac_mainColor.cgColor
         
         self.cancelOrderBtn.setTitle("取消订单", for: .normal)
         self.cancelOrderBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)

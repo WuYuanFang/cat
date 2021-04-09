@@ -59,38 +59,51 @@ class AC_XQWashProtectOrderDetailView: AC_XQFosterOrderViewBaseView {
 
 class AC_XQWashProtectOrderDetailViewBottomView: UIView {
     
+    let stateL = UILabel()
     let mapBtn = QMUIButton()
     let phoneBtn = QMUIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.xq_addSubviews(self.mapBtn, self.phoneBtn)
+        self.xq_addSubviews(self.stateL, self.mapBtn, self.phoneBtn)
         
-        // 布局
-        
-        self.mapBtn.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.height.equalTo(30)
-            make.top.bottom.equalToSuperview()
-        }
         
         self.phoneBtn.snp.makeConstraints { (make) in
             make.right.equalTo(-12)
             make.centerY.equalToSuperview()
             make.height.equalTo(self.mapBtn)
+            make.width.equalTo(120)
         }
         
+        self.mapBtn.snp.makeConstraints { (make) in
+//            make.center.equalToSuperview()
+            make.right.equalTo(self.phoneBtn.snp.left).offset(-20)
+            make.height.equalTo(30)
+            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(120)
+        }
+        self.self.stateL.snp.makeConstraints { (make) in
+            make.left.equalTo(0)
+            make.right.equalTo(mapBtn.snp.left).offset(-10)
+            make.top.bottom.equalToSuperview()
+        }
         // 设置属性
-        
+        self.mapBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         self.mapBtn.setTitle("地图/导航", for: .normal)
         self.mapBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
         self.mapBtn.setImage(UIImage.init(named: "address_list"), for: .normal)
         
+        self.phoneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         self.phoneBtn.setTitle("联系商家", for: .normal)
         self.phoneBtn.setTitleColor(UIColor.ac_mainColor, for: .normal)
         self.phoneBtn.setImage(UIImage.init(named: "order_phone"), for: .normal)
         
+        // 布局
+        self.stateL.textColor = .ac_mainColor
+        self.stateL.textAlignment = .center
+        self.stateL.font = UIFont.systemFont(ofSize: 16)
     }
     
     required init?(coder: NSCoder) {

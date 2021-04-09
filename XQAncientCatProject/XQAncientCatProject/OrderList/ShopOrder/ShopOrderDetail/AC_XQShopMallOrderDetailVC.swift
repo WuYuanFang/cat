@@ -77,7 +77,11 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.productView.imgView.sd_setImage(with: orderProductInfo.ShowImg.sm_getImgUrl())
             self.contentView.infoView.productView.nameLab.text = orderProductInfo.Name
 //            self.contentView.infoView.productView.priceLab.text = "¥\(orderProductInfo.ShopPrice)"
-            self.contentView.infoView.productView.priceLab.text = "¥\(fosterModel.SurplusMoney)"
+            let priceWid = labelWidth("¥\(orderProductInfo.DiscountPrice)", 16)
+            self.contentView.infoView.productView.priceLab.text = "¥\(orderProductInfo.DiscountPrice)"
+            self.contentView.infoView.productView.priceLab.snp.updateConstraints { (make) in
+                make.width.equalTo(priceWid+4)
+            }
             self.contentView.infoView.productView.messageLab.text = orderProductInfo.Specs
             
             self.contentView.infoView.buyNumberView.contentLab.text = "\(orderProductInfo.BuyCount)"
@@ -106,6 +110,13 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
         self.contentView.infoView.cancelOrderLab.isHidden = true
         self.contentView.animalImg.isHidden = true
         self.contentView.signBtn.isHidden = true
+        self.contentView.infoView.funBtn.isHidden = true
+        self.contentView.infoView.cancelOrderBtn.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.contentView.infoView.moneyView.snp.bottom).offset(6)
+            make.right.equalTo(self.contentView.infoView.refundBtn.snp.left).offset(-12)
+            make.size.equalTo(CGSize.init(width: 80, height: 30))
+        }
+        
         self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { (sender) in
             
         }
@@ -124,21 +135,20 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
                 self.payOrder()
             }
             
-        }else if fosterModel.OrderState == .inInspection || fosterModel.OrderState == .confirmed || fosterModel.OrderState == .inStock {
-            
-            
-            self.contentView.signBtn.isHidden = false
-            if DK_TimerManager.getLastTime(fosterModel.PayTime, .shop).count > 0 {
-                self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
-                self.contentView.infoView.refundBtn.isHidden = false
-                self.contentView.animalImg.isHidden = false
-                self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
-                    self.refundAction()
-                }
-            }
-            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
+//        }else if fosterModel.OrderState == .inInspection || fosterModel.OrderState == .confirmed || fosterModel.OrderState == .inStock {
+//
+//
+//            self.contentView.signBtn.isHidden = false
+////            if DK_TimerManager.getLastTime(fosterModel.PayTime, .shop).count > 0 {
+////                self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
+////                self.contentView.infoView.refundBtn.isHidden = false
+////                self.contentView.animalImg.isHidden = false
+////                self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+////                    self.refundAction()
+////                }
+////            }
+//            self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
         }else {
-            
             
             if fosterModel.OrderState == .delivered {
                 self.contentView.signBtn.isHidden = false
@@ -155,7 +165,39 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             self.contentView.infoView.payTimeLab.attributedText = "付款时间: \(fosterModel.PayTime)\n支付方式: \(fosterModel.PaySystemName)".set(style: lineSpace6)
             
         }
-        
+        self.contentView.signBtn.isHidden = !(fosterModel.OrderState.rawValue > 20 && fosterModel.OrderState.rawValue < 120)
+        // 在下单后，确认收货前都可以退款
+        if fosterModel.OrderState.rawValue > 20 && fosterModel.OrderState.rawValue < 120 {
+            self.contentView.infoView.refundBtn.setTitle("申请退款", for: .normal)
+            self.contentView.infoView.refundBtn.isHidden = false
+            self.contentView.infoView.refundBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                self.refundAction()
+            }
+            if fosterModel.OrderState == .delivered {
+                self.contentView.infoView.cancelOrderBtn.snp.remakeConstraints { (make) in
+                    make.top.equalTo(self.contentView.infoView.moneyView.snp.bottom).offset(6)
+                    make.right.equalTo(self.contentView.infoView.funBtn.snp.left).offset(-12)
+                    make.size.equalTo(CGSize.init(width: 80, height: 30))
+                }
+                self.contentView.infoView.funBtn.isHidden = false
+                self.contentView.infoView.funBtn.xq_addEvent(.touchUpInside) { [unowned self] (sender) in
+                    self.sureOrder()
+                }
+            }
+        }
+        if fosterModel.OrderState == .delivered || fosterModel.OrderState == .receivedGoods {
+            self.contentView.infoView.cancelOrderBtn.isHidden = false
+            self.contentView.infoView.cancelOrderBtn.setTitle("查看物流", for: .normal)
+            self.contentView.infoView.cancelOrderBtn.xq_addEvent(.touchUpInside) { (sender) in
+                self.orderListChildrenView()
+            }
+        }
+    }
+    /// 查看物流
+    func orderListChildrenView() {
+        let vc = AC_XQOrderLogisticsVC()
+        vc.orderBIModel = orderBaseInfoModel
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     /// 确认收货
@@ -259,4 +301,13 @@ class AC_XQShopMallOrderDetailVC: XQACBaseVC {
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }).disposed(by: self.disposeBag)
     }
+}
+
+// 计算字体长度
+func labelWidth(_ text: String, _ fontSize: CGFloat = 16, _ height: CGFloat = 18) -> CGFloat {
+    let size = CGSize(width: CGFloat(MAXFLOAT), height: height)
+    let font = UIFont.systemFont(ofSize: fontSize)
+    let attributes = [NSAttributedString.Key.font: font]
+    let labelSize = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+    return labelSize.width
 }

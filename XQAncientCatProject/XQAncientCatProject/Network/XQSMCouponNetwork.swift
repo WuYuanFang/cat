@@ -18,6 +18,11 @@ struct XQSMCouponNetwork {
         return XQSMBaseNetwork.default.post("/api/Coupon/GetMyAllCoupon", parameters: parameters, resultType: XQSMNTMyCouponListResDtoModel.self)
     }
     
+    /// 所有可用优惠劵(所有的)
+    static func getMyAllCanUseOrder(_ parameters: XQSMNTBaseReqModel) -> Observable<XQSMNTMyCouponListResDtoModel> {
+        return XQSMBaseNetwork.default.get("/api/Coupon/GetUseCoupon", parameters: parameters, resultType: XQSMNTMyCouponListResDtoModel.self)
+    }
+    
 //    /// 获取红包（下单优惠劵）
 //    static func getMyRedPackage(_ parameters: XQSMNTBaseReqModel) -> Observable<XQSMNTMyCouponListResDtoModel> {
 //        return XQSMBaseNetwork.default.post("/api/Coupon/GetMyRedPackage", parameters: parameters, resultType: XQSMNTMyCouponListResDtoModel.self)

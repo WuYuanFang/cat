@@ -46,7 +46,7 @@ class AC_XQCouponVC: XQACBaseVC, AC_XQCouponViewDelegate {
     func getData() {
         
         let reqModel = XQSMNTBaseReqModel.init()
-        XQSMCouponNetwork.getMyAllOrder(reqModel).subscribe(onNext: { (resModel) in
+        XQSMCouponNetwork.getMyAllCanUseOrder(reqModel).subscribe(onNext: { (resModel) in
             
             self.contentView.tableView.mj_header?.endRefreshing()
             
